@@ -1,0 +1,11 @@
+enter ~/src/sauce
+  workon sauce
+
+enter ~/src/sauce-ansible
+  workon sauce-ansible
+
+enter ~/src/changelog
+  workon changelog
+
+leave ~/src/sauce:~/src/sauce-ansible:~/src/changelog
+  deactivate > /dev/null 2>&1
