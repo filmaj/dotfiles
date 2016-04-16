@@ -50,9 +50,16 @@ plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
 # env variables
-export PATH=$PATH:$HOME/bin
-export ANDROID_HOME="$HOME/sdks/android/sdk"
-# export JAVA_HOME=something
+export ANDROID_HOME="$HOME/sdks/android-sdk-macosx"
+export ANDROID_TOOLS="$ANDROID_HOME/tools"
+export ANDROID_PLATFORM_TOOLS="$ANDROID_HOME/platform-tools"
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/src
+export PATH=$PATH:$HOME/bin:$ANDROID_TOOLS:$ANDROID_PLATFORM_TOOLS:$HOME/local/bin
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_45.jdk/Contents/Home
+export PYTHONPATH=$PYTHONPATH:$HOME/src/sauce/lib
+# virtualenv
+source /usr/local/bin/virtualenvwrapper.sh
 
 # zsh only. ctrl-z sends to bg as well as brings back to fg
 # useful in vim to quickly switch between shell and vim.
@@ -109,3 +116,6 @@ export CCACHE_DIR=/Volumes/android/.ccache
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+export NVM_DIR="/Users/filmaj/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm

@@ -1,6 +1,6 @@
 syntax enable
 let g:solarized_termcolors=256
-color solarized
+colorscheme Tomorrow-Night
 set background=dark
 filetype plugin indent on
 
@@ -35,3 +35,6 @@ set nofoldenable
 
 " use pyflakes for syntax checking in python
 let g:syntastic_python_checkers = ['pyflakes']
+
+" have vim-airline statusbar show at all times
+set laststatus=2
