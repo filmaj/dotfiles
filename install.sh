@@ -1,15 +1,24 @@
 #!/bin/sh
+set -e
 
-# TODO: did you put your ssh keys + config in place?
+# ssh keys + config in place?
+grep maj.fil ~/.ssh/id_rsa.pub &> /dev/null || echo "are your ssh keys in place duder?"
 
 # Installs oh-my-zsh
-curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
-# TODO: how to re-run this script w/ zsh now that its installed?
+if [ ! test -f ~/.zshrc ]; then
+    curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
+    # TODO: how to re-run this script w/ zsh now that its installed?
+    echo "zsh installed. rerun this now."
+    exit 1
+fi
+
 # Pathogen (bundle management for vim)
 mkdir -p ~/.vim/autoload
 curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
+# Update submodules in this repo
 git submodule update --init
+
 # TODO: need full paths to files here
 ln -s .vimrc ~/.
 ln -s bundle ~/.vim/.
