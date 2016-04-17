@@ -50,13 +50,13 @@ plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
 # env variables
-export ANDROID_HOME="$HOME/sdks/android-sdk-macosx"
+export ANDROID_HOME="$HOME/sdks/android"
 export ANDROID_TOOLS="$ANDROID_HOME/tools"
 export ANDROID_PLATFORM_TOOLS="$ANDROID_HOME/platform-tools"
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/src
 export PATH=$PATH:$HOME/bin:$ANDROID_TOOLS:$ANDROID_PLATFORM_TOOLS:$HOME/local/bin
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_45.jdk/Contents/Home
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_77.jdk/Contents/Home
 export PYTHONPATH=$PYTHONPATH:$HOME/src/sauce/lib
 # virtualenv
 source /usr/local/bin/virtualenvwrapper.sh
@@ -81,11 +81,6 @@ eval_ondir() {
 }
 chpwd_functions=( eval_ondir $chpwd_functions )
 
-# startup virtualenv-burrito
-#if [ -f $HOME/.venvburrito/startup.sh ]; then
-#    . $HOME/.venvburrito/startup.sh
-#fi
-#
 # AOSP goodness
 # mount the android file image
 function mountAndroid { hdiutil attach ~/android.dmg.sparseimage -mountpoint /Volumes/android; }
@@ -96,11 +91,7 @@ export CCACHE_DIR=/Volumes/android/.ccache
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+export EDITOR='vim'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
