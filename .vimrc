@@ -1,6 +1,6 @@
 syntax enable
 let g:solarized_termcolors=256
-colorscheme Tomorrow-Night
+colorscheme solarized
 set background=dark
 filetype plugin indent on
 
