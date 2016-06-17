@@ -40,17 +40,22 @@ test -L ~/.vim/colors/solarized.vim || ln -s "$mypath/.vim/bundle/vim-colors-sol
 test -x "$(command -v brew)" || ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 # Python and its package manage
+# TODO: what if im installing on linux? no brew. then what?
 test -x "$(command -v python)" || brew install python
 pip install virtualenv
 pip install virtualenvwrapper
 test -x "$(command -v pyflakes)" || pip install pyflakes
+# ack for greping shiet
 test -x "$(command -v ack)" || brew install ack
+# ondir to run directory-specific tasks
 test -x "$(command -v ondir)" || brew install ondir
+# ctags for vim leetness
+brew install ctags
 
 mkdir -p ~/local
 
 pushd ~/src
-# node.js
+# building node.js from source because fuck it
 if ! [ -d ~/src/node ]; then
     git clone git@github.com:nodejs/node.git
     pushd ~/src/node
@@ -67,3 +72,4 @@ java -version
 echo "should set JAVA_HOME in .zshrc"
 
 mkdir -p ~/sdks
+# TODO what about android sdk?
