@@ -38,6 +38,7 @@ test -L ~/.vim/colors/solarized.vim || ln -s "$mypath/.vim/bundle/vim-colors-sol
 
 # Homebrew
 test -x "$(command -v brew)" || ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+brew update
 
 # Python and its package manage
 # TODO: what if im installing on linux? no brew. then what?
