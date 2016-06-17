@@ -9,3 +9,5 @@
 	default = simple
 [core]
 	editor = /usr/bin/vim
+[diff]
+	compactionHeuristic = true
