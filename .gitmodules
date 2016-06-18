@@ -7,9 +7,6 @@
 [submodule ".vim/bundle/vim-colors-solarized"]
 	path = .vim/bundle/vim-colors-solarized
 	url = git://github.com/altercation/vim-colors-solarized.git
-[submodule ".vim/bundle/vim-javascript-syntax"]
-	path = .vim/bundle/vim-javascript-syntax
-	url = https://github.com/jelera/vim-javascript-syntax.git
 [submodule ".vim/bundle/vim-markdown"]
 	path = .vim/bundle/vim-markdown
 	url = https://github.com/plasticboy/vim-markdown.git
@@ -19,6 +16,9 @@
 [submodule ".vim/bundle/editorconfig-vim"]
 	path = .vim/bundle/editorconfig-vim
 	url = https://github.com/editorconfig/editorconfig-vim.git
-[submodule ".vim/bundle/vim-es6"]
-	path = .vim/bundle/vim-es6
-	url = https://github.com/isRuslan/vim-es6.git
+[submodule ".vim/bundle/es.next.syntax.vim"]
+	path = .vim/bundle/es.next.syntax.vim
+	url = git@github.com:othree/es.next.syntax.vim.git
+[submodule ".vim/bundle/yajs.vim"]
+	path = .vim/bundle/yajs.vim
+	url = git@github.com:othree/yajs.vim.git

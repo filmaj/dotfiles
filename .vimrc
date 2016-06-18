@@ -38,3 +38,6 @@ let g:syntastic_python_checkers = ['pyflakes']
 
 " have vim-airline statusbar show at all times
 set laststatus=2
+
+" associate .es6 extension with javascript
+au BufRead,BufNewFile *.es6 set filetype=javascript
