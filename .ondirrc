@@ -20,5 +20,8 @@ enter ~/src/challenges
 enter ~/src/python-selenium-tests
   workon python-selenium-tests
 
-leave ~/src/sauce:~/src/sauce-ansible:~/src/changelog:~/src/challenges:~/src/python-selenium-tests:~/src/gitdumper:~/src/cloud
+enter ~/src/firehose
+  workon firehose
+
+leave ~/src/sauce:~/src/sauce-ansible:~/src/changelog:~/src/challenges:~/src/python-selenium-tests:~/src/gitdumper:~/src/cloud:~/src/firehose
   deactivate > /dev/null 2>&1
