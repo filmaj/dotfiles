@@ -40,7 +40,7 @@ test -L ~/.vim/colors/solarized.vim || ln -s "$mypath/.vim/bundle/vim-colors-sol
 test -x "$(command -v brew)" || ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 brew update
 
-# Python and its package manage
+# Python and its package manager
 # TODO: what if im installing on linux? no brew. then what?
 test -x "$(command -v python)" || brew install python
 pip install virtualenv
@@ -50,6 +50,7 @@ test -x "$(command -v pyflakes)" || pip install pyflakes
 test -x "$(command -v ack)" || brew install ack
 # ondir to run directory-specific tasks
 test -x "$(command -v ondir)" || brew install ondir
+brew install vim # want vim 7.4, not 7.3 that comes stock w/ yosemite
 # ctags for vim leetness
 brew install ctags
 
