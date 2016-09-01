@@ -22,3 +22,9 @@
 [submodule ".vim/bundle/yajs.vim"]
 	path = .vim/bundle/yajs.vim
 	url = git@github.com:othree/yajs.vim.git
+[submodule ".vim/bundle/vim-go"]
+	path = .vim/bundle/vim-go
+	url = https://github.com/fatih/vim-go.git
+[submodule ".vim/bundle/vim-hybrid"]
+	path = .vim/bundle/vim-hybrid
+	url = git@github.com:w0ng/vim-hybrid.git

@@ -2,22 +2,50 @@
 set -e
 
 # ssh keys + config in place?
-grep maj.fil ~/.ssh/id_rsa.pub &> /dev/null || echo "are your ssh keys in place duder?"
-
-# Installs oh-my-zsh
-if ! [ -f ~/.zshrc ]; then
-    echo "going to install zsh, hold on to your butt"
-    curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
-    # TODO: how to re-run this script w/ zsh now that its installed?
-    echo "zsh installed. rerun this ($0) now."
-    exit 1
-fi
+(test -e "~/.ssh/id_rsa.pub" && grep maj.fil ~/.ssh/id_rsa.pub &> /dev/null) || echo "are your ssh keys in place duder?"
 
 # Pathogen (bundle management for vim)
 if ! [ -d ~/.vim/autoload ]; then
     mkdir -p ~/.vim/autoload
     curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 fi
+
+distro=$(uname -s)
+# Homebrew / apt basics.
+if [ "$distro" = "Darwin" ]; then
+    test -x "$(command -v brew)" || ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    brew update
+elif [ "$distro" = "Linux" ]; then
+    sudo apt-get update
+fi
+
+# mac and linux friendly package installation
+install() {
+    local pkg=$1
+    if [ "$distro" = "Linux" ]; then
+        case $pkg in
+            ack)
+                pkg="ack-grep" ;;
+            ctags)
+                pkg="exuberant-ctags"
+        esac
+        sudo apt-get install $pkg
+    elif [ "$distro" = "Darwin" ]; then
+        brew install $pkg
+    fi
+}
+
+test -x "$(command -v git)" || install git
+
+# Installs oh-my-zsh
+if ! [ -f ~/.zshrc ]; then
+    echo "going to install zsh, hold on to your butt"
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+    # TODO: how to re-run this script w/ zsh now that its installed?
+    echo "zsh installed. rerun this ($0) now."
+    exit 1
+fi
+
 
 # Update submodules in this repo
 git submodule update --init
@@ -32,28 +60,24 @@ test -L ~/.vim/bundle || ln -s "$mypath/.vim/bundle" ~/.vim/.
 test -L ~/.ondirrc || ln -s "$mypath/.ondirrc" ~/.
 test -L ~/.gitconfig || ln -s "$mypath/.gitconfig" ~/.
 
-# link up solarized colors
-mkdir -p ~/.vim/colors
-test -L ~/.vim/colors/solarized.vim || ln -s "$mypath/.vim/bundle/vim-colors-solarized/colors/solarized.vim" ~/.vim/colors/.
-
-# Homebrew
-test -x "$(command -v brew)" || ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-brew update
-
 # Python and its package manager
-# TODO: what if im installing on linux? no brew. then what?
-test -x "$(command -v python)" || brew install python
+# TODO: maybe put this behind a "do u want python? y/n"
+test -x "$(command -v python)" || install python
 pip install virtualenv
 pip install virtualenvwrapper
 test -x "$(command -v pyflakes)" || pip install pyflakes
 # ack for greping shiet
-test -x "$(command -v ack)" || brew install ack
-# ondir to run directory-specific tasks
-test -x "$(command -v ondir)" || brew install ondir
-brew install vim # want vim 7.4, not 7.3 that comes stock w/ yosemite
-# ctags for vim leetness
-brew install ctags
+test -x "$(command -v ack)" || install ack
 
+# TODO: how to install these on linux?
+# ondir to run directory-specific tasks
+test -x "$(command -v ondir)" || (test -x brew && brew install ondir)
+text -x brew && brew install vim # want vim 7.4, not 7.3 that comes stock w/ yosemite
+
+# ctags for vim leetness
+install ctags
+
+# this is on the $PATH in .zshrc, is where i put built shit
 mkdir -p ~/local
 
 pushd ~/src
@@ -66,12 +90,13 @@ if ! [ -d ~/src/node ]; then
     make install
     popd # ~/src
 fi
-popd
+popd # pwd
 
-# java?
-echo "gonna run java so you can open oracle site and download the JRE and JDK."
+# java? this is probably a horrible mess on linux
+echo "gonna run java so you can open oracle site and download the JRE and JDK. manually. like the pitiful human that you are."
 java -version
-echo "should set JAVA_HOME in .zshrc"
+echo "go set JAVA_HOME in .zshrc"
+echo "import the color palette into iterm"
 
 mkdir -p ~/sdks
 # TODO what about android sdk?

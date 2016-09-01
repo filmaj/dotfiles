@@ -110,3 +110,4 @@ export EDITOR='vim'
 
 export NVM_DIR="/Users/filmaj/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+export GOPATH="/Users/filmaj/src/go_workspace/"
