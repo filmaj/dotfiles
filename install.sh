@@ -1,8 +1,8 @@
 #!/bin/sh
-set -e
+set -xe
 
 # ssh keys + config in place?
-(test -e "~/.ssh/id_rsa.pub" && grep maj.fil ~/.ssh/id_rsa.pub &> /dev/null) || echo "are your ssh keys in place duder?"
+(test -e "~/.ssh/id_rsa.pub" && grep maj.fil ~/.ssh/id_rsa.pub &> /dev/null) || (echo "are your ssh keys in place duder?" && exit 1)
 
 # Pathogen (bundle management for vim)
 if ! [ -d ~/.vim/autoload ]; then
@@ -13,7 +13,7 @@ fi
 distro=$(uname -s)
 # Homebrew / apt basics.
 if [ "$distro" = "Darwin" ]; then
-    test -x "$(command -v brew)" || ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    test -x "$(command -v brew)" || (echo "installing homebrew...." && ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)")
     brew update
 elif [ "$distro" = "Linux" ]; then
     sudo apt-get update
@@ -38,14 +38,13 @@ install() {
 test -x "$(command -v git)" || install git
 
 # Installs oh-my-zsh
-if ! [ -f ~/.zshrc ]; then
+if [[ $SHELL != *"zsh"* ]]; then
     echo "going to install zsh, hold on to your butt"
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
     # TODO: how to re-run this script w/ zsh now that its installed?
     echo "zsh installed. rerun this ($0) now."
     exit 1
 fi
-
 
 # Update submodules in this repo
 git submodule update --init
@@ -60,22 +59,23 @@ test -L ~/.vim/bundle || ln -s "$mypath/.vim/bundle" ~/.vim/.
 test -L ~/.ondirrc || ln -s "$mypath/.ondirrc" ~/.
 test -L ~/.gitconfig || ln -s "$mypath/.gitconfig" ~/.
 
+# ctags for vim leetness
+install ctags
+
+# ack for greping shiet
+test -x "$(command -v ack)" || install ack
+
 # Python and its package manager
 # TODO: maybe put this behind a "do u want python? y/n"
 test -x "$(command -v python)" || install python
 pip install virtualenv
 pip install virtualenvwrapper
 test -x "$(command -v pyflakes)" || pip install pyflakes
-# ack for greping shiet
-test -x "$(command -v ack)" || install ack
 
 # TODO: how to install these on linux?
 # ondir to run directory-specific tasks
 test -x "$(command -v ondir)" || (test -x brew && brew install ondir)
 text -x brew && brew install vim # want vim 7.4, not 7.3 that comes stock w/ yosemite
-
-# ctags for vim leetness
-install ctags
 
 # this is on the $PATH in .zshrc, is where i put built shit
 mkdir -p ~/local

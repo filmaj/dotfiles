@@ -12,8 +12,14 @@ A UNIX-compatible computar-machine.
 - vim
   - pathogen for vim bundles
   - syntastic for syntax highlighting
+  - vim-hybrid for sweet colours n shit
 - ondir (does stuff on different dir switches)
-- pyflakes for python linting
+- ready to roll language environments:
+  - python:
+    - pyflakes for python linting
+  - node.js:
+    - node source cloned and built
+    - es6-compatible syntax highlighting
 
 ## TO-DO
 
@@ -27,6 +33,6 @@ A UNIX-compatible computar-machine.
 
 ## Mac OSX
 
-- install xcode and iterm2. install xcode command line tools.
+- install xcode and iterm. install xcode command line tools.
 - google chrome
 - source code pro
