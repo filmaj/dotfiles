@@ -4,11 +4,7 @@ set -xe
 # ssh keys + config in place?
 (test -e "~/.ssh/id_rsa.pub" && grep maj.fil ~/.ssh/id_rsa.pub &> /dev/null) || (echo "are your ssh keys in place duder?" && exit 1)
 
-# Pathogen (bundle management for vim)
-if ! [ -d ~/.vim/autoload ]; then
-    mkdir -p ~/.vim/autoload
-    curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
-fi
+mypath=$(exec 2>/dev/null;cd -- $(dirname "$0"); unset PWD; /usr/bin/pwd || /bin/pwd || pwd)
 
 distro=$(uname -s)
 # Homebrew / apt basics.
@@ -49,7 +45,12 @@ fi
 # Update submodules in this repo
 git submodule update --init
 
-mypath=$(exec 2>/dev/null;cd -- $(dirname "$0"); unset PWD; /usr/bin/pwd || /bin/pwd || pwd)
+# Pathogen (bundle management for vim)
+if ! [ -d ~/.vim/autoload ]; then
+    mkdir -p ~/.vim/autoload
+    curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+fi
+
 test -L ~/.vimrc || ln -s "$mypath/.vimrc" ~/.
 if ! [ -L ~/.zshrc ]; then
     rm -f ~/.zshrc
