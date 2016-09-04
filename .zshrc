@@ -55,11 +55,11 @@ export ANDROID_TOOLS="$ANDROID_HOME/tools"
 export ANDROID_PLATFORM_TOOLS="$ANDROID_HOME/platform-tools"
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/src
-export PATH=$PATH:$HOME/bin:$ANDROID_TOOLS:$ANDROID_PLATFORM_TOOLS:$HOME/local/bin
+export PATH=$PATH:$HOME/bin:$ANDROID_TOOLS:$ANDROID_PLATFORM_TOOLS:$HOME/.local/bin
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_77.jdk/Contents/Home
 export PYTHONPATH=$PYTHONPATH:$HOME/src/sauce/lib
 # virtualenv
-source /usr/local/bin/virtualenvwrapper.sh
+source $HOME/.local/bin/virtualenvwrapper.sh
 
 # zsh only. ctrl-z sends to bg as well as brings back to fg
 # useful in vim to quickly switch between shell and vim.
