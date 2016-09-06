@@ -28,3 +28,6 @@
 [submodule ".vim/bundle/vim-hybrid"]
 	path = .vim/bundle/vim-hybrid
 	url = git@github.com:w0ng/vim-hybrid.git
+[submodule "themes/spaceship-zsh-theme"]
+	path = themes/spaceship-zsh-theme
+	url = git@github.com:denysdovhan/spaceship-zsh-theme.git
