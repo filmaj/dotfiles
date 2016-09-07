@@ -31,3 +31,6 @@
 [submodule "themes/spaceship-zsh-theme"]
 	path = themes/spaceship-zsh-theme
 	url = git@github.com:denysdovhan/spaceship-zsh-theme.git
+[submodule "plugins/zsh-nvm"]
+	path = plugins/zsh-nvm
+	url = git@github.com:lukechilds/zsh-nvm.git
