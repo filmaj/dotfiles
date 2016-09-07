@@ -12,27 +12,31 @@ A UNIX-compatible computar-machine.
 - vim
   - pathogen for vim bundles
   - syntastic for syntax highlighting
-  - vim-hybrid for sweet colours n shit
+  - vim-hybrid for sweet colours
 - ondir (does stuff on different dir switches)
 - ready to roll language environments:
   - python:
     - pyflakes for python linting
   - node.js:
-    - node source cloned and built
+    - node via nvm
     - es6-compatible syntax highlighting
 
-## TO-DO
-
-- saving iterm2 profile
-
-# Installation
-
-    sh install.sh
-
 # New Machine Setup
+
+Run the platform-specific bits below, then:
+
+    ./install.sh
 
 ## Mac OSX
 
 - install xcode and iterm. install xcode command line tools.
 - google chrome
 - source code pro
+
+## Linux
+
+Just `./install.sh`.
+
+## TO-DO
+
+- ansiblize this?

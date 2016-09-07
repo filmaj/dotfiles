@@ -1,6 +1,8 @@
 #!/bin/bash
 set -xe
 
+# TODO: this whole thing seemed like a good idea at first but now I get the feeling that ansible would be better for this.
+
 # ssh keys + config in place?
 (test -e "~/.ssh/id_rsa.pub" && grep maj.fil ~/.ssh/id_rsa.pub &> /dev/null) || (echo "are your ssh keys in place duder?" && exit 1)
 
@@ -52,6 +54,7 @@ if ! [ -d ~/.vim/autoload ]; then
     curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 fi
 
+# Linking up zsh / vim things.
 test -L ~/.vimrc || ln -s "$mypath/.vimrc" ~/.
 if ! [ -L ~/.zshrc ]; then
     rm -f ~/.zshrc
@@ -60,6 +63,8 @@ fi
 test -L ~/.vim/bundle || ln -s "$mypath/.vim/bundle" ~/.vim/.
 test -L ~/.ondirrc || ln -s "$mypath/.ondirrc" ~/.
 test -L ~/.gitconfig || ln -s "$mypath/.gitconfig" ~/.
+test -L ~/.oh-my-zsh/themes/spaceship.zsh-theme || ln -s "$mypath/themes/spaceship-zsh-theme/spaceship.zsh-theme" ~/.oh-my-zsh/themes/.
+test -L ~/.oh-my-zsh/custom/plugins || (rm -rf ~/.oh-my-zsh/custom/plugins && ln -s "$mypath/plugins" ~/.oh-my-zsh/custom/.)
 
 # ctags for vim leetness
 install ctags
@@ -76,6 +81,9 @@ pip install --user virtualenv
 pip install --user virtualenvwrapper
 test -x "$(command -v pyflakes)" || pip install --user pyflakes
 
+# this is on the $PATH in .zshrc, is where i put built shit
+mkdir -p ~/.local
+
 # TODO: how to install these on linux?
 if [ "$distro" = "Darwin" ]; then
     brew install ondir
@@ -90,21 +98,6 @@ if [ "$distro" = "Darwin" ]; then
     echo "go set JAVA_HOME in .zshrc"
     echo "import the color palette into iterm"
 fi
-
-# this is on the $PATH in .zshrc, is where i put built shit
-mkdir -p ~/.local
-
-pushd ~/src
-# building node.js from source because fuck it
-if ! [ -d ~/src/node ]; then
-    git clone git@github.com:nodejs/node.git
-    pushd ~/src/node
-    ./configure --prefix=$HOME/.local
-    make
-    make install
-    popd # ~/src
-fi
-popd # pwd
 
 mkdir -p ~/sdks
 # TODO what about android sdk?
