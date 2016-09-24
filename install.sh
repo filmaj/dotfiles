@@ -4,7 +4,7 @@ set -xe
 # TODO: this whole thing seemed like a good idea at first but now I get the feeling that ansible would be better for this.
 
 # ssh keys + config in place?
-(test -e "~/.ssh/id_rsa.pub" && grep maj.fil ~/.ssh/id_rsa.pub &> /dev/null) || (echo "are your ssh keys in place duder?" && exit 1)
+(test -e ~/.ssh/id_rsa.pub && grep maj.fil ~/.ssh/id_rsa.pub &> /dev/null) || (echo "are your ssh keys in place duder?" && exit 1)
 
 mypath=$(exec 2>/dev/null;cd -- $(dirname "$0"); unset PWD; /usr/bin/pwd || /bin/pwd || pwd)
 
@@ -74,9 +74,9 @@ test -x "$(command -v ack)" || install ack
 
 # Python and its package manager
 # TODO: maybe put this behind a "do u want python? y/n"
-test -x "$(command -v python)" || install python
+install python
 # brew installs pip w/ python, apt-get does not.
-test -x "$(command -v pip)" || ([ "$distro" = "Linux" ] && sudo apt-get install -y python-pip)
+test -x "$(command -v pip)" || ([ "$distro" = "Linux" ] && sudo apt-get install -y python-pip) || [ "$distro" = "Darwin" ]
 pip install --user virtualenv
 pip install --user virtualenvwrapper
 test -x "$(command -v pyflakes)" || pip install --user pyflakes
@@ -86,6 +86,8 @@ mkdir -p ~/.local
 
 # TODO: how to install these on linux?
 if [ "$distro" = "Darwin" ]; then
+    # set insanely high key repeat value in Mac. aint got time for slow shiet!
+    defaults write NSGlobalDomain KeyRepeat -int 0
     brew install ondir
     brew install vim
     # you can install virtualbox and vagrant on mac with brew. amazeballs.
