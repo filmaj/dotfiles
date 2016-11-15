@@ -19,10 +19,7 @@ set incsearch
 set ignorecase
 set smartcase
 set hlsearch
-
-" enter to go to end of file, backspace to beginning
-nnoremap <CR> G
-nnoremap <BS> gg
+set backspace=indent,eol,start
 
 execute pathogen#infect()
 
