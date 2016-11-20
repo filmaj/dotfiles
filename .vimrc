@@ -7,13 +7,13 @@ set number
 " scroll with mouse
 set mouse=a
 
-" tabs, fuck no: spaces. 
+" tabs, fuck no: spaces.
 set tabstop=4
 set expandtab
 set shiftwidth=4
 
 " toggle paste mode with \+o. like a high five.
-nmap \o set paste!<CR>  
+nmap \o set paste!<CR>
 
 set incsearch
 set ignorecase
