@@ -87,7 +87,7 @@ mkdir -p ~/.local
 # TODO: how to install these on linux?
 if [ "$distro" = "Darwin" ]; then
     # set insanely high key repeat value in Mac. aint got time for slow shiet!
-    defaults write NSGlobalDomain KeyRepeat -int 0
+    defaults write NSGlobalDomain KeyRepeat -int 2
     brew install ondir
     brew install vim
     # you can install virtualbox and vagrant on mac with brew. amazeballs.
