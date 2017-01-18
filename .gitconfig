@@ -1,13 +1,14 @@
 [user]
-	name = filmaj
-	email = maj.fil@gmail.com
+    name = filmaj
+    email = maj.fil@gmail.com
 [alias]
-	lawg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+    lawg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+    whatsnew = diff HEAD@{1} HEAD
 [color]
-	ui = true
+    ui = true
 [push]
-	default = simple
+    default = simple
 [core]
-	editor = /usr/bin/vim
+    editor = /usr/bin/vim
 [diff]
-	compactionHeuristic = true
+    compactionHeuristic = true
