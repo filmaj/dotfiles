@@ -13,6 +13,8 @@ distro=$(uname -s)
 if [ "$distro" = "Darwin" ]; then
     test -x "$(command -v brew)" || (echo "installing homebrew...." && ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)")
     brew update
+    echo "Attempting to prompt to install xcode CLI tools, or print out installed location of tools. An error here is not catastrophic, relax."
+    xcode-select --install || xcode-select -p
 elif [ "$distro" = "Linux" ]; then
     sudo apt-get update
 fi
@@ -90,6 +92,7 @@ if [ "$distro" = "Darwin" ]; then
     defaults write NSGlobalDomain KeyRepeat -int 2
     brew install ondir
     brew install vim
+    brew install unrar
     # you can install virtualbox and vagrant on mac with brew. amazeballs.
     # i stole the below from http://sourabhbajaj.com/mac-setup/ which is an amazing resource btw
     brew cask install virtualbox
@@ -102,4 +105,5 @@ if [ "$distro" = "Darwin" ]; then
 fi
 
 mkdir -p ~/sdks
+echo "maybe install android sdks? https://developer.android.com/studio/index.html?hl=sk"
 # TODO what about android sdk?

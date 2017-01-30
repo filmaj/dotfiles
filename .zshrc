@@ -56,7 +56,7 @@ export ANDROID_PLATFORM_TOOLS="$ANDROID_HOME/platform-tools"
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/src
 export PATH=$PATH:$HOME/bin:$ANDROID_TOOLS:$ANDROID_PLATFORM_TOOLS:$HOME/.local/bin:$HOME/Library/Python/2.7/bin
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home
 export PYTHONPATH=$PYTHONPATH:$HOME/src/sauce/lib
 
 # zsh only. ctrl-z sends to bg as well as brings back to fg
