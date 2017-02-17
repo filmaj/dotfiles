@@ -40,3 +40,4 @@ set laststatus=2
 
 " associate .es6 extension with javascript
 au BufRead,BufNewFile *.es6 set filetype=javascript
+au BufRead,BufNewFile *.yml,*.yaml set filetype=ansible

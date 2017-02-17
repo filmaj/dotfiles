@@ -12,3 +12,5 @@
     editor = /usr/bin/vim
 [diff]
     compactionHeuristic = true
+[credential]
+	helper = osxkeychain

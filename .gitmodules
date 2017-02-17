@@ -31,3 +31,6 @@
 [submodule "plugins/zsh-nvm"]
 	path = plugins/zsh-nvm
 	url = git@github.com:lukechilds/zsh-nvm.git
+[submodule ".vim/bundle/ansible-vim"]
+	path = .vim/bundle/ansible-vim
+	url = https://github.com/pearofducks/ansible-vim

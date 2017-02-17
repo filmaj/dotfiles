@@ -114,3 +114,5 @@ nvm use --lts
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/src
 source /Users/maj/Library/Python/2.7/bin/virtualenvwrapper.sh
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"

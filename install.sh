@@ -93,6 +93,8 @@ if [ "$distro" = "Darwin" ]; then
     brew install ondir
     brew install vim
     brew install unrar
+    brew install watch
+    brew install pstree
     # you can install virtualbox and vagrant on mac with brew. amazeballs.
     # i stole the below from http://sourabhbajaj.com/mac-setup/ which is an amazing resource btw
     brew cask install virtualbox
