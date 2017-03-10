@@ -34,3 +34,6 @@
 [submodule ".vim/bundle/ansible-vim"]
 	path = .vim/bundle/ansible-vim
 	url = https://github.com/pearofducks/ansible-vim
+[submodule ".vim/bundle/vim-airline-themes"]
+	path = .vim/bundle/vim-airline-themes
+	url = git@github.com:vim-airline/vim-airline-themes.git
