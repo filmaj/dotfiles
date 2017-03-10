@@ -53,9 +53,10 @@ source $ZSH/oh-my-zsh.sh
 export ANDROID_HOME="$HOME/sdks/android"
 export ANDROID_TOOLS="$ANDROID_HOME/tools"
 export ANDROID_PLATFORM_TOOLS="$ANDROID_HOME/platform-tools"
+export ANDROID_TOOLS_BIN="$ANDROID_TOOLS/bin"
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/src
-export PATH=$PATH:$HOME/bin:$ANDROID_TOOLS:$ANDROID_PLATFORM_TOOLS:$HOME/.local/bin:$HOME/Library/Python/2.7/bin
+export PATH=$PATH:$HOME/bin:$ANDROID_TOOLS:$ANDROID_PLATFORM_TOOLS:$ANDROID_TOOLS_BIN:$HOME/.local/bin:$HOME/Library/Python/2.7/bin
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home
 export PYTHONPATH=$PYTHONPATH:$HOME/src/sauce/lib
 
