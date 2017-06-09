@@ -56,8 +56,8 @@ export ANDROID_PLATFORM_TOOLS="$ANDROID_HOME/platform-tools"
 export ANDROID_TOOLS_BIN="$ANDROID_TOOLS/bin"
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/src
-export PATH=$PATH:$HOME/bin:$ANDROID_TOOLS:$ANDROID_PLATFORM_TOOLS:$ANDROID_TOOLS_BIN:$HOME/.local/bin:$HOME/Library/Python/2.7/bin
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home
+export PATH=/usr/local/opt/ruby@2.0/bin:$PATH:$HOME/bin:$ANDROID_TOOLS:$ANDROID_PLATFORM_TOOLS:$ANDROID_TOOLS_BIN:$HOME/.local/bin:$HOME/Library/Python/2.7/bin:$JAVA_HOME/bin
 export PYTHONPATH=$PYTHONPATH:$HOME/src/sauce/lib
 
 # zsh only. ctrl-z sends to bg as well as brings back to fg
@@ -107,13 +107,9 @@ export EDITOR='vim'
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-export GOPATH="$HOME/src/go_workspace/"
-nvm use --lts
-
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/src
 source /Users/maj/Library/Python/2.7/bin/virtualenvwrapper.sh
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+ssh-add -A &> /dev/null 
