@@ -86,10 +86,10 @@ test -x "$(command -v pyflakes)" || pip install --user pyflakes
 # this is on the $PATH in .zshrc, is where i put built shit
 mkdir -p ~/.local
 
-# TODO: how to install these on linux?
 if [ "$distro" = "Darwin" ]; then
     # set insanely high key repeat value in Mac. aint got time for slow shiet!
     defaults write NSGlobalDomain KeyRepeat -int 2
+    # TODO: how to install these on linux?
     brew install ondir
     brew install vim
     brew install unrar
@@ -105,6 +105,18 @@ if [ "$distro" = "Darwin" ]; then
     echo "go set JAVA_HOME in .zshrc"
     echo "import the color palette into iterm"
 fi
+pushd ~/src
+# building node.js from source because fuck it
+if ! [ -d ~/src/node ]; then
+    local node_version="v6.11.0"
+    git clone --branch $node_version --single-branch git@github.com:nodejs/node.git
+    pushd ~/src/node
+    ./configure --prefix=$HOME/.local
+    make -j4 # build based on a 4 core machine
+    make install
+    popd # ~/src
+ fi
+ popd # pwd
 
 mkdir -p ~/sdks
 echo "maybe install android sdks? https://developer.android.com/studio/index.html?hl=sk"
