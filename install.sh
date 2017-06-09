@@ -100,6 +100,7 @@ if [ "$distro" = "Darwin" ]; then
     brew cask install virtualbox
     brew cask install vagrant
     brew cask install vagrant-manager
+    # TODO: can probably import iterm2 preferences via plist files. steal from https://github.com/mitsuhiko/dotfiles/tree/master/iterm2
     echo "gonna run java so you can open oracle site and download the JRE and JDK. manually. like the pitiful human that you are."
     java -version
     echo "go set JAVA_HOME in .zshrc"
