@@ -74,11 +74,25 @@ fancy-ctrl-z () {
 zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
 
-# set up ondir
+# ---
+# zsh change-directory hooks
+# ---
+# trigger ondir
 eval_ondir() {
     eval "`ondir \"$OLDPWD\" \"$PWD\"`"
 }
-chpwd_functions=( eval_ondir $chpwd_functions )
+# Adds node_modules/.bin to the PATH
+npm_chpwd_hook() {
+    if [ -n "${PRENPMPATH+x}" ]; then
+        PATH=$PRENPMPATH
+        unset PRENPMPATH
+    fi
+    if [ -f package.json ]; then
+        PRENPMPATH=$PATH
+        PATH=$(npm bin):$PATH
+    fi
+}
+chpwd_functions=( eval_ondir npm_chpwd_hook $chpwd_functions )
 
 # AOSP goodness
 # mount the android file image
