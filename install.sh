@@ -116,8 +116,10 @@ if ! [ -d ~/src/node ]; then
     make -j4 # build based on a 4 core machine
     make install
     popd # ~/src
- fi
- popd # pwd
+fi
+popd # pwd
+npm install -g eslint eslint-plugin-promise eslint-plugin-standard eslint-config-standard eslint-plugin-import eslint-plugin-node eslint-config-semistandard
+test -L ~/.eslintrc || ln -s "$mypath/.eslintrc.js" ~/.
 
 mkdir -p ~/sdks
 echo "maybe install android sdks? https://developer.android.com/studio/index.html?hl=sk"
