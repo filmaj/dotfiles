@@ -127,3 +127,6 @@ source /Users/maj/Library/Python/2.7/bin/virtualenvwrapper.sh
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 ssh-add -A &> /dev/null 
+# trigger detection of npm binaries on first load, in case we load the terminal
+# in a node.js project directory
+npm_chpwd_hook
