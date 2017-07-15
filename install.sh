@@ -88,7 +88,7 @@ mkdir -p ~/.local
 pushd ~/src
 # building node.js from source because fuck it
 if ! [ -d ~/src/node ]; then
-    local node_version="v6.11.0"
+    local node_version="v8.1.4"
     git clone --branch $node_version --single-branch git@github.com:nodejs/node.git
     pushd ~/src/node
     ./configure --prefix=$HOME/.local
