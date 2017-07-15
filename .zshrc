@@ -77,10 +77,6 @@ bindkey '^Z' fancy-ctrl-z
 # ---
 # zsh change-directory hooks
 # ---
-# trigger ondir
-eval_ondir() {
-    eval "`ondir \"$OLDPWD\" \"$PWD\"`"
-}
 # Adds node_modules/.bin to the PATH
 npm_chpwd_hook() {
     if [ -n "${PRENPMPATH+x}" ]; then
@@ -92,7 +88,7 @@ npm_chpwd_hook() {
         PATH=$(npm bin):$PATH
     fi
 }
-chpwd_functions=( eval_ondir npm_chpwd_hook $chpwd_functions )
+chpwd_functions=( npm_chpwd_hook $chpwd_functions )
 
 # AOSP goodness
 # mount the android file image

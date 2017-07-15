@@ -44,7 +44,7 @@ if [[ $SHELL != *"zsh"* ]]; then
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
     # TODO: how to re-run this script w/ zsh now that its installed?
     echo "zsh installed. rerun this ($0) now."
-    exit 1
+    exit 0
 fi
 
 # Update submodules in this repo
@@ -63,7 +63,6 @@ if ! [ -L ~/.zshrc ]; then
     ln -s "$mypath/.zshrc" ~/.
 fi
 test -L ~/.vim/bundle || ln -s "$mypath/.vim/bundle" ~/.vim/.
-test -L ~/.ondirrc || ln -s "$mypath/.ondirrc" ~/.
 test -L ~/.gitconfig || ln -s "$mypath/.gitconfig" ~/.
 test -L ~/.oh-my-zsh/themes/spaceship.zsh-theme || ln -s "$mypath/themes/spaceship-zsh-theme/spaceship.zsh-theme" ~/.oh-my-zsh/themes/.
 test -L ~/.oh-my-zsh/custom/plugins || (rm -rf ~/.oh-my-zsh/custom/plugins && ln -s "$mypath/plugins" ~/.oh-my-zsh/custom/.)
@@ -86,11 +85,26 @@ test -x "$(command -v pyflakes)" || pip install --user pyflakes
 # this is on the $PATH in .zshrc, is where i put built shit
 mkdir -p ~/.local
 
+pushd ~/src
+# building node.js from source because fuck it
+if ! [ -d ~/src/node ]; then
+    local node_version="v6.11.0"
+    git clone --branch $node_version --single-branch git@github.com:nodejs/node.git
+    pushd ~/src/node
+    ./configure --prefix=$HOME/.local
+    make -j4 # build based on a 4 core machine
+    make install
+    popd # ~/src
+fi
+npm install -g eslint eslint-plugin-promise eslint-plugin-standard eslint-config-standard eslint-plugin-import eslint-plugin-node eslint-config-semistandard
+test -L ~/.eslintrc || ln -s "$mypath/.eslintrc.js" ~/.
+
+popd # pwd
+
 if [ "$distro" = "Darwin" ]; then
     # set insanely high key repeat value in Mac. aint got time for slow shiet!
     defaults write NSGlobalDomain KeyRepeat -int 2
     # TODO: how to install these on linux?
-    brew install ondir
     brew install vim
     brew install unrar
     brew install watch
@@ -106,20 +120,6 @@ if [ "$distro" = "Darwin" ]; then
     echo "go set JAVA_HOME in .zshrc"
     echo "import the color palette into iterm"
 fi
-pushd ~/src
-# building node.js from source because fuck it
-if ! [ -d ~/src/node ]; then
-    local node_version="v6.11.0"
-    git clone --branch $node_version --single-branch git@github.com:nodejs/node.git
-    pushd ~/src/node
-    ./configure --prefix=$HOME/.local
-    make -j4 # build based on a 4 core machine
-    make install
-    popd # ~/src
-fi
-popd # pwd
-npm install -g eslint eslint-plugin-promise eslint-plugin-standard eslint-config-standard eslint-plugin-import eslint-plugin-node eslint-config-semistandard
-test -L ~/.eslintrc || ln -s "$mypath/.eslintrc.js" ~/.
 
 mkdir -p ~/sdks
 echo "maybe install android sdks? https://developer.android.com/studio/index.html?hl=sk"

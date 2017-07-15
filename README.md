@@ -13,12 +13,11 @@ A UNIX-compatible computar-machine.
   - pathogen for vim bundles
   - syntastic for syntax highlighting
   - vim-hybrid for sweet colours
-- ondir (does stuff on different dir switches)
 - ready to roll language environments:
   - python:
     - pyflakes for python linting
   - node.js:
-    - node via nvm
+    - node from source
     - es6-compatible syntax highlighting
 
 # New Machine Setup
