@@ -32,10 +32,6 @@ let g:hybrid_reduced_contrast = 1
 let g:vim_markdown_folding_disabled=1
 set nofoldenable
 
-" use pyflakes for syntax checking in python
-let g:syntastic_python_checkers = ['pyflakes']
-let g:syntastic_javascript_checkers = ['eslint']
-
 " have vim-airline statusbar show at all times
 set laststatus=2
 let g:airline_theme='distinguished'

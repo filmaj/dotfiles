@@ -49,16 +49,23 @@ plugins=(git colored-man-pages npm)
 
 source $ZSH/oh-my-zsh.sh
 
-# env variables
+# languages and runtime stuff
+# android
 export ANDROID_HOME="$HOME/sdks/android"
 export ANDROID_TOOLS="$ANDROID_HOME/tools"
 export ANDROID_PLATFORM_TOOLS="$ANDROID_HOME/platform-tools"
 export ANDROID_TOOLS_BIN="$ANDROID_TOOLS/bin"
+# python
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/src
+# java
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home
-export PATH=/usr/local/opt/ruby@2.0/bin:$PATH:$HOME/bin:$ANDROID_TOOLS:$ANDROID_PLATFORM_TOOLS:$ANDROID_TOOLS_BIN:$HOME/.local/bin:$HOME/Library/Python/2.7/bin:$JAVA_HOME/bin
-export PYTHONPATH=$PYTHONPATH:$HOME/src/sauce/lib
+export PATH=$PATH:$HOME/bin:$ANDROID_TOOLS:$ANDROID_PLATFORM_TOOLS:$ANDROID_TOOLS_BIN:$HOME/.local/bin:$HOME/Library/Python/2.7/bin:$JAVA_HOME/bin
+
+source $HOME/Library/Python/2.7/bin/virtualenvwrapper.sh
+
+# perforce because _some_ companies still use this lmao
+export P4CLIENT=maj_sierra
 
 # zsh only. ctrl-z sends to bg as well as brings back to fg
 # useful in vim to quickly switch between shell and vim.
@@ -97,29 +104,10 @@ export USE_CCACHE=1
 export CCACHE_DIR=/Volumes/android/.ccache
 
 # You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
 export EDITOR='vim'
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
-export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/src
-source $HOME/Library/Python/2.7/bin/virtualenvwrapper.sh
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 ssh-add -A &> /dev/null 
