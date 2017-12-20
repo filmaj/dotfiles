@@ -36,6 +36,14 @@ set nofoldenable
 set laststatus=2
 let g:airline_theme='distinguished'
 
+let g:ale_maximum_file_size = 500000  " Don't lint large files (> 500KB), it can slow things down
+let g:ale_linters = {}
+let g:ale_linters.javascript = ['eslint']
+let g:ale_linters.python = ['flake8']
+
 " associate .es6 extension with javascript
 au BufRead,BufNewFile *.es6 set filetype=javascript
 au BufRead,BufNewFile *.yml,*.yaml set filetype=ansible
+
+" set groovy for Jenkinsfiles
+au BufNewFile,BufRead Jenkinsfile setf groovy
