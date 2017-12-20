@@ -73,6 +73,9 @@ install ctags
 # ack for greping shiet
 test -x "$(command -v ack)" || install ack
 
+# tmux!
+test -x "$(command -v tmux)" || install tmux
+
 # Python and its package manager
 # TODO: maybe put this behind a "do u want python? y/n"
 install python
