@@ -40,3 +40,9 @@
 [submodule ".vim/bundle/ale"]
 	path = .vim/bundle/ale
 	url = https://github.com/w0rp/ale.git
+[submodule ".vim/bundle/vim-sleuth"]
+	path = .vim/bundle/vim-sleuth
+	url = https://github.com/tpope/vim-sleuth.git
+[submodule ".vim/bundle/groovy.vim"]
+	path = .vim/bundle/groovy.vim
+	url = https://github.com/modille/groovy.vim.git
