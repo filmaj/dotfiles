@@ -114,3 +114,9 @@ ssh-add -A &> /dev/null
 # trigger detection of npm binaries on first load, in case we load the terminal
 # in a node.js project directory
 npm_chpwd_hook
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '~/.local/google-cloud-sdk/path.zsh.inc' ]; then source '~/.local/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '~/maj/.local/google-cloud-sdk/completion.zsh.inc' ]; then source '~/.local/google-cloud-sdk/completion.zsh.inc'; fi
