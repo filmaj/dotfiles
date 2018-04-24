@@ -4,36 +4,30 @@
 [submodule ".vim/bundle/vim-markdown"]
 	path = .vim/bundle/vim-markdown
 	url = https://github.com/plasticboy/vim-markdown.git
-[submodule ".vim/bundle/vim-coffee-script"]
-	path = .vim/bundle/vim-coffee-script
-	url = https://github.com/kchmck/vim-coffee-script.git
 [submodule ".vim/bundle/editorconfig-vim"]
 	path = .vim/bundle/editorconfig-vim
 	url = https://github.com/editorconfig/editorconfig-vim.git
 [submodule ".vim/bundle/es.next.syntax.vim"]
 	path = .vim/bundle/es.next.syntax.vim
-	url = git@github.com:othree/es.next.syntax.vim.git
+	url = https://github.com/othree/es.next.syntax.vim.git
 [submodule ".vim/bundle/yajs.vim"]
 	path = .vim/bundle/yajs.vim
-	url = git@github.com:othree/yajs.vim.git
+	url = https://github.com/othree/yajs.vim.git
 [submodule ".vim/bundle/vim-go"]
 	path = .vim/bundle/vim-go
 	url = https://github.com/fatih/vim-go.git
 [submodule ".vim/bundle/vim-hybrid"]
 	path = .vim/bundle/vim-hybrid
-	url = git@github.com:w0ng/vim-hybrid.git
+	url = https://github.com/w0ng/vim-hybrid.git
 [submodule "themes/spaceship-zsh-theme"]
 	path = themes/spaceship-zsh-theme
-	url = git@github.com:denysdovhan/spaceship-zsh-theme.git
-[submodule "plugins/zsh-nvm"]
-	path = plugins/zsh-nvm
-	url = git@github.com:lukechilds/zsh-nvm.git
+	url = https://github.com/denysdovhan/spaceship-zsh-theme.git
 [submodule ".vim/bundle/ansible-vim"]
 	path = .vim/bundle/ansible-vim
 	url = https://github.com/pearofducks/ansible-vim
 [submodule ".vim/bundle/vim-airline-themes"]
 	path = .vim/bundle/vim-airline-themes
-	url = git@github.com:vim-airline/vim-airline-themes.git
+	url = https://github.com/vim-airline/vim-airline-themes.git
 [submodule ".vim/bundle/vim-node"]
 	path = .vim/bundle/vim-node
 	url = https://github.com/moll/vim-node.git
