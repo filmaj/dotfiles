@@ -37,9 +37,15 @@ set laststatus=2
 let g:airline_theme='distinguished'
 
 let g:ale_maximum_file_size = 500000  " Don't lint large files (> 500KB), it can slow things down
+" define which linter to use for which language
 let g:ale_linters = {}
 let g:ale_linters.javascript = ['eslint']
 let g:ale_linters.python = ['flake8']
+" for the linter that support fixing, define them here.
+let g:ale_fixers = {}
+let g:ale_fixers['javascript'] = ['eslint']
+" auto-fix on save
+let g:ale_fix_on_save = 1
 
 " associate .es6 extension with javascript
 au BufRead,BufNewFile *.es6 set filetype=javascript
