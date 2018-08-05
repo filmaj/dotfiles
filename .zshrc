@@ -64,8 +64,7 @@ export PATH=$PATH:$HOME/bin:$ANDROID_TOOLS:$ANDROID_PLATFORM_TOOLS:$ANDROID_TOOL
 
 source $HOME/Library/Python/2.7/bin/virtualenvwrapper.sh
 
-# perforce because _some_ companies still use this lmao
-export P4CLIENT=maj_sierra
+export AWS_REGION=us-west-1 # west coast best coast
 
 # zsh only. ctrl-z sends to bg as well as brings back to fg
 # useful in vim to quickly switch between shell and vim.
@@ -110,7 +109,7 @@ export LANG=en_US.UTF-8
 export EDITOR='vim'
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-ssh-add -A &> /dev/null 
+ssh-add -A &> /dev/null
 # trigger detection of npm binaries on first load, in case we load the terminal
 # in a node.js project directory
 npm_chpwd_hook
