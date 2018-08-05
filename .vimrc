@@ -12,6 +12,10 @@ set tabstop=4
 set expandtab
 set shiftwidth=4
 
+" max 80 chars per line, and auto-indent
+set textwidth=80
+set formatoptions-=l
+
 " toggle paste mode with \+o. like a high five.
 nmap \o set paste!<CR>
 
