@@ -15,6 +15,8 @@ set shiftwidth=4
 " max 80 chars per line, and auto-indent
 set textwidth=80
 set formatoptions-=l
+autocmd FileType md setlocal formatoptions+=a
+autocmd FileType html setlocal formatoptions-=a
 
 " toggle paste mode with \+o. like a high five.
 nmap \o set paste!<CR>
