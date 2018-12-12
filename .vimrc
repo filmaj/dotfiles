@@ -16,7 +16,7 @@ set shiftwidth=4
 set textwidth=80
 set formatoptions-=l
 autocmd FileType md setlocal formatoptions+=a
-autocmd FileType html setlocal formatoptions-=a
+autocmd FileType html,py setlocal formatoptions-=a
 
 " toggle paste mode with \+o. like a high five.
 nmap \o set paste!<CR>

@@ -60,11 +60,10 @@ export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/src
 # java
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home
-export PATH=$PATH:$HOME/bin:$ANDROID_TOOLS:$ANDROID_PLATFORM_TOOLS:$ANDROID_TOOLS_BIN:$HOME/.local/bin:$HOME/Library/Python/2.7/bin:$JAVA_HOME/bin
+export PATH=$PATH:$HOME/bin:$ANDROID_TOOLS:$ANDROID_PLATFORM_TOOLS:$ANDROID_TOOLS_BIN:$HOME/.local/bin:$HOME/Library/Python/3.6/bin:$JAVA_HOME/bin:$HOME/src/node/out/bin
 
-source $HOME/Library/Python/2.7/bin/virtualenvwrapper.sh
-
-export AWS_REGION=us-west-1 # west coast best coast
+export AWS_REGION=us-west-2 # west coast best coast
+export AWS_PROFILE=default
 
 # zsh only. ctrl-z sends to bg as well as brings back to fg
 # useful in vim to quickly switch between shell and vim.
@@ -119,3 +118,5 @@ if [ -f '~/.local/google-cloud-sdk/path.zsh.inc' ]; then source '~/.local/google
 
 # The next line enables shell command completion for gcloud.
 if [ -f '~/maj/.local/google-cloud-sdk/completion.zsh.inc' ]; then source '~/.local/google-cloud-sdk/completion.zsh.inc'; fi
+
+SPACESHIP_TIME_SHOW=true
