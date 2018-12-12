@@ -11,7 +11,7 @@ A UNIX-compatible computar-machine.
 - oh-my-zsh as a zsh shell
 - vim
   - pathogen for vim bundles
-  - syntastic for syntax highlighting
+  - ALE for syntax highlighting
   - vim-hybrid for sweet colours
 - ready to roll language environments:
   - python:
