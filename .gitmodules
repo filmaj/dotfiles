@@ -40,3 +40,6 @@
 [submodule ".vim/bundle/groovy.vim"]
 	path = .vim/bundle/groovy.vim
 	url = https://github.com/modille/groovy.vim.git
+[submodule "plugins/env"]
+	path = plugins/env
+	url = https://github.com/johnhamelink/env-zsh.git

@@ -26,6 +26,7 @@ set ignorecase
 set smartcase
 set hlsearch
 set backspace=indent,eol,start
+set noswapfile
 
 execute pathogen#infect()
 
