@@ -57,6 +57,7 @@ let g:ale_fix_on_save = 1
 " associate .es6 extension with javascript
 au BufRead,BufNewFile *.es6 set filetype=javascript
 au BufRead,BufNewFile *.yml,*.yaml set filetype=ansible
+au BufRead,BufNewFile *.htl set filetype=html
 
 " set groovy for Jenkinsfiles
 au BufNewFile,BufRead Jenkinsfile setf groovy

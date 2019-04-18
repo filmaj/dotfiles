@@ -16,3 +16,5 @@
 	helper = osxkeychain
 [help]
 	autocorrect = 1
+[pager]
+	branch = false
