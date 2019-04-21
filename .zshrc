@@ -110,3 +110,6 @@ if [ -f '~/.local/google-cloud-sdk/path.zsh.inc' ]; then source '~/.local/google
 if [ -f '~/maj/.local/google-cloud-sdk/completion.zsh.inc' ]; then source '~/.local/google-cloud-sdk/completion.zsh.inc'; fi
 
 SPACESHIP_TIME_SHOW=true
+
+# create javascript friendly tags
+alias jtags="ctags -R app config lib src test && sed -i '' -E '/^(if|switch|function|module\.exports|it|describe).+language:js$/d' tags"
