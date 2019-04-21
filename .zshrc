@@ -50,23 +50,19 @@ plugins=(git colored-man-pages npm env)
 source $ZSH/oh-my-zsh.sh
 
 # languages and runtime stuff
-# android
-export ANDROID_HOME="$HOME/sdks/android"
-export ANDROID_TOOLS="$ANDROID_HOME/tools"
-export ANDROID_PLATFORM_TOOLS="$ANDROID_HOME/platform-tools"
-export ANDROID_TOOLS_BIN="$ANDROID_TOOLS/bin"
 # python
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/src
 # java
+# TODO: hard coding versions here sux
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home
-export PATH=$PATH:$HOME/bin:$ANDROID_TOOLS:$ANDROID_PLATFORM_TOOLS:$ANDROID_TOOLS_BIN:$HOME/.local/bin:$HOME/Library/Python/3.6/bin:$JAVA_HOME/bin:$HOME/src/node/out/bin
+export PATH=$PATH:$HOME/bin:$HOME/.local/bin:$HOME/Library/Python/3.6/bin:$JAVA_HOME/bin:$HOME/src/node/out/bin
 
 export AWS_REGION=us-west-2 # west coast best coast
 export AWS_PROFILE=default
 
 # zsh only. ctrl-z sends to bg as well as brings back to fg
-# useful in vim to quickly switch between shell and vim.
+# useful in vim to quickly switch between full shell and vim.
 fancy-ctrl-z () {
   if [[ $#BUFFER -eq 0 ]]; then
     BUFFER="fg"
@@ -94,12 +90,6 @@ npm_chpwd_hook() {
     fi
 }
 chpwd_functions=( npm_chpwd_hook $chpwd_functions )
-
-# AOSP goodness
-# mount the android file image
-function mountAndroid { hdiutil attach ~/android.dmg.sparseimage -mountpoint /Volumes/android; }
-export USE_CCACHE=1
-export CCACHE_DIR=/Volumes/android/.ccache
 
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
