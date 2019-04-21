@@ -69,6 +69,7 @@ test -L ~/.oh-my-zsh/custom/plugins || (rm -rf ~/.oh-my-zsh/custom/plugins && ln
 
 # ctags for vim leetness
 install ctags
+test -L ~/.ctags || ln -s "$mypath/.ctags" ~/.
 
 # ack for greping shiet
 test -x "$(command -v ack)" || install ack
