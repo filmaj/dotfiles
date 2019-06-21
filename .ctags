@@ -5,3 +5,4 @@
 --exclude=node_modules
 --exclude=gulp
 --options=/Users/maj/src/dotfiles/ctags-patterns-for-javascript/ctagsrc
+--regex-javascript=/^[ \t]*module\.exports[ \t]*=[ \t]*function[ \t]\{1,\}\([a-z][A-Za-z0-9_$]\{1,\}\)/\1/F,Function,Functions/b
