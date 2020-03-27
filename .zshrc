@@ -56,7 +56,7 @@ export PROJECT_HOME=$HOME/src
 # java
 # TODO: hard coding versions here sux
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home
-export PATH=$PATH:$HOME/bin:$HOME/.local/bin:$HOME/Library/Python/3.6/bin:$JAVA_HOME/bin:$HOME/src/node/out/bin
+export PATH=/usr/local/opt/ruby/bin:$PATH:$HOME/bin:$HOME/.local/bin:$HOME/Library/Python/3.6/bin:$JAVA_HOME/bin:$HOME/src/node/out/bin:/usr/local/Cellar/python3/3.7.0/bin
 
 export AWS_REGION=us-west-2 # west coast best coast
 export AWS_PROFILE=default
@@ -110,3 +110,5 @@ if [ -f '~/.local/google-cloud-sdk/path.zsh.inc' ]; then source '~/.local/google
 if [ -f '~/maj/.local/google-cloud-sdk/completion.zsh.inc' ]; then source '~/.local/google-cloud-sdk/completion.zsh.inc'; fi
 
 SPACESHIP_TIME_SHOW=true
+
+source /Users/maj/Library/Preferences/org.dystroy.broot/launcher/bash/br
