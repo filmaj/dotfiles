@@ -58,7 +58,7 @@ export PROJECT_HOME=$HOME/src
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home
 export PATH=/usr/local/opt/ruby/bin:$PATH:$HOME/bin:$HOME/.local/bin:$HOME/Library/Python/3.6/bin:$JAVA_HOME/bin:$HOME/src/node/out/bin:/usr/local/Cellar/python3/3.7.0/bin
 
-export AWS_REGION=us-west-2 # west coast best coast
+export AWS_REGION=us-east-2
 export AWS_PROFILE=default
 
 # zsh only. ctrl-z sends to bg as well as brings back to fg
@@ -78,18 +78,6 @@ bindkey '^Z' fancy-ctrl-z
 # ---
 # zsh change-directory hooks
 # ---
-# Adds node_modules/.bin to the PATH
-npm_chpwd_hook() {
-    if [ -n "${PRENPMPATH+x}" ]; then
-        PATH=$PRENPMPATH
-        unset PRENPMPATH
-    fi
-    if [ -f package.json ]; then
-        PRENPMPATH=$PATH
-        PATH=$(npm bin):$PATH
-    fi
-}
-chpwd_functions=( npm_chpwd_hook $chpwd_functions )
 
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
@@ -99,9 +87,6 @@ export EDITOR='vim'
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 ssh-add -A &> /dev/null
-# trigger detection of npm binaries on first load, in case we load the terminal
-# in a node.js project directory
-npm_chpwd_hook
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '~/.local/google-cloud-sdk/path.zsh.inc' ]; then source '~/.local/google-cloud-sdk/path.zsh.inc'; fi
