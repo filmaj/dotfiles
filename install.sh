@@ -76,17 +76,16 @@ test -x "$(command -v ack)" || install ack
 # tmux!
 test -x "$(command -v tmux)" || install tmux
 
+# this is on the $PATH in .zshrc, is where i put built shit
+mkdir -p ~/.local
+
 # Python and its package manager
 # TODO: maybe put this behind a "do u want python? y/n"
 install python
 # brew installs pip w/ python, apt-get does not.
-test -x "$(command -v pip)" || ([ "$distro" = "Linux" ] && sudo apt-get install -y python-pip) || [ "$distro" = "Darwin" ]
-pip install --user virtualenv
-pip install --user virtualenvwrapper
-test -x "$(command -v pyflakes)" || pip install --user pyflakes
-
-# this is on the $PATH in .zshrc, is where i put built shit
-mkdir -p ~/.local
+test -x "$(command -v pip)" || ([ "$distro" = "Linux" ] && sudo apt-get install -y python-pip) || [ "$distro" = "Darwin" ] 
+test -x "$(command -v pyflakes)" || pip3 install --user pyflakes
+test -x "$(command -v aws)" || pip3 install --user awscli
 
 pushd ~/src
 # building node.js from source because fuck it

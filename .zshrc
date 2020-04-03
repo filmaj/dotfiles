@@ -53,10 +53,11 @@ source $ZSH/oh-my-zsh.sh
 # python
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/src
-# java
 # TODO: hard coding versions here sux
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home
-export PATH=/usr/local/opt/ruby/bin:$PATH:$HOME/bin:$HOME/.local/bin:$HOME/Library/Python/3.6/bin:$JAVA_HOME/bin:$HOME/src/node/out/bin:/usr/local/Cellar/python3/3.7.0/bin
+export PYTHON_HOME=/usr/local/Cellar/python3/3.7.7
+export PYTHON_LIBRARIES=$HOME/Library/Python/3.7
+export PATH=/usr/local/opt/ruby/bin:$PATH:$HOME/bin:$HOME/.local/bin:$PYTHON_LIBRARIES/bin:$JAVA_HOME/bin:$HOME/src/node/out/bin:$PYTHON_HOME/bin
 
 export AWS_REGION=us-east-2
 export AWS_PROFILE=default
