@@ -11,12 +11,12 @@ mypath=$(exec 2>/dev/null;cd -- $(dirname "$0"); unset PWD; /usr/bin/pwd || /bin
 distro=$(uname -s)
 # Homebrew / apt basics.
 if [ "$distro" = "Darwin" ]; then
-    test -x "$(command -v brew)" || (echo "installing homebrew...." && ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)")
-    brew update
-    echo "Attempting to prompt to install xcode CLI tools, or print out installed location of tools. An error here is not catastrophic, relax."
-    xcode-select --install || xcode-select -p
+    test -x "$(command -v brew)" || echo "installing homebrew...." && bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)";
+    brew update;
+    echo "Attempting to prompt to install xcode CLI tools, or print out installed location of tools. An error here is not catastrophic, relax.";
+    xcode-select --install || xcode-select -p;
 elif [ "$distro" = "Linux" ]; then
-    sudo apt-get update
+    sudo apt-get update;
 fi
 
 # mac and linux friendly package installation
@@ -41,8 +41,7 @@ test -x "$(command -v git)" || install git
 if [[ $SHELL != *"zsh"* ]]; then
     echo "going to install zsh, hold on to your butt"
     install zsh
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-    # TODO: how to re-run this script w/ zsh now that its installed?
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
     echo "zsh installed. rerun this ($0) now."
     exit 0
 fi
@@ -100,31 +99,16 @@ if ! [ -d ~/src/node ]; then
     make install
     popd # ~/src
 fi
-npm install -g eslint eslint-plugin-promise eslint-plugin-standard eslint-config-standard eslint-plugin-import eslint-plugin-node eslint-config-semistandard
-test -L ~/.eslintrc || ln -s "$mypath/.eslintrc.js" ~/.
 
 popd # pwd
 
 if [ "$distro" = "Darwin" ]; then
     # set insanely high key repeat value in Mac. aint got time for slow shiet!
     defaults write NSGlobalDomain KeyRepeat -int 2
-    # TODO: how to install these on linux?
     brew install vim
-    brew install unrar
-    brew install watch
-    brew install pstree
-    # you can install virtualbox and vagrant on mac with brew. amazeballs.
-    # i stole the below from http://sourabhbajaj.com/mac-setup/ which is an amazing resource btw
-    brew cask install virtualbox
-    brew cask install vagrant
-    brew cask install vagrant-manager
     # TODO: can probably import iterm2 preferences via plist files. steal from https://github.com/mitsuhiko/dotfiles/tree/master/iterm2
     echo "gonna run java so you can open oracle site and download the JRE and JDK. manually. like the pitiful human that you are."
     java -version
     echo "go set JAVA_HOME in .zshrc"
     echo "import the color palette into iterm"
 fi
-
-mkdir -p ~/sdks
-echo "maybe install android sdks? https://developer.android.com/studio/index.html?hl=sk"
-# TODO what about android sdk?

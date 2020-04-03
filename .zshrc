@@ -95,5 +95,3 @@ if [ -f '~/.local/google-cloud-sdk/path.zsh.inc' ]; then source '~/.local/google
 if [ -f '~/maj/.local/google-cloud-sdk/completion.zsh.inc' ]; then source '~/.local/google-cloud-sdk/completion.zsh.inc'; fi
 
 SPACESHIP_TIME_SHOW=true
-
-source /Users/maj/Library/Preferences/org.dystroy.broot/launcher/bash/br
