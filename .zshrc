@@ -37,6 +37,14 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # stamp shown in the history command output.
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 # HIST_STAMPS="mm/dd/yyyy"
+#
+# languages and runtime stuff
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/src
+export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
+export PYTHON_HOME=/usr/local/Cellar/python3/3.7.7
+export PYTHON_LIBRARIES=$HOME/Library/Python/3.7
+export PATH=/usr/local/opt/ruby/bin:/usr/local/lib/ruby/gems/2.7.0/bin:$PATH:$HOME/bin:$HOME/.local/bin:$PYTHON_LIBRARIES/bin:$JAVA_HOME/bin:$HOME/src/node/out/bin:$PYTHON_HOME/bin:/Users/filmaj/Library/Python/2.7/bin
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
@@ -45,22 +53,9 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git colored-man-pages npm env)
-
+plugins=(colored-man-pages npm env ssh-agent zsh-node-path)
+zstyle :omz:plugins:ssh-agent agent-forwarding on
 source $ZSH/oh-my-zsh.sh
-
-# languages and runtime stuff
-# python
-export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/src
-# TODO: hard coding versions here sux
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home
-export PYTHON_HOME=/usr/local/Cellar/python3/3.7.7
-export PYTHON_LIBRARIES=$HOME/Library/Python/3.7
-export PATH=/usr/local/opt/ruby/bin:$PATH:$HOME/bin:$HOME/.local/bin:$PYTHON_LIBRARIES/bin:$JAVA_HOME/bin:$HOME/src/node/out/bin:$PYTHON_HOME/bin
-
-export AWS_REGION=us-east-2
-export AWS_PROFILE=default
 
 # zsh only. ctrl-z sends to bg as well as brings back to fg
 # useful in vim to quickly switch between full shell and vim.
@@ -89,10 +84,24 @@ export EDITOR='vim'
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 ssh-add -A &> /dev/null
 
+SPACESHIP_TIME_SHOW=true
+export CPATH=`xcrun --show-sdk-path`/usr/include
+
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '~/.local/google-cloud-sdk/path.zsh.inc' ]; then source '~/.local/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f '/Users/filmaj/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/filmaj/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '~/maj/.local/google-cloud-sdk/completion.zsh.inc' ]; then source '~/.local/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f '/Users/filmaj/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/filmaj/google-cloud-sdk/completion.zsh.inc'; fi
 
-SPACESHIP_TIME_SHOW=true
+# Enable auto-switching between Ruby versions
+source /usr/local/opt/chruby/share/chruby/chruby.sh
+source /usr/local/opt/chruby/share/chruby/auto.sh
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+
+# NVM for managing node
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

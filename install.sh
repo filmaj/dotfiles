@@ -105,6 +105,8 @@ if [ "$distro" = "Darwin" ]; then
     # set insanely high key repeat value in Mac. aint got time for slow shiet!
     defaults write NSGlobalDomain KeyRepeat -int 2
     brew install vim
+    brew install diff-so-fancy
+    git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
     # TODO: can probably import iterm2 preferences via plist files. steal from https://github.com/mitsuhiko/dotfiles/tree/master/iterm2
     echo "gonna run java so you can open oracle site and download the JRE and JDK. manually. like the pitiful human that you are."
     java -version

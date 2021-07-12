@@ -46,3 +46,6 @@
 [submodule "ctags-patterns-for-javascript"]
 	path = ctags-patterns-for-javascript
 	url = https://github.com/romainl/ctags-patterns-for-javascript.git
+[submodule ".vim/bundle/vim-svelte-plugin"]
+	path = .vim/bundle/vim-svelte-plugin
+	url = https://github.com/leafOfTree/vim-svelte-plugin
