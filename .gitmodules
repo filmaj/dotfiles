@@ -49,3 +49,6 @@
 [submodule ".vim/bundle/vim-svelte-plugin"]
 	path = .vim/bundle/vim-svelte-plugin
 	url = https://github.com/leafOfTree/vim-svelte-plugin
+[submodule ".vim/bundle/vim-gutentags"]
+	path = .vim/bundle/vim-gutentags
+	url = https://github.com/ludovicchabant/vim-gutentags.git
