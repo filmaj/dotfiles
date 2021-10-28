@@ -56,14 +56,14 @@ if ! [ -d ~/.vim/autoload ]; then
 fi
 
 # Linking up zsh / vim things.
-test -L ~/.vimrc || ln -s "$mypath/.vimrc" ~/.
+ln -snf "$mypath/.vimrc" ~/.
 if ! [ -L ~/.zshrc ]; then
     rm -f ~/.zshrc
-    ln -s "$mypath/.zshrc" ~/.
+    ln -snf "$mypath/.zshrc" ~/.
 fi
-test -L ~/.vim/bundle || ln -s "$mypath/.vim/bundle" ~/.vim/.
-test -L ~/.gitconfig || ln -s "$mypath/.gitconfig" ~/.
-test -L ~/.oh-my-zsh/themes/spaceship.zsh-theme || ln -s "$mypath/themes/spaceship-zsh-theme/spaceship.zsh-theme" ~/.oh-my-zsh/themes/.
+ln -snf "$mypath/.vim/bundle" ~/.vim/.
+ln -snf "$mypath/.gitconfig" ~/.
+ln -snf "$mypath/themes/spaceship-zsh-theme/spaceship.zsh-theme" ~/.oh-my-zsh/themes/.
 test -L ~/.oh-my-zsh/custom/plugins || (rm -rf ~/.oh-my-zsh/custom/plugins && ln -s "$mypath/plugins" ~/.oh-my-zsh/custom/.)
 
 # ctags for vim leetness
@@ -82,24 +82,11 @@ mkdir -p ~/.local
 # Python and its package manager
 # TODO: maybe put this behind a "do u want python? y/n"
 install python
+install nvm
 # brew installs pip w/ python, apt-get does not.
-test -x "$(command -v pip)" || ([ "$distro" = "Linux" ] && sudo apt-get install -y python-pip) || [ "$distro" = "Darwin" ] 
+test -x "$(command -v pip)" || ([ "$distro" = "Linux" ] && sudo apt-get install -y python-pip) || [ "$distro" = "Darwin" ]
 test -x "$(command -v pyflakes)" || pip3 install --user pyflakes
 test -x "$(command -v aws)" || pip3 install --user awscli
-
-pushd ~/src
-# building node.js from source because fuck it
-if ! [ -d ~/src/node ]; then
-    local node_version="v8.1.4"
-    git clone --branch $node_version --single-branch git@github.com:nodejs/node.git
-    pushd ~/src/node
-    ./configure --prefix=$HOME/.local
-    make -j4 # build based on a 4 core machine
-    make install
-    popd # ~/src
-fi
-
-popd # pwd
 
 if [ "$distro" = "Darwin" ]; then
     # set insanely high key repeat value in Mac. aint got time for slow shiet!
