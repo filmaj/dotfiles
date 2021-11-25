@@ -63,6 +63,7 @@ let g:ale_linters = {}
 let g:ale_linters.javascript = ['eslint']
 let g:ale_linters.typescript = ['eslint']
 let g:ale_linters.python = ['flake8']
+let g:ale_linters.hack = ['hack', 'hhast']
 " for the linter that support fixing, define them here.
 let g:ale_fixers = {}
 let g:ale_fixers.javascript = ['eslint']
@@ -71,6 +72,13 @@ let g:ale_fixers.javascript = ['eslint']
 
 " auto-fix on save
 " let g:ale_fix_on_save = 1
+
+" show type on hover in a floating bubble
+if v:version >= 801
+  set balloonevalterm
+  let g:ale_set_balloons = 1
+  let balloondelay = 250
+endif
 
 " add tag generation status to the status bar
 set statusline+=%{gutentags#statusline()}
@@ -82,7 +90,6 @@ let g:gutentags_cache_dir = expand('~/.cache/tags')
 
 " associate .es6 extension with javascript
 au BufRead,BufNewFile *.es6 set filetype=javascript
-au BufRead,BufNewFile *.yml,*.yaml set filetype=ansible
 au BufRead,BufNewFile *.htl set filetype=html
 au BufRead,BufNewFile *.svelte set filetype=svelte
 

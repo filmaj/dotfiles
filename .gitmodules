@@ -22,9 +22,6 @@
 [submodule "themes/spaceship-zsh-theme"]
 	path = themes/spaceship-zsh-theme
 	url = https://github.com/denysdovhan/spaceship-zsh-theme.git
-[submodule ".vim/bundle/ansible-vim"]
-	path = .vim/bundle/ansible-vim
-	url = https://github.com/pearofducks/ansible-vim
 [submodule ".vim/bundle/vim-airline-themes"]
 	path = .vim/bundle/vim-airline-themes
 	url = https://github.com/vim-airline/vim-airline-themes.git
@@ -52,3 +49,6 @@
 [submodule ".vim/bundle/vim-gutentags"]
 	path = .vim/bundle/vim-gutentags
 	url = https://github.com/ludovicchabant/vim-gutentags.git
+[submodule ".vim/bundle/vim-hack"]
+	path = .vim/bundle/vim-hack
+	url = https://github.com/hhvm/vim-hack.git
