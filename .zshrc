@@ -56,7 +56,7 @@ export NVM_DIR="/usr/local/opt/nvm"
 
 # go shit
 export GOPATH=$HOME/go
-export GOROOT=$(go env | grep GOROOT | awk -F "=" '{print $2}')
+export GOROOT=$(go env | grep GOROOT | awk -F "=" '{print $2}' | tr -d '"')
 export PATH=$PATH:$GOPATH/bin:$GOROOT/bin
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
