@@ -30,12 +30,10 @@ Run the platform-specific bits below, then:
 
 - install xcode and iterm. install xcode command line tools.
 - google chrome
-- source code pro
+- download latest source code pro: https://github.com/adobe-fonts/source-code-pro/releases
+- import the `profile.json` in this repo to iterm
+- run `./install.sh`
 
 ## Linux
 
 Just `./install.sh`.
-
-## TO-DO
-
-- ansiblize this?
