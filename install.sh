@@ -67,8 +67,9 @@ ln -snf "$mypath/themes/spaceship-zsh-theme/spaceship.zsh-theme" ~/.oh-my-zsh/th
 test -L ~/.oh-my-zsh/custom/plugins || (rm -rf ~/.oh-my-zsh/custom/plugins && ln -s "$mypath/plugins" ~/.oh-my-zsh/custom/.)
 
 # ctags for vim leetness
-install ctags
-test -L ~/.ctags || ln -s "$mypath/.ctags" ~/.
+install universal-ctags
+mkdir -p ~/.ctags.d
+test -L ~/.ctags.d/filmaj.ctags || ln -s "$mypath/.ctags" ~/.ctags.d/filmaj.ctags
 
 # ack for greping shiet
 test -x "$(command -v ack)" || install ack
