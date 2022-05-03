@@ -58,10 +58,11 @@ let g:airline_theme='distinguished'
 let g:airline#extensions#ale#enabled = 1
 
 let g:ale_maximum_file_size = 500000  " Don't lint large files (> 500KB), it can slow things down
+let g:ale_deno_unstable = 1 " use the --unstable flag w/ deno
 " define which linter to use for which language
 let g:ale_linters = {}
 let g:ale_linters.javascript = ['eslint']
-let g:ale_linters.typescript = ['eslint']
+let g:ale_linters.typescript = ['eslint', 'deno']
 let g:ale_linters.python = ['flake8']
 let g:ale_linters.hack = ['hack', 'hhast']
 " for the linter that support fixing, define them here.

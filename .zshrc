@@ -44,7 +44,7 @@ export PROJECT_HOME=$HOME/src
 export JAVA_HOME=`/usr/libexec/java_home -v 11`
 export PYTHON_HOME=/usr/local/Cellar/python3/3.7.7
 export PYTHON_LIBRARIES=$HOME/Library/Python/3.7
-export PATH=/usr/local/opt/ruby/bin:/usr/local/lib/ruby/gems/2.7.0/bin:$PATH:$HOME/bin:$HOME/.local/bin:$PYTHON_LIBRARIES/bin:$JAVA_HOME/bin:$HOME/src/node/out/bin:$PYTHON_HOME/bin:/Users/filmaj/Library/Python/2.7/bin
+export PATH=$PATH:$HOME/bin:$HOME/.local/bin:$PYTHON_LIBRARIES/bin:$JAVA_HOME/bin:$HOME/src/node/out/bin:$PYTHON_HOME/bin:/Users/filmaj/Library/Python/2.7/bin
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
