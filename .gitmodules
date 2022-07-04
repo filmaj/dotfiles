@@ -7,12 +7,6 @@
 [submodule ".vim/bundle/editorconfig-vim"]
 	path = .vim/bundle/editorconfig-vim
 	url = https://github.com/editorconfig/editorconfig-vim.git
-[submodule ".vim/bundle/es.next.syntax.vim"]
-	path = .vim/bundle/es.next.syntax.vim
-	url = https://github.com/othree/es.next.syntax.vim.git
-[submodule ".vim/bundle/yajs.vim"]
-	path = .vim/bundle/yajs.vim
-	url = https://github.com/othree/yajs.vim.git
 [submodule ".vim/bundle/vim-go"]
 	path = .vim/bundle/vim-go
 	url = https://github.com/fatih/vim-go.git
@@ -25,9 +19,6 @@
 [submodule ".vim/bundle/vim-airline-themes"]
 	path = .vim/bundle/vim-airline-themes
 	url = https://github.com/vim-airline/vim-airline-themes.git
-[submodule ".vim/bundle/vim-node"]
-	path = .vim/bundle/vim-node
-	url = https://github.com/moll/vim-node.git
 [submodule ".vim/bundle/ale"]
 	path = .vim/bundle/ale
 	url = https://github.com/w0rp/ale.git
@@ -49,3 +40,13 @@
 [submodule ".vim/bundle/vim-hack"]
 	path = .vim/bundle/vim-hack
 	url = https://github.com/hhvm/vim-hack.git
+[submodule ".vim/bundle/vim-javascript"]
+	path = .vim/bundle/vim-javascript
+	url = https://github.com/pangloss/vim-javascript.git
+[submodule ".vim/pack/typescript/start/typescript-vim"]
+	path = .vim/pack/typescript/start/typescript-vim
+	url = https://github.com/leafgarland/typescript-vim.git
+[submodule ".vim/bundle/coc.nvim"]
+	path = .vim/bundle/coc.nvim
+	url = https://github.com/neoclide/coc.nvim.git
+	branch = release
