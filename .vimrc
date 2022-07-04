@@ -16,7 +16,6 @@ set shiftwidth=2
 set formatoptions-=l
 autocmd FileType md setlocal formatoptions+=a
 autocmd FileType html,sh,svelte setlocal formatoptions-=t
-
 " toggle paste mode with \+o. like a high five.
 nmap \o set paste!<CR>
 
@@ -31,7 +30,7 @@ vnoremap c "_c
 " without yanking it
 vnoremap p "_dP
 
-" remap Ctrl-w Ctrl-] to split vertically by default
+" Ctrl-w Ctrl+v Ctrl-] to split vertically when chasing down a tag
 nnoremap <C-W><C-V>[ :exec "vert norm <C-V><C-W>["<CR>
 
 set incsearch
@@ -80,6 +79,18 @@ if v:version >= 801
   let g:ale_set_balloons = 1
   let balloondelay = 250
 endif
+
+" vim-go settings
+let g:go_diagnostics_enabled = 1
+let g:go_auto_type_info = 1
+let g:go_metalinter_command = "golangci-lint"
+let g:go_metalinter_autosave = 1
+
+" vim-javascript settings
+let g:javascript_plugin_jsdoc = 1
+
+" CoC (code completion) extensions
+let g:coc_global_extensions = ['coc-tsserver', 'coc-go', 'coc-java', 'coc-pyright']
 
 " add tag generation status to the status bar
 set statusline+=%{gutentags#statusline()}

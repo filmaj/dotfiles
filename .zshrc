@@ -55,9 +55,9 @@ export NVM_DIR="/usr/local/opt/nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # go shit
-export GOPATH=$HOME/go
-export GOROOT=$(go env | grep GOROOT | awk -F "=" '{print $2}' | tr -d '"')
-export PATH=$PATH:$GOPATH/bin:$GOROOT/bin
+#export GOPATH=$HOME/go
+#export GOROOT=$(go env | grep GOROOT | awk -F "=" '{print $2}' | tr -d '"')
+#export PATH=$PATH:$GOPATH/bin:$GOROOT/bin
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
@@ -121,4 +121,9 @@ eval "$(pyenv init -)"
 
 eval "$(rbenv init -)"
 
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
+
 source $ZSH/oh-my-zsh.sh
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
