@@ -85,6 +85,8 @@ let g:go_diagnostics_enabled = 1
 let g:go_auto_type_info = 1
 let g:go_metalinter_command = "golangci-lint"
 let g:go_metalinter_autosave = 1
+let g:go_list_type = "locationlist"
+let g:go_list_type_commands = {"GoMetaLinterAutoSave": "quickfix"}
 
 " vim-javascript settings
 let g:javascript_plugin_jsdoc = 1
