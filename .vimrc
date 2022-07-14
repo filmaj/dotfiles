@@ -84,6 +84,7 @@ endif
 let g:go_diagnostics_enabled = 1
 let g:go_auto_type_info = 1
 let g:go_metalinter_command = "golangci-lint"
+let g:go_metalinter_enabled = ['deadcode', 'errcheck', 'gosimple', 'govet', 'ineffassign', 'staticcheck', 'structcheck', 'typecheck', 'unused', 'varcheck']
 let g:go_metalinter_autosave = 1
 let g:go_list_type = "locationlist"
 let g:go_list_type_commands = {"GoMetaLinterAutoSave": "quickfix"}
@@ -92,7 +93,43 @@ let g:go_list_type_commands = {"GoMetaLinterAutoSave": "quickfix"}
 let g:javascript_plugin_jsdoc = 1
 
 " CoC (code completion) extensions
-let g:coc_global_extensions = ['coc-tsserver', 'coc-go', 'coc-java', 'coc-pyright']
+let g:coc_global_extensions = ['coc-deno', 'coc-tsserver', 'coc-go', 'coc-java', 'coc-pyright']
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+if has("nvim-0.5.0") || has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
+" Use <c-space> to trigger completion in insert mode, or show documentation in
+" normal mode.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+  nnoremap <silent> <c-space> :call ShowDocumentation()<CR>
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+  nnoremap <silent> <c-@> :call ShowDocumentation()<CR>
+endif
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+" Use K to show documentation in preview window.
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " add tag generation status to the status bar
 set statusline+=%{gutentags#statusline()}
