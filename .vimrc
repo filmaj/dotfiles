@@ -130,6 +130,7 @@ function! ShowDocumentation()
 endfunction
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
+highlight Conceal ctermfg=7 ctermbg=0
 
 " add tag generation status to the status bar
 set statusline+=%{gutentags#statusline()}
