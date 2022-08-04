@@ -107,16 +107,11 @@ if [ -f '/Users/filmaj/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/fi
 
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
+which pyenv 2>&0 > /dev/null && eval "$(pyenv init --path) " || true
 
-# Load pyenv into the shell by adding
-# the following to ~/.zshrc:
-
-eval "$(pyenv init -)"
-
-eval "$(rbenv init -)"
+which rbenv 2>&0 > /dev/null && eval "$(rbenv init -)" || true
 
 export PATH="$HOME/.jenv/bin:$PATH"
-eval "$(jenv init -)"
+which jenv 2>&0 > /dev/null && eval "$(jenv init -)" || true
 
 source $ZSH/oh-my-zsh.sh
