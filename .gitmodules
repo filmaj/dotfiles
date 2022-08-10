@@ -32,3 +32,6 @@
 	path = .vim/bundle/coc.nvim
 	url = https://github.com/neoclide/coc.nvim.git
 	branch = release
+[submodule ".vim/pack/javascript/start/vim-javascript"]
+	path = .vim/pack/javascript/start/vim-javascript
+	url = https://github.com/pangloss/vim-javascript.git

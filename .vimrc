@@ -56,6 +56,9 @@ set laststatus=2
 let g:airline_theme='distinguished'
 let g:airline#extensions#ale#enabled = 1
 
+" vim-javascript settingslet
+let g:javascript_plugin_jsdoc = 1
+
 " show type on hover in a floating bubble
 if v:version >= 801
   set balloonevalterm
@@ -113,8 +116,6 @@ nmap <silent> gr <Plug>(coc-references)
 highlight Conceal ctermfg=7 ctermbg=0
 
 au BufRead,BufNewFile *.svelte set filetype=svelte
-" set groovy for Jenkinsfiles
-au BufNewFile,BufRead Jenkinsfile setf groovy
 
 " Load all plugins now.
 " Plugins need to be added to runtimepath before helptags can be generated.
