@@ -56,44 +56,14 @@ set laststatus=2
 let g:airline_theme='distinguished'
 let g:airline#extensions#ale#enabled = 1
 
-let g:ale_maximum_file_size = 500000  " Don't lint large files (> 500KB), it can slow things down
-let g:ale_deno_unstable = 1 " use the --unstable flag w/ deno
-" define which linter to use for which language
-let g:ale_linters = {}
-let g:ale_linters.javascript = ['eslint']
-let g:ale_linters.typescript = ['eslint', 'deno']
-let g:ale_linters.python = ['flake8']
-let g:ale_linters.hack = ['hack', 'hhast']
-" for the linter that support fixing, define them here.
-let g:ale_fixers = {}
-let g:ale_fixers.javascript = ['eslint']
-" Only run linters named in ale_linters settings.
-" let g:ale_linters_explicit = 1
-
-" auto-fix on save
-" let g:ale_fix_on_save = 1
-
 " show type on hover in a floating bubble
 if v:version >= 801
   set balloonevalterm
-  let g:ale_set_balloons = 1
   let balloondelay = 250
 endif
 
-" vim-go settings
-let g:go_diagnostics_enabled = 1
-let g:go_auto_type_info = 1
-let g:go_metalinter_command = "golangci-lint"
-let g:go_metalinter_enabled = ['deadcode', 'errcheck', 'gosimple', 'govet', 'ineffassign', 'staticcheck', 'structcheck', 'typecheck', 'unused', 'varcheck']
-let g:go_metalinter_autosave = 1
-let g:go_list_type = "locationlist"
-let g:go_list_type_commands = {"GoMetaLinterAutoSave": "quickfix"}
-
-" vim-javascript settings
-let g:javascript_plugin_jsdoc = 1
-
 " CoC (code completion) extensions
-let g:coc_global_extensions = ['coc-deno', 'coc-tsserver', 'coc-go', 'coc-java', 'coc-pyright']
+let g:coc_global_extensions = ['coc-deno', 'coc-tsserver', 'coc-go', 'coc-java', 'coc-pyright', 'coc-json', 'coc-eslint']
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
 set updatetime=300
@@ -130,21 +100,19 @@ function! ShowDocumentation()
 endfunction
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+" Tweaking colours used in vim w/ coc.nvim
 highlight Conceal ctermfg=7 ctermbg=0
 
-" add tag generation status to the status bar
-set statusline+=%{gutentags#statusline()}
-let g:gutentags_ctags_exclude = ['*.git', '*.svg', '*.hg', '*/tests/*', 'coverage', 'dist']
-" , 'build', 'dist', '*sites/*/files/*', 'node_modules', 'bower_components', 'cache', 'compiled', 'docs', 'example', 'bundle', 'vendor', '*.md', '*-lock.json', '*.lock', '*bundle*.js', '*build*.js', '.*rc*', '*.json', '*.min.*', '*.map', '*.bak', '*.zip', '*.pyc', '*.class', '*.sln', '*.Master', '*.csproj', '*.tmp', '*.csproj.user', '*.cache', '*.pdb', 'cscope.*', '*.css', '*.less', '*.scss', '*.exe', '*.dll', '*.mp3', '*.ogg', '*.flac', '*.swp', '*.swo', '*.bmp', '*.gif', '*.ico', '*.jpg', '*.png', '*.rar', '*.zip', '*.tar', '*.tar.gz', '*.tar.xz', '*.tar.bz2', '*.pdf', '*.doc', '*.docx', '*.ppt', '*.pptx']
-let g:gutentags_define_advanced_commands = 1
-" let g:gutentags_trace = 1
-let g:gutentags_cache_dir = expand('~/.cache/tags')
-
-" associate .es6 extension with javascript
-au BufRead,BufNewFile *.es6 set filetype=javascript
-au BufRead,BufNewFile *.htl set filetype=html
 au BufRead,BufNewFile *.svelte set filetype=svelte
-
 " set groovy for Jenkinsfiles
 au BufNewFile,BufRead Jenkinsfile setf groovy
 

@@ -49,19 +49,13 @@ fi
 # Update submodules in this repo
 git submodule update --init
 
-# Pathogen (bundle management for vim)
-if ! [ -d ~/.vim/autoload ]; then
-    mkdir -p ~/.vim/autoload
-    curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
-fi
-
 # Linking up zsh / vim things.
+ln -snf "$mypath/.vim" ~/.
 ln -snf "$mypath/.vimrc" ~/.
 if ! [ -L ~/.zshrc ]; then
     rm -f ~/.zshrc
     ln -snf "$mypath/.zshrc" ~/.
 fi
-ln -snf "$mypath/.vim/bundle" ~/.vim/.
 ln -snf "$mypath/.gitconfig" ~/.
 ln -snf "$mypath/themes/spaceship-zsh-theme/spaceship.zsh-theme" ~/.oh-my-zsh/themes/.
 test -L ~/.oh-my-zsh/custom/plugins || (rm -rf ~/.oh-my-zsh/custom/plugins && ln -s "$mypath/plugins" ~/.oh-my-zsh/custom/.)

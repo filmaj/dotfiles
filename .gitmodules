@@ -7,9 +7,6 @@
 [submodule ".vim/bundle/editorconfig-vim"]
 	path = .vim/bundle/editorconfig-vim
 	url = https://github.com/editorconfig/editorconfig-vim.git
-[submodule ".vim/bundle/vim-go"]
-	path = .vim/bundle/vim-go
-	url = https://github.com/fatih/vim-go.git
 [submodule ".vim/bundle/vim-hybrid"]
 	path = .vim/bundle/vim-hybrid
 	url = https://github.com/w0ng/vim-hybrid.git
@@ -19,30 +16,15 @@
 [submodule ".vim/bundle/vim-airline-themes"]
 	path = .vim/bundle/vim-airline-themes
 	url = https://github.com/vim-airline/vim-airline-themes.git
-[submodule ".vim/bundle/ale"]
-	path = .vim/bundle/ale
-	url = https://github.com/w0rp/ale.git
 [submodule ".vim/bundle/vim-sleuth"]
 	path = .vim/bundle/vim-sleuth
 	url = https://github.com/tpope/vim-sleuth.git
-[submodule ".vim/bundle/groovy.vim"]
-	path = .vim/bundle/groovy.vim
-	url = https://github.com/modille/groovy.vim.git
 [submodule "plugins/env"]
 	path = plugins/env
 	url = https://github.com/johnhamelink/env-zsh.git
 [submodule ".vim/bundle/vim-svelte-plugin"]
 	path = .vim/bundle/vim-svelte-plugin
 	url = https://github.com/leafOfTree/vim-svelte-plugin
-[submodule ".vim/bundle/vim-gutentags"]
-	path = .vim/bundle/vim-gutentags
-	url = https://github.com/ludovicchabant/vim-gutentags.git
-[submodule ".vim/bundle/vim-hack"]
-	path = .vim/bundle/vim-hack
-	url = https://github.com/hhvm/vim-hack.git
-[submodule ".vim/bundle/vim-javascript"]
-	path = .vim/bundle/vim-javascript
-	url = https://github.com/pangloss/vim-javascript.git
 [submodule ".vim/pack/typescript/start/typescript-vim"]
 	path = .vim/pack/typescript/start/typescript-vim
 	url = https://github.com/leafgarland/typescript-vim.git
