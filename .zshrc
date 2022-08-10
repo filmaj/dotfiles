@@ -106,7 +106,7 @@ if [ -f '/Users/filmaj/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/fi
 # [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
 export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
+export PATH="$PYENV_ROOT/shims:$PATH"
 which pyenv 2>&0 > /dev/null && eval "$(pyenv init --path) " || true
 
 which rbenv 2>&0 > /dev/null && eval "$(rbenv init -)" || true
