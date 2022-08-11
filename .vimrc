@@ -30,9 +30,6 @@ vnoremap c "_c
 " without yanking it
 vnoremap p "_dP
 
-" Ctrl-w Ctrl+v Ctrl-] to split vertically when chasing down a tag
-nnoremap <C-W><C-V>[ :exec "vert norm <C-V><C-W>["<CR>
-
 set incsearch
 set ignorecase
 set smartcase
@@ -109,6 +106,8 @@ nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gs :call CocAction('jumpDefinition', 'split')<CR>
+nmap <silent> gv :call CocAction('jumpDefinition', 'vsplit')<CR>
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
