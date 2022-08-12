@@ -10,15 +10,14 @@ A UNIX-compatible computar-machine.
 
 - oh-my-zsh as a zsh shell
 - vim
-  - pathogen for vim bundles
-  - ALE for syntax highlighting
+  - pathogen and built-in vim package management for vim plugins
   - vim-hybrid for sweet colours
+  - coc.nvim for completion and usage hints via language servers
 - ready to roll language environments:
-  - python:
-    - pyflakes for python linting
-  - node.js:
-    - node from source
-    - es6-compatible syntax highlighting
+  - python
+  - node.js via nvm
+  - ruby via rvm
+  - java via jvm
 
 # New Machine Setup
 
