@@ -45,8 +45,9 @@ let g:hybrid_custom_term_colors = 1
 let g:hybrid_reduced_contrast = 1
 
 " disable folding w/ vim-markdown
-let g:vim_markdown_folding_disabled=1
+let g:vim_markdown_folding_disabled = 1
 set nofoldenable
+let g:vim_markdown_new_list_item_indent = 2
 
 " have vim-airline statusbar show at all times
 set laststatus=2
