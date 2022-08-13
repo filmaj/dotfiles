@@ -44,6 +44,12 @@ set background=dark
 let g:hybrid_custom_term_colors = 1
 let g:hybrid_reduced_contrast = 1
 
+" fuzzy finder fzf integration
+set rtp+=/usr/local/opt/fzf
+" use :f for fuzzy finding
+cnoreabbrev f FZF
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6, 'relative': v:true, 'yoffset': 1.0 } }
+
 " disable folding w/ vim-markdown
 let g:vim_markdown_folding_disabled = 1
 set nofoldenable

@@ -115,3 +115,5 @@ export PATH="$HOME/.jenv/bin:$PATH"
 which jenv 2>&0 > /dev/null && eval "$(jenv init -)" || true
 
 source $ZSH/oh-my-zsh.sh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

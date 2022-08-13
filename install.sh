@@ -60,11 +60,6 @@ ln -snf "$mypath/.gitconfig" ~/.
 ln -snf "$mypath/themes/spaceship-zsh-theme/spaceship.zsh-theme" ~/.oh-my-zsh/themes/.
 test -L ~/.oh-my-zsh/custom/plugins || (rm -rf ~/.oh-my-zsh/custom/plugins && ln -s "$mypath/plugins" ~/.oh-my-zsh/custom/.)
 
-# ctags for vim leetness
-install universal-ctags
-mkdir -p ~/.ctags.d
-test -L ~/.ctags.d/filmaj.ctags || ln -s "$mypath/.ctags" ~/.ctags.d/filmaj.ctags
-
 # ack for greping shiet
 test -x "$(command -v ack)" || install ack
 
@@ -77,16 +72,19 @@ mkdir -p ~/.local
 # Python and its package manager
 # TODO: maybe put this behind a "do u want python? y/n"
 install python
-install nvm
 # brew installs pip w/ python, apt-get does not.
 test -x "$(command -v pip)" || ([ "$distro" = "Linux" ] && sudo apt-get install -y python-pip) || [ "$distro" = "Darwin" ]
 test -x "$(command -v pyflakes)" || pip3 install --user pyflakes
 test -x "$(command -v aws)" || pip3 install --user awscli
+# node.js stuff
+install nvm
+# vim stuff
+install vim
+install fzf
 
 if [ "$distro" = "Darwin" ]; then
     # set insanely high key repeat value in Mac. aint got time for slow shiet!
     defaults write NSGlobalDomain KeyRepeat -int 2
-    brew install vim
     brew install diff-so-fancy
     git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
     # TODO: can probably import iterm2 preferences via plist files. steal from https://github.com/mitsuhiko/dotfiles/tree/master/iterm2
