@@ -118,6 +118,13 @@ nmap <silent> gv :call CocAction('jumpDefinition', 'vsplit')<CR>
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+function! s:disable_coc_for_type()
+  let l:filesuffix_blacklist = ['md']
+  if index(l:filesuffix_blacklist, expand('%:e')) != -1
+    let b:coc_enabled = 0
+  endif
+endfunction
+autocmd BufRead,BufNewFile * call s:disable_coc_for_type()
 " Tweaking colours used in vim w/ coc.nvim
 highlight Conceal ctermfg=7 ctermbg=0
 
