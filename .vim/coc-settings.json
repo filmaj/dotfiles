@@ -1,7 +1,6 @@
 {
   "suggest.defaultSortMethod": "none",
   "suggest.maxCompleteItemCount": 50,
-  "suggest.minTriggerInputLength": 2,
   "suggest.triggerCompletionWait": 25,
   "suggest.lowPrioritySourceLimit": 5,
   "suggest.removeDuplicateItems": true,
@@ -9,5 +8,7 @@
   "suggest.labelMaxLength": 125,
   "suggest.detailMaxLength": 100,
   "eslint.alwaysShowStatus": true,
-  "eslint.run": "onSave"
+  "eslint.run": "onSave",
+  "python.formatting.provider": "black",
+  "python.linting.flake8Enabled": true
 }
