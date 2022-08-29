@@ -157,6 +157,9 @@ autocmd filetype javascript,typescript call s:set_ts_lsp()
 " Tweaking colours used in vim w/ coc.nvim
 highlight Conceal ctermfg=7 ctermbg=0
 
+" Remove plugin name showing in border from context.vim
+let g:context_highlight_tag = '<hide>'
+
 au BufRead,BufNewFile *.svelte set filetype=svelte
 
 " Load all plugins now.

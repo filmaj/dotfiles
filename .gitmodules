@@ -38,3 +38,6 @@
 [submodule ".vim/pack/commenting/start/nerdcommenter"]
 	path = .vim/pack/commenting/start/nerdcommenter
 	url = https://github.com/preservim/nerdcommenter.git
+[submodule ".vim/bundle/context.vim"]
+	path = .vim/bundle/context.vim
+	url = git@github.com:wellle/context.vim.git
