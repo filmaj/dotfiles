@@ -35,3 +35,6 @@
 [submodule ".vim/bundle/fzf.vim"]
 	path = .vim/bundle/fzf.vim
 	url = git@github.com:junegunn/fzf.vim.git
+[submodule ".vim/pack/commenting/start/nerdcommenter"]
+	path = .vim/pack/commenting/start/nerdcommenter
+	url = https://github.com/preservim/nerdcommenter.git
