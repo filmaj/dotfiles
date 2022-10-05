@@ -1,4 +1,10 @@
 {
+  "coc.preferences.rootPatterns": [
+    "package.json",
+    ".git",
+    ".hg",
+    ".projections.json"
+  ],
   "suggest.defaultSortMethod": "none",
   "suggest.maxCompleteItemCount": 50,
   "suggest.triggerCompletionWait": 25,
