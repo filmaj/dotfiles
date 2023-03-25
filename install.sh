@@ -1,8 +1,6 @@
 #!/bin/bash
 set -xe
 
-# TODO: this whole thing seemed like a good idea at first but now I get the feeling that ansible would be better for this.
-
 # ssh keys + config in place?
 (test -e ~/.ssh/id_rsa.pub && grep jaXVXHL ~/.ssh/id_rsa.pub &> /dev/null) || (echo "are your ssh keys in place duder?" && exit 1)
 

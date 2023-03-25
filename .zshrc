@@ -58,7 +58,7 @@ export PATH=$PATH:$HOME/bin:$HOME/.local/bin:$PYTHON_LIBRARIES/bin:$JAVA_HOME/bi
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(colored-man-pages npm ssh-agent zsh-node-path dotenv)
+plugins=(colored-man-pages npm ssh-agent dotenv)
 zstyle :omz:plugins:ssh-agent agent-forwarding on
 
 # zsh only. ctrl-z sends to bg as well as brings back to fg
