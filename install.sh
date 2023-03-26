@@ -83,6 +83,16 @@ install fzf
 if [ "$distro" = "Darwin" ]; then
     # set insanely high key repeat value in Mac. aint got time for slow shiet!
     defaults write NSGlobalDomain KeyRepeat -int 2
+    defaults write NSGlobalDomain InitialKeyRepeat -int 20
+    # Disable auto-correct
+    defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
+    # Avoid creating .DS_Store files on network or USB volumes
+    defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+    defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
+    # show battery percentage
+    defaults write com.apple.menuextra.battery ShowPercent -bool true
+    # dark mode
+    defaults write NSGlobalDomain AppleInterfaceStyle Dark
     brew install diff-so-fancy
     git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
     # TODO: can probably import iterm2 preferences via plist files. steal from https://github.com/mitsuhiko/dotfiles/tree/master/iterm2
