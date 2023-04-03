@@ -47,7 +47,7 @@ export PYTHON_LIBRARIES=$HOME/Library/Python/3.7
 export PATH=$PATH:$HOME/bin:$HOME/.local/bin:$PYTHON_LIBRARIES/bin:$JAVA_HOME/bin:$HOME/src/node/out/bin:$PYTHON_HOME/bin:/Users/filmaj/Library/Python/2.7/bin
 
 # Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
+ZSH_CUSTOM=~/src/dotfiles/custom
 
 # go shit
 #export GOPATH=$HOME/go
@@ -117,3 +117,7 @@ which jenv 2>&0 > /dev/null && eval "$(jenv init -)" || true
 source $ZSH/oh-my-zsh.sh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

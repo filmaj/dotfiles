@@ -20,7 +20,7 @@
 	path = .vim/bundle/vim-sleuth
 	url = https://github.com/tpope/vim-sleuth.git
 [submodule "plugins/env"]
-	path = plugins/env
+	path = custom/plugins/env
 	url = https://github.com/johnhamelink/env-zsh.git
 [submodule ".vim/pack/typescript/start/typescript-vim"]
 	path = .vim/pack/typescript/start/typescript-vim
@@ -38,6 +38,3 @@
 [submodule ".vim/pack/commenting/start/nerdcommenter"]
 	path = .vim/pack/commenting/start/nerdcommenter
 	url = https://github.com/preservim/nerdcommenter.git
-[submodule ".vim/bundle/context.vim"]
-	path = .vim/bundle/context.vim
-	url = git@github.com:wellle/context.vim.git
