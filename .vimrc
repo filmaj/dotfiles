@@ -37,6 +37,10 @@ set hlsearch
 set backspace=indent,eol,start
 set noswapfile
 
+" silent vim
+set visualbell
+set t_vb=
+
 execute pathogen#infect()
 
 colorscheme hybrid
