@@ -50,13 +50,15 @@ let g:hybrid_reduced_contrast = 1
 
 " fuzzy finder fzf integration
 set rtp+=/usr/local/opt/fzf
-" use :f for fuzzy finding
-cnoreabbrev f FZF
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6, 'relative': v:true, 'yoffset': 1.0 } }
 let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
   \ 'ctrl-s': 'split',
   \ 'ctrl-v': 'vsplit' }
+" use :f for fuzzy finding via `ls`
+cnoreabbrev f FZF
+" use :Ack for fuzzy finding via `ack`
+command! -nargs=? Ack call fzf#run(fzf#wrap({'source': 'ack .', 'dir': <q-args>}))
 
 " disable folding w/ vim-markdown
 let g:vim_markdown_folding_disabled = 1
