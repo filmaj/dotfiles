@@ -24,8 +24,6 @@ install() {
         case $pkg in
             ack)
                 pkg="ack-grep" ;;
-            ctags)
-                pkg="exuberant-ctags"
         esac
         sudo apt-get install -y $pkg
     elif [ "$distro" = "Darwin" ]; then
