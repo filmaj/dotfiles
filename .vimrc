@@ -1,6 +1,3 @@
-syntax enable
-filetype plugin indent on
-
 " line numbers
 set number
 
@@ -41,6 +38,16 @@ set noswapfile
 set visualbell
 set t_vb=
 
+" automatically install vim-plug
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+call plug#begin('~/.vim/bundle')
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+call plug#end()
 execute pathogen#infect()
 
 colorscheme hybrid
@@ -55,10 +62,18 @@ let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
   \ 'ctrl-s': 'split',
   \ 'ctrl-v': 'vsplit' }
-" use :f for fuzzy finding via `ls`
-cnoreabbrev f FZF
-" use :Ack for fuzzy finding via `ack`
-command! -nargs=? Ack call fzf#run(fzf#wrap({'source': 'ack .', 'dir': <q-args>}))
+" additional ag options; ag_raw defaults also include --nogroup --column
+" --color
+let s:ag_options = ' --ignore-dir node_modules --ignore-dir .git --ignore package-lock.json --ignore deno.lock '
+" use :Ag for fuzzy finding via `ag`, and :Ag! for full screen find
+command! -bang -nargs=* Ag
+        \ call fzf#vim#ag(
+        \   <q-args>,
+        \   s:ag_options,
+        \  <bang>0 ? fzf#vim#with_preview('up:60%')
+        \        : fzf#vim#with_preview('right:50%', '?'),
+        \   <bang>0
+        \ )
 
 " disable folding w/ vim-markdown
 let g:vim_markdown_folding_disabled = 1
