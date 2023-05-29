@@ -6,6 +6,8 @@ ZSH_THEME="spaceship"
 # Other theme related options
 SPACESHIP_TIME_SHOW=true
 export BAT_THEME="Nord"
+export LS_COLORS="di=34;40:ln=36;40:so=35;40:pi=33;40:ex=32;40:bd=1;33;40:cd=1;33;40:su=0;41:sg=0;43:tw=0;42:ow=34;40:"
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 COMPLETION_WAITING_DOTS="true"
@@ -102,3 +104,9 @@ export NVM_DIR="$HOME/.nvm"
 # work shit
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
 /usr/bin/ssh-add --apple-load-keychain >/dev/null 2>&1
+
+alias l="gls --color -lah"
+alias la="gls --color -lAh"
+alias ll="gls --color -lh"
+alias ls="gls --color -G"
+alias lsa="gls --color -lah"
