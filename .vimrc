@@ -96,9 +96,7 @@ if v:version >= 801
 endif
 
 " CoC (code completion) extensions
-let g:coc_global_extensions = ['coc-deno', 'coc-tsserver', 'coc-go', 'coc-java', 'coc-pyright', 'coc-json', 'coc-eslint']
-" disable gopls for vim-go (coc-go starts it anyways)
-let g:go_gopls_enabled = 0
+let g:coc_global_extensions = ['coc-deno', 'coc-tsserver', 'coc-java', 'coc-pyright', 'coc-json', 'coc-eslint']
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
 set updatetime=300
