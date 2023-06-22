@@ -46,6 +46,7 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 call plug#begin('~/.vim/bundle')
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 call plug#end()
@@ -121,7 +122,7 @@ else
 endif
 " Make <CR> auto-select the first completion item and notify coc.nvim to
 " format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+inoremap <silent><expr> <cr> coc#pum#visible() ? coc#_select_confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 " Use K to show documentation in preview window.
 function! ShowDocumentation()
@@ -150,36 +151,7 @@ function! s:disable_coc_for_type()
     let b:coc_enabled = 0
   endif
 endfunction
-function! s:enable_extensions_for_deno()
-  call CocActionAsync('activeExtension', 'coc-deno')
-  call CocActionAsync('deactivateExtension', 'coc-tsserver')
-endfunction
-function! s:enable_extensions_for_node()
-  call CocActionAsync('activeExtension', 'coc-tsserver')
-  call CocActionAsync('deactivateExtension', 'coc-deno')
-endfunction
-function! s:set_ts_lsp()
-  " enable/disable coc-tsserver/coc-deno based on detection of diff ecma runtimes
-  let l:bufname = expand('%')
-  " The buffer is deno lsp virtual file
-  if l:bufname =~# '^deno:/'
-    call s:enable_extensions_for_deno()
-    return
-  endif
-  let l:path = empty(l:bufname) ? '.' : expand('%:p:h')
-  if !empty(finddir('node_modules', l:path . ';')) || !empty(findfile('package.json', l:path . ';'))
-    call s:enable_extensions_for_node()
-    return
-  endif
-  if !empty(findfile('deno.jsonc', l:path . ';')) || !empty(findfile('import_map.json', l:path . ';'))
-    call s:enable_extensions_for_deno()
-    return
-  endif
-  " TODO: check for existence of .vim/coc-settings.json and look for
-  " deno.enable and/or tsserver.enable config props
-endfunction
 autocmd BufRead,BufNewFile * call s:disable_coc_for_type()
-autocmd filetype javascript,typescript call s:set_ts_lsp()
 " Tweaking colours used in vim w/ coc.nvim
 highlight Conceal ctermfg=7 ctermbg=0
 

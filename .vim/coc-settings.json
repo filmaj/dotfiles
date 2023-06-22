@@ -6,9 +6,8 @@
     ".projections.json",
     "deno.jsonc"
   ],
-  "suggest.defaultSortMethod": "none",
   "suggest.maxCompleteItemCount": 50,
-  "suggest.triggerCompletionWait": 25,
+  "suggest.triggerCompletionWait": 30,
   "suggest.lowPrioritySourceLimit": 5,
   "suggest.removeDuplicateItems": true,
   "suggest.localityBonus": false,
