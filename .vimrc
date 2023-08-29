@@ -46,7 +46,7 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 call plug#begin('~/.vim/bundle')
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 call plug#end()
@@ -91,13 +91,13 @@ let g:airline#extensions#ale#enabled = 1
 let g:javascript_plugin_jsdoc = 1
 
 " show type on hover in a floating bubble
-if v:version >= 801
+if v:version >= 801 && !has('nvim')
   set balloonevalterm
   let balloondelay = 250
 endif
 
 " CoC (code completion) extensions
-let g:coc_global_extensions = ['coc-deno', 'coc-tsserver', 'coc-pyright', 'coc-json', 'coc-eslint']
+" let g:coc_global_extensions = ['coc-deno', 'coc-tsserver', 'coc-pyright', 'coc-json', 'coc-eslint']
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
 set updatetime=300
@@ -113,47 +113,47 @@ else
 endif
 " Use <c-space> to trigger completion in insert mode, or show documentation in
 " normal mode.
-if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
-  nnoremap <silent> <c-space> :call ShowDocumentation()<CR>
-else
-  inoremap <silent><expr> <c-@> coc#refresh()
-  nnoremap <silent> <c-@> :call ShowDocumentation()<CR>
-endif
+"if has('nvim')
+"  inoremap <silent><expr> <c-space> coc#refresh()
+"  nnoremap <silent> <c-space> :call ShowDocumentation()<CR>
+"else
+"  inoremap <silent><expr> <c-@> coc#refresh()
+"  nnoremap <silent> <c-@> :call ShowDocumentation()<CR>
+"endif
 " Make <CR> auto-select the first completion item and notify coc.nvim to
 " format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent><expr> <cr> coc#pum#visible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+"inoremap <silent><expr> <cr> coc#pum#visible() ? coc#_select_confirm()
+"                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 " Use K to show documentation in preview window.
-function! ShowDocumentation()
-  if CocAction('hasProvider', 'hover')
-    call CocActionAsync('doHover')
-  else
-    call feedkeys('K', 'in')
-  endif
-endfunction
+"function! ShowDocumentation()
+"  if CocAction('hasProvider', 'hover')
+"    call CocActionAsync('doHover')
+"  else
+"    call feedkeys('K', 'in')
+"  endif
+"endfunction
 " Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
+"autocmd CursorHold * silent call CocActionAsync('highlight')
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+"nmap <silent> [g <Plug>(coc-diagnostic-prev)
+"nmap <silent> ]g <Plug>(coc-diagnostic-next)
 " GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gs :call CocAction('jumpDefinition', 'split')<CR>
-nmap <silent> gv :call CocAction('jumpDefinition', 'vsplit')<CR>
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-function! s:disable_coc_for_type()
-  let l:filesuffix_blacklist = ['md']
-  if index(l:filesuffix_blacklist, expand('%:e')) != -1
-    let b:coc_enabled = 0
-  endif
-endfunction
-autocmd BufRead,BufNewFile * call s:disable_coc_for_type()
+"nmap <silent> gd <Plug>(coc-definition)
+"nmap <silent> gs :call CocAction('jumpDefinition', 'split')<CR>
+"nmap <silent> gv :call CocAction('jumpDefinition', 'vsplit')<CR>
+"nmap <silent> gy <Plug>(coc-type-definition)
+"nmap <silent> gi <Plug>(coc-implementation)
+"nmap <silent> gr <Plug>(coc-references)
+"function! s:disable_coc_for_type()
+"  let l:filesuffix_blacklist = ['md']
+"  if index(l:filesuffix_blacklist, expand('%:e')) != -1
+"    let b:coc_enabled = 0
+"  endif
+"endfunction
+"autocmd BufRead,BufNewFile * call s:disable_coc_for_type()
 " Tweaking colours used in vim w/ coc.nvim
-highlight Conceal ctermfg=7 ctermbg=0
+"highlight Conceal ctermfg=7 ctermbg=0
 
 " Remove plugin name showing in border from context.vim
 let g:context_highlight_tag = '<hide>'

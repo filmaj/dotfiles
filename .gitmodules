@@ -25,10 +25,6 @@
 [submodule ".vim/pack/typescript/start/typescript-vim"]
 	path = .vim/pack/typescript/start/typescript-vim
 	url = https://github.com/leafgarland/typescript-vim.git
-[submodule ".vim/bundle/coc.nvim"]
-	path = .vim/bundle/coc.nvim
-	url = https://github.com/neoclide/coc.nvim.git
-	branch = release
 [submodule ".vim/pack/javascript/start/vim-javascript"]
 	path = .vim/pack/javascript/start/vim-javascript
 	url = https://github.com/pangloss/vim-javascript.git

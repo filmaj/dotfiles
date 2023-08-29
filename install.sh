@@ -52,6 +52,8 @@ if ! [ -L ~/.zshrc ]; then
     rm -f ~/.zshrc
     ln -snf "$mypath/.zshrc" ~/.
 fi
+mkdir -p ~/.config
+ln -snf "$mypath/nvim" ~/.config/.
 ln -snf "$mypath/.gitconfig" ~/.
 ln -snf "$mypath/themes/spaceship-zsh-theme/spaceship.zsh-theme" ~/.oh-my-zsh/themes/.
 test -L ~/.oh-my-zsh/custom/plugins || (rm -rf ~/.oh-my-zsh/custom/plugins && ln -s "$mypath/plugins" ~/.oh-my-zsh/custom/.)
