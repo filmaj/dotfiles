@@ -17,8 +17,10 @@ require("kanagawa").setup({
   overrides = function(colors)
     local theme = colors.theme
     return {
+      -- dont italicize builtins (via treesitter)
+      ["@variable.builtin"] = { fg = theme.syn.special2, italic = false },
       -- dark completion popup menu
-      Pmenu = { fg = theme.ui.shade0, bg = theme.ui.bg_p1 },  -- add `blend = vim.o.pumblend` to enable transparency
+      Pmenu = { fg = theme.ui.shade0, bg = theme.ui.bg_p1, blend = vim.o.pumblend }, -- add `blend = vim.o.pumblend` to enable transparency
       PmenuSel = { fg = "NONE", bg = theme.ui.bg_p2 },
       PmenuSbar = { bg = theme.ui.bg_m1 },
       PmenuThumb = { bg = theme.ui.bg_p2 },
@@ -37,13 +39,16 @@ require("kanagawa").setup({
       LazyNormal = { bg = theme.ui.bg_m3, fg = theme.ui.fg_dim },
       MasonNormal = { bg = theme.ui.bg_m3, fg = theme.ui.fg_dim },
     }
-end,
+  end,
 })
 vim.cmd.colorscheme "kanagawa-dragon"
+-- customize the status line at the bottom
+local custom_iceberg = require("lualine/themes/iceberg")
+custom_iceberg.normal.c.bg = 'none' -- make middle part of status line background transparent
 require("lualine").setup({
   options = {
     icons_enabled = false,
-    theme = "iceberg",
+    theme = custom_iceberg,
   },
 })
 -- Remove the background from float window

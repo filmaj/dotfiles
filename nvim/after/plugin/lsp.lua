@@ -21,8 +21,14 @@ config.tsserver.setup {
 -- Text completions
 local cmp_mappings = lsp.defaults.cmp_mappings({
   ['<C-Space>'] = cmp.mapping.complete(),
+  ['<CR>'] = cmp.mapping.confirm({ select = true }),
 })
-lsp.setup_nvim_cmp({ mapping = cmp_mappings })
+lsp.setup_nvim_cmp({
+  mapping = cmp_mappings,
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+  }),
+})
 
 -- Buffer mappings
 lsp.on_attach(function(_client, bufnr)
