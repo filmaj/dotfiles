@@ -13,15 +13,23 @@ vim.opt.rtp:prepend(lazypath)
 -- vim.g.mapleader = " " -- Make sure to set `mapleader` before lazy so your mappings are correct
 
 require("lazy").setup({
-  { "rebelot/kanagawa.nvim", priority = 1000 },
-  { "nvim-lualine/lualine.nvim", priority = 999 },
+  {
+    "rebelot/kanagawa.nvim",
+    priority = 1000
+  },
+  {
+    "nvim-lualine/lualine.nvim",
+    priority = 999,
+    requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+  },
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
-    config = function ()
+    config = function()
       local configs = require("nvim-treesitter.configs")
       configs.setup({
-        ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "javascript", "html", "typescript", "bash", "css", "jsdoc", "json", "sql", "yaml"},
+        ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "javascript", "html", "typescript", "bash", "css",
+          "jsdoc", "json", "sql", "yaml" },
         sync_install = false,
         auto_install = false,
         highlight = { enable = true },
@@ -43,6 +51,11 @@ require("lazy").setup({
       { "hrsh7th/cmp-nvim-lsp" }, -- Required
       { "L3MON4D3/LuaSnip" },     -- Required
     }
+  },
+  {
+    "nvim-telescope/telescope.nvim",
+    tag = '0.1.2',
+    dependencies = { 'nvim-lua/plenary.nvim' },
   },
   "tpope/vim-sleuth",
   "preservim/nerdcommenter",

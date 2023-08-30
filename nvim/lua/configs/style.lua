@@ -47,7 +47,7 @@ local custom_iceberg = require("lualine/themes/iceberg")
 custom_iceberg.normal.c.bg = 'none' -- make middle part of status line background transparent
 require("lualine").setup({
   options = {
-    icons_enabled = false,
+    icons_enabled = true,
     theme = custom_iceberg,
   },
 })
