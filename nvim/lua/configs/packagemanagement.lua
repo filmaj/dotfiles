@@ -58,6 +58,16 @@ require("lazy").setup({
     dependencies = { 'nvim-lua/plenary.nvim' },
   },
   { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+  {
+    "folke/trouble.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    opts = {},
+  },
+  {
+    "folke/todo-comments.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    opts = {},
+  },
   "tpope/vim-sleuth",
   "preservim/nerdcommenter",
 })

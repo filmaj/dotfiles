@@ -1,13 +1,14 @@
-local lsp = require('lsp-zero')
-local config = require('lspconfig')
-local cmp = require('cmp')
+local lsp = require("lsp-zero")
+local config = require("lspconfig")
+local cmp = require("cmp")
+local trouble = require("trouble")
 lsp.preset("recommended")
 lsp.ensure_installed({
-  'denols',
-  'gopls',
-  'lua_ls',
-  'tsserver',
-  'eslint',
+  "denols",
+  "gopls",
+  "lua_ls",
+  "tsserver",
+  "eslint",
 })
 
 config.denols.setup {
@@ -24,14 +25,14 @@ config.eslint.setup {
 
 -- Text completions
 local cmp_mappings = lsp.defaults.cmp_mappings({
-  ['<C-Space>'] = cmp.mapping.complete(),
-  ['<CR>'] = cmp.mapping.confirm({ select = true }),
+  ["<C-Space>"] = cmp.mapping.complete(),
+  ["<CR>"] = cmp.mapping.confirm({ select = true }),
 })
 lsp.setup_nvim_cmp({
   mapping = cmp_mappings,
   sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
-    { name = 'nvim_lsp_signature_help' }
+    { name = "nvim_lsp" },
+    { name = "nvim_lsp_signature_help" }
   }),
 })
 
@@ -43,3 +44,6 @@ lsp.on_attach(function(_client, bufnr)
 end)
 
 lsp.setup()
+
+-- Diagnostics key mappings
+vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>")
