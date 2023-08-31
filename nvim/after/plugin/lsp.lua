@@ -7,6 +7,7 @@ lsp.ensure_installed({
   'gopls',
   'lua_ls',
   'tsserver',
+  'eslint',
 })
 
 config.denols.setup {
@@ -16,6 +17,9 @@ config.lua_ls.setup(lsp.nvim_lua_ls())
 config.tsserver.setup {
   root_dir = config.util.root_pattern("package.json"),
   single_file_support = false
+}
+config.eslint.setup {
+  format = false
 }
 
 -- Text completions
@@ -34,12 +38,11 @@ lsp.setup_nvim_cmp({
 lsp.on_attach(function(_client, bufnr)
   local opts = { buffer = bufnr, remap = false }
 
+  vim.keymap.set("n", "<C-Space>", function() vim.lsp.buf.hover() end, opts)
+  -- TODO: maybe dont need these w/ telescope?
   vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
   vim.keymap.set("n", "gV", ":vsplit | lua vim.lsp.buf.definition()<CR>")
   vim.keymap.set("n", "gS", ":split | lua vim.lsp.buf.definition()<CR>")
-  vim.keymap.set("n", "<C-Space>", function() vim.lsp.buf.hover() end, opts)
 end)
 
--- Initialization
 lsp.setup()
-vim.cmd([[autocmd BufWritePre * lua vim.lsp.buf.format()]])
