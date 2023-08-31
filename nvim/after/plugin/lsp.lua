@@ -40,10 +40,6 @@ lsp.on_attach(function(_client, bufnr)
   local opts = { buffer = bufnr, remap = false }
 
   vim.keymap.set("n", "<C-Space>", function() vim.lsp.buf.hover() end, opts)
-  -- TODO: maybe dont need these w/ telescope?
-  vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
-  vim.keymap.set("n", "gV", ":vsplit | lua vim.lsp.buf.definition()<CR>")
-  vim.keymap.set("n", "gS", ":split | lua vim.lsp.buf.definition()<CR>")
 end)
 
 lsp.setup()
