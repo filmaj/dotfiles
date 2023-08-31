@@ -31,6 +31,7 @@ lsp.setup_nvim_cmp({
   mapping = cmp_mappings,
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
+    { name = 'nvim_lsp_signature_help' }
   }),
 })
 
