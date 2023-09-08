@@ -1,14 +1,15 @@
 local lsp = require("lsp-zero")
 local config = require("lspconfig")
 local cmp = require("cmp")
-local trouble = require("trouble")
+-- local trouble = require("trouble")
 lsp.preset("recommended")
 lsp.ensure_installed({
   "denols",
+  "eslint",
   "gopls",
+  "html",
   "lua_ls",
   "tsserver",
-  "eslint",
 })
 
 config.denols.setup {
