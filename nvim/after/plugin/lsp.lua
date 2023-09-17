@@ -4,6 +4,7 @@ local cmp = require("cmp")
 -- local trouble = require("trouble")
 lsp.preset("recommended")
 lsp.ensure_installed({
+  "cssls",
   "denols",
   "eslint",
   "gopls",

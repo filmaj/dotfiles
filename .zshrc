@@ -76,10 +76,6 @@ if [ -f '/Users/filmaj/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/filmaj/g
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/filmaj/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/filmaj/google-cloud-sdk/completion.zsh.inc'; fi
 
-# Enable auto-switching between Ruby versions
-# source /usr/local/opt/chruby/share/chruby/chruby.sh
-# source /usr/local/opt/chruby/share/chruby/auto.sh
-
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 # export PATH="$PATH:$HOME/.rvm/bin"
 # [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
@@ -88,6 +84,7 @@ export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/shims:$PATH"
 which pyenv 2>&0 > /dev/null && eval "$(pyenv init --path) " || true
 
+export PATH="$HOME/.rbenv/bin:$PATH"
 which rbenv 2>&0 > /dev/null && eval "$(rbenv init -)" || true
 
 export PATH="$HOME/.jenv/bin:$PATH"
@@ -102,7 +99,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # work shit
-export PATH="/usr/local/opt/coreutils/libexec/gnubin:/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
 /usr/bin/ssh-add --apple-load-keychain >/dev/null 2>&1
 
 alias l="gls --color -lah"
