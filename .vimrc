@@ -158,8 +158,6 @@ endif
 " Remove plugin name showing in border from context.vim
 let g:context_highlight_tag = '<hide>'
 
-au BufRead,BufNewFile *.svelte set filetype=svelte
-
 " Load all plugins now.
 " Plugins need to be added to runtimepath before helptags can be generated.
 packloadall
