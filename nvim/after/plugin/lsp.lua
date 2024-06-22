@@ -6,7 +6,7 @@ lsp.preset("recommended")
 lsp.ensure_installed({
   "cssls",
   "denols",
-  "eslint",
+  "eslint@4.8.0",
   "gopls",
   "html",
   "lua_ls",
@@ -21,9 +21,14 @@ config.tsserver.setup {
   root_dir = config.util.root_pattern("package.json"),
   single_file_support = false
 }
-config.eslint.setup {
-  format = false
-}
+config.eslint.setup({
+  on_attach = function(client, bufnr)
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      buffer = bufnr,
+      command = "EslintFixAll",
+    })
+  end,
+})
 
 -- Text completions
 local cmp_mappings = lsp.defaults.cmp_mappings({
