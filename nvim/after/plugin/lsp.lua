@@ -4,18 +4,24 @@ local cmp = require("cmp")
 -- local trouble = require("trouble")
 lsp.preset("recommended")
 lsp.ensure_installed({
+  "biome",
   "cssls",
   "denols",
   "eslint@4.8.0",
+  "golangci_lint_ls",
   "gopls",
   "html",
+  "jsonls",
   "lua_ls",
   "tsserver",
 })
-
+config.biome.setup{}
 config.denols.setup {
   root_dir = config.util.root_pattern("deno.json", "deno.jsonc"),
 }
+config.golangci_lint_ls.setup{}
+config.gopls.setup{}
+config.jsonls.setup{}
 config.lua_ls.setup(lsp.nvim_lua_ls())
 config.tsserver.setup {
   root_dir = config.util.root_pattern("package.json"),
