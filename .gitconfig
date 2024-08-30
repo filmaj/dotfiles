@@ -1,6 +1,7 @@
 [user]
   name = filmaj
   email = maj.fil@gmail.com
+	signingkey = 23734BF479545B17
 [alias]
   lawg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
   whatsnew = diff HEAD@{1} HEAD
@@ -21,3 +22,5 @@
   branch = false
 [push]
   default = simple
+[commit]
+	gpgsign = true

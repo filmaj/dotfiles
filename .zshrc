@@ -106,3 +106,5 @@ alias la="gls --color -lAh"
 alias ll="gls --color -lh"
 alias ls="gls --color -G"
 alias lsa="gls --color -lah"
+# gpg
+export GPG_TTY=$(tty)
