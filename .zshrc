@@ -42,8 +42,9 @@ ZSH_CUSTOM=~/src/dotfiles/custom
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(colored-man-pages npm ssh-agent dotenv)
+plugins=(colored-man-pages npm ssh-agent dotenv nvm)
 zstyle :omz:plugins:ssh-agent agent-forwarding on
+zstyle ':omz:plugins:nvm' autoload yes
 
 # zsh only. ctrl-z sends to bg as well as brings back to fg
 # useful in vim to quickly switch between full shell and vim.
@@ -93,10 +94,6 @@ which jenv 2>&0 > /dev/null && eval "$(jenv init -)" || true
 source $ZSH/oh-my-zsh.sh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # work shit
 /usr/bin/ssh-add --apple-load-keychain >/dev/null 2>&1
