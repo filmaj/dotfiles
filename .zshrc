@@ -25,7 +25,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # languages and runtime stuff
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/src
-export JAVA_HOME=`/usr/libexec/java_home -v 11`
+export JAVA_HOME=`/usr/libexec/java_home -v 22`
 export PYTHON_HOME=/usr/local/Cellar/python3/3.7.7
 export PYTHON_LIBRARIES=$HOME/Library/Python/3.7
 export PATH=$PATH:$HOME/bin:$HOME/.local/bin:$PYTHON_LIBRARIES/bin:$JAVA_HOME/bin:$HOME/src/node/out/bin:$PYTHON_HOME/bin:/Users/filmaj/Library/Python/2.7/bin
@@ -34,9 +34,9 @@ export PATH=$PATH:$HOME/bin:$HOME/.local/bin:$PYTHON_LIBRARIES/bin:$JAVA_HOME/bi
 ZSH_CUSTOM=~/src/dotfiles/custom
 
 # go shit
-#export GOPATH=$HOME/go
-#export GOROOT=$(go env | grep GOROOT | awk -F "=" '{print $2}' | tr -d '"')
-#export PATH=$PATH:$GOPATH/bin:$GOROOT/bin
+export GOPATH=$HOME/go
+export GOROOT=$(go env | grep GOROOT | awk -F "=" '{print $2}' | tr -d '"' | tr -d "'")
+export PATH=$PATH:$GOPATH/bin:$GOROOT/bin
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
@@ -88,8 +88,8 @@ which pyenv 2>&0 > /dev/null && eval "$(pyenv init --path) " || true
 export PATH="$HOME/.rbenv/bin:$PATH"
 which rbenv 2>&0 > /dev/null && eval "$(rbenv init -)" || true
 
-export PATH="$HOME/.jenv/bin:$PATH"
-which jenv 2>&0 > /dev/null && eval "$(jenv init -)" || true
+#export PATH="$HOME/.jenv/bin:$PATH"
+#which jenv 2>&0 > /dev/null && eval "$(jenv init -)" || true
 
 source $ZSH/oh-my-zsh.sh
 
@@ -103,5 +103,7 @@ alias la="gls --color -lAh"
 alias ll="gls --color -lh"
 alias ls="gls --color -G"
 alias lsa="gls --color -lah"
-# gpg
-export GPG_TTY=$(tty)
+##############################################
+# Adding Source for use with Webapp and Artifactory
+##############################################
+source /Users/fmaj/.slack_webapp_artifactory

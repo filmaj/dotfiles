@@ -28,6 +28,12 @@ config.biome.setup {
 }
 config.denols.setup {
   root_dir = config.util.root_pattern("deno.json", "deno.jsonc"),
+  on_attach = function(client, bufnr)
+    vim.api.nvim_create_autocmd("BufReadPost", {
+      buffer = bufnr,
+      command = "DenolsCache",
+    })
+  end,
 }
 config.eslint.setup({
   on_attach = function(client, bufnr)
