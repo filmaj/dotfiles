@@ -64,7 +64,17 @@ require("lazy").setup({
   {
     "folke/trouble.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
-    opts = {},
+    opts = {
+      focus = true,
+    },
+    cmd = "Trouble",
+    keys = {
+      {
+        "<leader>dd",
+        "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+        desc = "Buffer Diagnostics (Trouble)",
+      },
+    },
   },
   {
     "folke/todo-comments.nvim",
