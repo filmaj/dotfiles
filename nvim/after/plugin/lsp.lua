@@ -13,7 +13,7 @@ lsp.ensure_installed({
   "html",
   "jsonls",
   "lua_ls",
-  "tsserver",
+  "ts_ls",
 })
 config.biome.setup {
   root_dir = config.util.root_pattern("biome.json", "biome.jsonc"),
@@ -47,7 +47,7 @@ config.golangci_lint_ls.setup{}
 config.gopls.setup{}
 config.jsonls.setup{}
 config.lua_ls.setup(lsp.nvim_lua_ls())
-config.tsserver.setup {
+config.ts_ls.setup {
   root_dir = config.util.root_pattern("package.json"),
   single_file_support = false
 }
