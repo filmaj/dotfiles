@@ -103,7 +103,3 @@ alias la="gls --color -lAh"
 alias ll="gls --color -lh"
 alias ls="gls --color -G"
 alias lsa="gls --color -lah"
-##############################################
-# Adding Source for use with Webapp and Artifactory
-##############################################
-source /Users/fmaj/.slack_webapp_artifactory
