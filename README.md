@@ -9,10 +9,7 @@ A UNIX-compatible computar-machine.
 # Contents
 
 - oh-my-zsh as a zsh shell
-- vim
-  - pathogen and built-in vim package management for vim plugins
-  - vim-hybrid for sweet colours
-  - coc.nvim for completion and usage hints via language servers
+- nvim
 - ready to roll language environments:
   - python
   - node.js via nvm
@@ -28,7 +25,7 @@ Run the platform-specific bits below, then:
 ## Mac OSX
 
 - install xcode and iterm. install xcode command line tools.
-- google chrome
+- some browser
 - download latest source code pro: https://github.com/adobe-fonts/source-code-pro/releases
 - import the `profile.json` in this repo to iterm
 - run `./install.sh`
