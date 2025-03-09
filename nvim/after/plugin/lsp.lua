@@ -116,6 +116,3 @@ lsp.on_attach(function(_client, bufnr)
 end)
 
 lsp.setup()
-
--- Diagnostics key mappings
-vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>")
