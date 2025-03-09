@@ -66,12 +66,20 @@ require("lazy").setup({
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
       focus = true,
+      keys = {
+        ["<cr>"] = "jump_close",
+      }
     },
     cmd = "Trouble",
     keys = {
       {
         "<leader>dd",
-        "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+        "<cmd>Trouble diagnostics toggle<cr>",
+        desc = "Diagnostics (Trouble)",
+      },
+      {
+        "<leader>db",
+        "<cmd>Trouble diagnostics toggle filter.buf=0 win={type=float,size={height=10,width=0.8},position={0.1, 0.1},border=rounded}<cr>",
         desc = "Buffer Diagnostics (Trouble)",
       },
     },
