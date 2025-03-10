@@ -26,7 +26,7 @@ Run the platform-specific bits below, then:
 
 - install xcode and iterm. install xcode command line tools.
 - some browser
-- download latest source code pro: https://github.com/adobe-fonts/source-code-pro/releases
+- download latest sauce code pro: https://www.nerdfonts.com/font-downloads
 - import the `profile.json` in this repo to iterm
 - run `./install.sh`
 
