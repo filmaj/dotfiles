@@ -50,6 +50,55 @@ require("lualine").setup({
     icons_enabled = true,
     theme = custom_iceberg,
   },
+  sections = {
+    lualine_a = {
+      {
+        'mode',
+        fmt = function(str)
+          -- Create shortened mode names
+          local mode_map = {
+            ['NORMAL'] = 'N',
+            ['INSERT'] = 'I',
+            ['VISUAL'] = 'V',
+            ['V-LINE'] = 'L',
+            ['V-BLOCK'] = 'B',
+            ['REPLACE'] = 'R',
+            ['COMMAND'] = 'C',
+            ['TERMINAL'] = 'T',
+            ['SELECT'] = 'S',
+          }
+          -- Return the shortened version or the original if not found
+          return mode_map[str] or str
+        end,
+      }
+    },
+    lualine_b = {'diff', 'diagnostics'},
+    lualine_c = {
+      {
+        'filename',
+        path = 1,  -- 1 for relative path, 2 for absolute path
+        file_status = true,
+        shorting_target = 40,  -- Shortens path if file name exceeds this length
+      }
+    },
+    lualine_x = {'filetype'},
+    lualine_y = {'progress'},
+    lualine_z = {'location'}
+  },
+  inactive_sections = {
+    lualine_a = {'diff', 'diagnostics'},
+    lualine_b = {
+      {
+        'filename',
+        path = 1,  -- Same path style for inactive windows
+        file_status = true,
+      }
+    },
+    lualine_c = {},
+    lualine_x = {'location'},
+    lualine_y = {},
+    lualine_z = {}
+  },
 })
 -- Remove the background from float window
 vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
