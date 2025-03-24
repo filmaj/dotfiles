@@ -11,13 +11,27 @@
   ui = true
 [core]
   editor = /usr/bin/vim
-  pager = diff-so-fancy | less --tabs=4 -RFX
+  pager = delta
 [credential]
   helper = osxkeychain
+[delta]
+  features = arctic-fox
+  hyperlinks = true
+  line-numbers = true
+  line-numbers-left-format = "{nm:^4}┊"
+	line-numbers-right-format = "│"
+  navigate = true  # use n and N to move between diff sections
+  side-by-side = true
 [diff]
   compactionHeuristic = true
 [help]
   autocorrect = 1
+[include]
+  path = ~/src/dotfiles/delta-themes.gitconfig
+[interactive]
+  diffFilter = delta --color-only
+[merge]
+  conflictstyle = zdiff3
 [pager]
   branch = false
 [push]
