@@ -24,10 +24,10 @@ require("kanagawa").setup({
       PmenuSel = { fg = "NONE", bg = theme.ui.bg_p2 },
       PmenuSbar = { bg = theme.ui.bg_m1 },
       PmenuThumb = { bg = theme.ui.bg_p2 },
-      -- borderless info popup window
-      NormalFloat = { bg = "none" },
-      FloatBorder = { bg = "none" },
-      FloatTitle = { bg = "none" },
+      -- floating window with borders
+      NormalFloat = { bg = theme.ui.bg_m3 },
+      FloatBorder = { fg = theme.ui.bg_p2, bg = theme.ui.bg_m3 },
+      FloatTitle = { bg = theme.ui.bg_m3, fg = theme.ui.fg },
 
       -- Save an hlgroup with dark background and dimmed foreground
       -- so that you can use it where your still want darker windows.
@@ -100,5 +100,6 @@ require("lualine").setup({
     lualine_z = {}
   },
 })
--- Remove the background from float window
-vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+-- Configure float window
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#1f1f28" })  -- Dark background color
+vim.api.nvim_set_hl(0, "FloatBorder", { fg = "#7aa89f", bg = "#1f1f28" })
