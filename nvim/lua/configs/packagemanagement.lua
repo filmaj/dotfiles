@@ -14,7 +14,7 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   {
     "rebelot/kanagawa.nvim",
-    priority = 1000
+    priority = 1000,
   },
   {
     "nvim-lualine/lualine.nvim",
@@ -56,7 +56,7 @@ require("lazy").setup({
   -- Autocompletion
   {
     "hrsh7th/nvim-cmp",
-    tag = "v0.0.2"
+    commit = "b5311ab3ed9c846b585c0c15b7559be131ec4be9"
   },
   {
     "hrsh7th/cmp-nvim-lsp",

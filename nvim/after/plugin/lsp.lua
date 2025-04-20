@@ -14,7 +14,7 @@ mason.setup({
       package_pending = "➜",
       package_uninstalled = "✗"
     }
-  }
+  },
 })
 
 -- Ensure these servers are installed
@@ -37,6 +37,14 @@ mason_lspconfig.setup({
 vim.keymap.set('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
 vim.keymap.set('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>')
 
+-- Configure floating window borders
+vim.diagnostic.config({
+  float = {
+    border = "rounded"
+  },
+  severity_sort = true
+})
+
 -- Use LspAttach autocommand to set up mappings and configuration
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('UserLspConfig', {}),
@@ -46,9 +54,13 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
     vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-    vim.keymap.set('n', '<C-Space>', vim.lsp.buf.hover, opts)
+    vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, opts)
+    vim.keymap.set('n', '<C-Space>', function()
+      vim.lsp.buf.hover { border = "rounded" }
+    end, opts)
     vim.keymap.set('n', '<C-s>', vim.lsp.buf.signature_help, opts)
-    vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
+    vim.keymap.set({'n', 'v'}, 'f', vim.lsp.buf.document_highlight, opts)
+    vim.keymap.set({'n', 'v'}, '<space>c', vim.lsp.buf.clear_references, opts)
     vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
     vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
@@ -120,8 +132,8 @@ lspconfig.ts_ls.setup {
   capabilities = capabilities,
   root_dir = function(fname)
     return lspconfig.util.root_pattern("package.json", "tsconfig.json", "jsconfig.json")(fname) or
-           lspconfig.util.find_git_ancestor(fname) or
-           vim.fn.getcwd()
+      lspconfig.util.find_git_ancestor(fname) or
+      vim.fn.getcwd()
   end,
   single_file_support = true,
   init_options = {
@@ -135,7 +147,11 @@ lspconfig.ts_ls.setup {
 }
 
 -- nvim-cmp setup
-cmp.setup {
+cmp.setup({
+  window = {
+    completion = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered(),
+  },
   snippet = {
     expand = function(args)
       luasnip.lsp_expand(args.body)
@@ -170,11 +186,11 @@ cmp.setup {
     end, { 'i', 's' }),
   }),
   sources = cmp.config.sources({
-    { name = 'nvim_lsp', priority = 1000 },
+    { name = 'nvim_lsp',                priority = 1000 },
     { name = 'nvim_lsp_signature_help', priority = 900 },
   }),
   preselect = cmp.PreselectMode.None,
   completion = {
     completeopt = 'menu,menuone,noinsert,noselect'
   },
-}
+})
