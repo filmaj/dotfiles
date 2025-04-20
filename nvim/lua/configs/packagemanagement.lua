@@ -40,15 +40,36 @@ require("lazy").setup({
     end
   },
   -- LSP Support
-  { "neovim/nvim-lspconfig" },
-  { "williamboman/mason.nvim" },
-  { "williamboman/mason-lspconfig.nvim" },
+  {
+    "neovim/nvim-lspconfig",
+    tag = "v2.0.0"
+  },
+  {
+    "williamboman/mason.nvim",
+    tag = "v1.9.0"
+  },
+  {
+    "williamboman/mason-lspconfig.nvim",
+    tag = "v1.9.0"
+  },
 
   -- Autocompletion
-  { "hrsh7th/nvim-cmp" },
-  { "hrsh7th/cmp-nvim-lsp" },
-  { "hrsh7th/cmp-nvim-lsp-signature-help" },
-  { "L3MON4D3/LuaSnip" },
+  {
+    "hrsh7th/nvim-cmp",
+    tag = "v0.0.2"
+  },
+  {
+    "hrsh7th/cmp-nvim-lsp",
+    commit = "39e2eda76828d88b773cc27a3f61d2ad782c922d"  -- No tags available
+  },
+  {
+    "hrsh7th/cmp-nvim-lsp-signature-help",
+    commit = "031e6ba70b0ad5eee49fd2120ff7a2e325b17fa7"  -- No tags available
+  },
+  {
+    "L3MON4D3/LuaSnip",
+    tag = "v2.3.0"
+  },
   {
     "nvim-telescope/telescope.nvim",
     tag = '0.1.2',
