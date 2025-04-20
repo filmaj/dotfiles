@@ -1,22 +1,67 @@
-local lsp = require("lsp-zero")
-local config = require("lspconfig")
+-- LSP setup
+local lspconfig = require("lspconfig")
 local cmp = require("cmp")
--- local trouble = require("trouble")
-lsp.preset("recommended")
-lsp.ensure_installed({
-  "biome",
-  "cssls",
-  "denols",
-  "eslint@4.8.0",
-  "golangci_lint_ls",
-  "gopls",
-  "html",
-  "jsonls",
-  "lua_ls",
-  "ts_ls",
+local mason = require("mason")
+local mason_lspconfig = require("mason-lspconfig")
+local luasnip = require("luasnip")
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+-- Mason setup
+mason.setup({
+  ui = {
+    icons = {
+      package_installed = "✓",
+      package_pending = "➜",
+      package_uninstalled = "✗"
+    }
+  }
 })
-config.biome.setup {
-  root_dir = config.util.root_pattern("biome.json", "biome.jsonc"),
+
+-- Ensure these servers are installed
+mason_lspconfig.setup({
+  ensure_installed = {
+    "biome",
+    "cssls",
+    "denols",
+    "eslint",
+    "golangci_lint_ls",
+    "gopls",
+    "html",
+    "jsonls",
+    "lua_ls",
+    "ts_ls",
+  }
+})
+
+-- Global diagnostic keymaps
+vim.keymap.set('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>')
+vim.keymap.set('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>')
+
+-- Use LspAttach autocommand to set up mappings and configuration
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+  callback = function(event)
+    -- Buffer local mappings
+    local opts = { buffer = event.buf, noremap = true, silent = true }
+    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+    vim.keymap.set('n', '<C-Space>', vim.lsp.buf.hover, opts)
+    vim.keymap.set('n', '<C-s>', vim.lsp.buf.signature_help, opts)
+    vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
+    vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
+    vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
+    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+    vim.keymap.set('n', '<space>f', function()
+      vim.lsp.buf.format { async = true }
+    end, opts)
+  end,
+})
+
+-- Server specific configurations
+lspconfig.biome.setup {
+  capabilities = capabilities,
+  root_dir = lspconfig.util.root_pattern("biome.json", "biome.jsonc"),
   on_attach = function(client, bufnr)
     vim.api.nvim_create_autocmd("BufWritePre", {
       buffer = bufnr,
@@ -26,9 +71,10 @@ config.biome.setup {
     })
   end,
 }
-config.denols.setup {
-  root_dir = config.util.root_pattern("deno.json", "deno.jsonc"),
-  -- This will disable denols in non-Deno projects
+
+lspconfig.denols.setup {
+  capabilities = capabilities,
+  root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
   single_file_support = false,
   on_attach = function(client, bufnr)
     vim.api.nvim_create_autocmd("BufReadPost", {
@@ -37,28 +83,49 @@ config.denols.setup {
     })
   end,
 }
-config.eslint.setup({
+
+lspconfig.eslint.setup {
+  capabilities = capabilities,
   on_attach = function(client, bufnr)
     vim.api.nvim_create_autocmd("BufWritePre", {
       buffer = bufnr,
       command = "EslintFixAll",
     })
   end,
-})
-config.golangci_lint_ls.setup{}
-config.gopls.setup{}
-config.jsonls.setup{}
-config.lua_ls.setup(lsp.nvim_lua_ls())
-config.ts_ls.setup {
+}
+
+lspconfig.golangci_lint_ls.setup { capabilities = capabilities }
+lspconfig.gopls.setup { capabilities = capabilities }
+lspconfig.jsonls.setup { capabilities = capabilities }
+
+lspconfig.lua_ls.setup {
+  capabilities = capabilities,
+  settings = {
+    Lua = {
+      diagnostics = {
+        globals = { 'vim' }
+      },
+      workspace = {
+        library = vim.api.nvim_get_runtime_file("", true),
+        checkThirdParty = false
+      },
+      telemetry = {
+        enable = false,
+      },
+    },
+  },
+}
+
+lspconfig.ts_ls.setup {
+  capabilities = capabilities,
   root_dir = function(fname)
-    return config.util.root_pattern("package.json", "tsconfig.json", "jsconfig.json")(fname) or
-           config.util.find_git_ancestor(fname) or
+    return lspconfig.util.root_pattern("package.json", "tsconfig.json", "jsconfig.json")(fname) or
+           lspconfig.util.find_git_ancestor(fname) or
            vim.fn.getcwd()
   end,
   single_file_support = true,
   init_options = {
     preferences = {
-      -- These settings improve parameter completion
       includeCompletionsForImportStatements = true,
       includeCompletionsWithSnippetText = true,
       includeAutomaticOptionalChainCompletions = true,
@@ -67,52 +134,47 @@ config.ts_ls.setup {
   }
 }
 
--- Text completions
-local cmp_mappings = lsp.defaults.cmp_mappings({
-  ["<C-Space>"] = cmp.mapping.complete(),
-  ["<CR>"] = cmp.mapping({
-    i = function(fallback)
-      if cmp.visible() and cmp.get_active_entry() then
-        cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+-- nvim-cmp setup
+cmp.setup {
+  snippet = {
+    expand = function(args)
+      luasnip.lsp_expand(args.body)
+    end,
+  },
+  mapping = cmp.mapping.preset.insert({
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<CR>'] = cmp.mapping({
+      i = function(fallback)
+        if cmp.visible() and cmp.get_active_entry() then
+          cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+        else
+          fallback()
+        end
+      end,
+      s = cmp.mapping.confirm({ select = true }),
+      c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
+    }),
+    ['<Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
       else
         fallback()
       end
-    end,
-    s = cmp.mapping.confirm({ select = true }),
-    c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
+    end, { 'i', 's' }),
+    ['<S-Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
   }),
-  -- Add tab completion
-  ["<Tab>"] = cmp.mapping(function(fallback)
-    if cmp.visible() then
-      cmp.select_next_item()
-    else
-      fallback()
-    end
-  end, { "i", "s" }),
-  ["<S-Tab>"] = cmp.mapping(function(fallback)
-    if cmp.visible() then
-      cmp.select_prev_item()
-    else
-      fallback()
-    end
-  end, { "i", "s" }),
-})
-lsp.setup_nvim_cmp({
-  mapping = cmp_mappings,
   sources = cmp.config.sources({
-    { name = "nvim_lsp", priority = 1000 },
-    { name = "nvim_lsp_signature_help", priority = 900 }
+    { name = 'nvim_lsp', priority = 1000 },
+    { name = 'nvim_lsp_signature_help', priority = 900 },
   }),
-  preselect = cmp.PreselectMode.None, -- Don't preselect first item
+  preselect = cmp.PreselectMode.None,
   completion = {
-    completeopt = "menu,menuone,noinsert,noselect" -- Don't auto-select
+    completeopt = 'menu,menuone,noinsert,noselect'
   },
-})
-
--- Buffer mappings
-lsp.on_attach(function(_client, bufnr)
-  local opts = { buffer = bufnr, remap = false }
-  vim.keymap.set("n", "<C-Space>", function() vim.lsp.buf.hover() end, opts)
-end)
-
-lsp.setup()
+}
