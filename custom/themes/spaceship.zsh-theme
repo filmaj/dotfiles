@@ -1,0 +1,1 @@
+/Users/filmaj/src/dotfiles/custom/themes/spaceship-prompt/spaceship.zsh-theme
