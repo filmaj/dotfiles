@@ -56,7 +56,6 @@ mkdir -p ~/.config
 ln -snf "$mypath/nvim" ~/.config/.
 ln -snf "$mypath/.gitconfig" ~/.
 ln -snf "$mypath/themes/spaceship-zsh-theme/spaceship.zsh-theme" ~/.oh-my-zsh/themes/.
-test -L ~/.oh-my-zsh/custom/plugins || (rm -rf ~/.oh-my-zsh/custom/plugins && ln -s "$mypath/plugins" ~/.oh-my-zsh/custom/.)
 
 # ack for greping shiet
 test -x "$(command -v ack)" || install ack
@@ -77,7 +76,7 @@ test -x "$(command -v aws)" || pip3 install --user awscli
 # node.js stuff
 install nvm
 # vim stuff
-install vim
+install nvim
 install fzf
 
 if [ "$distro" = "Darwin" ]; then
