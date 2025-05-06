@@ -10,7 +10,7 @@
 [color]
   ui = true
 [core]
-  editor = /usr/local/bin/nvim
+  editor = nvim
   pager = delta
 [credential]
   helper = osxkeychain
@@ -19,7 +19,7 @@
   hyperlinks = true
   line-numbers = true
   line-numbers-left-format = "{nm:^4}┊"
-	line-numbers-right-format = "│"
+  line-numbers-right-format = "│"
   navigate = true  # use n and N to move between diff sections
   side-by-side = true
 [diff]
@@ -37,4 +37,4 @@
 [push]
   default = simple
 [commit]
-  gpgsign = true
+  # gpgsign = true
