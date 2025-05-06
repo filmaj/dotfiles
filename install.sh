@@ -45,15 +45,13 @@ fi
 # Update submodules in this repo
 git submodule update --init
 
-# Linking up zsh / vim things.
-ln -snf "$mypath/.vim" ~/.
-ln -snf "$mypath/.vimrc" ~/.
+# Linking up zsh and neovim configs
 if ! [ -L ~/.zshrc ]; then
     rm -f ~/.zshrc
     ln -snf "$mypath/.zshrc" ~/.
 fi
 mkdir -p ~/.config
-ln -snf "$mypath/nvim" ~/.config/.
+ln -snf "$mypath/nvim" ~/.config/nvim
 ln -snf "$mypath/.gitconfig" ~/.
 ln -snf "$mypath/themes/spaceship-zsh-theme/spaceship.zsh-theme" ~/.oh-my-zsh/themes/.
 
