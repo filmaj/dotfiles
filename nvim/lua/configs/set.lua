@@ -11,6 +11,7 @@ vim.o.shiftwidth = 2
 vim.o.smartindent = true
 
 -- searching
+vim.o.ignorecase = true
 vim.o.smartcase = true
 
 -- undos/swapfiles
