@@ -24,4 +24,3 @@ vim.o.swapfile = false
 
 -- silent vim (no beeps)
 vim.o.visualbell = true
-vim.o.t_vb = ""
