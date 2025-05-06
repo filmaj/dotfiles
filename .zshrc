@@ -46,25 +46,11 @@ plugins=(colored-man-pages npm ssh-agent dotenv nvm)
 zstyle :omz:plugins:ssh-agent agent-forwarding on
 zstyle ':omz:plugins:nvm' autoload yes
 
-# zsh only. ctrl-z sends to bg as well as brings back to fg
-# useful in vim to quickly switch between full shell and vim.
-fancy-ctrl-z () {
-  if [[ $#BUFFER -eq 0 ]]; then
-    BUFFER="fg"
-    zle accept-line
-  else
-    zle push-input
-    zle clear-screen
-  fi
-}
-zle -N fancy-ctrl-z
-bindkey '^Z' fancy-ctrl-z
-
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-export EDITOR='vim'
+export EDITOR='nvim'
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 ssh-add -A &> /dev/null
