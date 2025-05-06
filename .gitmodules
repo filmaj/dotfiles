@@ -10,9 +10,6 @@
 [submodule ".vim/bundle/vim-hybrid"]
 	path = .vim/bundle/vim-hybrid
 	url = https://github.com/w0ng/vim-hybrid.git
-[submodule "themes/spaceship-zsh-theme"]
-	path = themes/spaceship-zsh-theme
-	url = https://github.com/denysdovhan/spaceship-zsh-theme.git
 [submodule ".vim/bundle/vim-airline-themes"]
 	path = .vim/bundle/vim-airline-themes
 	url = https://github.com/vim-airline/vim-airline-themes.git
@@ -40,3 +37,6 @@
 [submodule ".vim/bundle/vim-go"]
 	path = .vim/bundle/vim-go
 	url = https://github.com/fatih/vim-go.git
+[submodule "custom/themes/spaceship-prompt"]
+	path = custom/themes/spaceship-prompt
+	url = https://github.com/spaceship-prompt/spaceship-prompt.git
