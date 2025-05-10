@@ -42,15 +42,15 @@ require("lazy").setup({
   -- LSP Support
   {
     "neovim/nvim-lspconfig",
-    tag = "v2.0.0"
+    tag = "v2.1.0"
   },
   {
     "williamboman/mason.nvim",
-    tag = "v1.9.0"
+    tag = "v2.0.0"
   },
   {
     "williamboman/mason-lspconfig.nvim",
-    tag = "v1.9.0"
+    tag = "v2.0.0"
   },
 
   -- Autocompletion

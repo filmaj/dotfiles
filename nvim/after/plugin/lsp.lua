@@ -22,7 +22,6 @@ mason_lspconfig.setup({
   ensure_installed = {
     "biome",
     "cssls",
-    "denols",
     "eslint",
     "golangci_lint_ls",
     "gopls",
@@ -30,7 +29,7 @@ mason_lspconfig.setup({
     "jsonls",
     "lua_ls",
     "ts_ls",
-  }
+  },
 })
 
 -- Global diagnostic keymaps
