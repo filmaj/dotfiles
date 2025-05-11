@@ -72,7 +72,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
 -- Server specific configurations
 lspconfig.biome.setup {
   capabilities = capabilities,
-  root_dir = lspconfig.util.root_pattern("biome.json", "biome.jsonc"),
+  root_markers = { "biome.json", "biome.jsonc" },
+  workspace_required = true,
   on_attach = function(client, bufnr)
     vim.api.nvim_create_autocmd("BufWritePre", {
       buffer = bufnr,
@@ -83,10 +84,10 @@ lspconfig.biome.setup {
   end,
 }
 
-
 lspconfig.eslint.setup {
   capabilities = capabilities,
-  root_dir = lspconfig.util.root_pattern(".eslintrc.json", ".eslintrc.js", "eslint.config.json"),
+  root_markers = { ".eslintrc.json", ".eslintrc.js", "eslint.config.json" },
+  workspace_required = true,
   on_attach = function(client, bufnr)
     vim.api.nvim_create_autocmd("BufWritePre", {
       buffer = bufnr,
@@ -119,12 +120,8 @@ lspconfig.lua_ls.setup {
 
 lspconfig.ts_ls.setup {
   capabilities = capabilities,
-  root_dir = function(fname)
-    return lspconfig.util.root_pattern("package.json", "tsconfig.json", "jsconfig.json")(fname) or
-      lspconfig.util.find_git_ancestor(fname) or
-      vim.fn.getcwd()
-  end,
-  single_file_support = true,
+  root_markers = { "package.json", "tsconfig.json", "jsconfig.json" },
+  workspace_required = true,
   init_options = {
     preferences = {
       includeCompletionsForImportStatements = true,
