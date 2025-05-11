@@ -105,6 +105,10 @@ require("lazy").setup({
     opts = {},
   },
   "tpope/vim-sleuth",
-  "preservim/nerdcommenter",
+  {
+  "numToStr/Comment.nvim",
+    opts = {
+    },
+  },
   "lewis6991/gitsigns.nvim",
 })
