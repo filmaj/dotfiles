@@ -12,4 +12,3 @@ vim.keymap.set("v", "c", "\"_c")
 
 -- replace selected text without yanking
 vim.keymap.set("v", "p", "\"_dP")
-require('Comment').setup()
