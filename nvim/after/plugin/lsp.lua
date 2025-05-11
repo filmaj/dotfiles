@@ -83,17 +83,6 @@ lspconfig.biome.setup {
   end,
 }
 
-lspconfig.denols.setup {
-  capabilities = capabilities,
-  root_dir = lspconfig.util.root_pattern("deno.json", "deno.jsonc"),
-  single_file_support = false,
-  on_attach = function(client, bufnr)
-    vim.api.nvim_create_autocmd("BufReadPost", {
-      buffer = bufnr,
-      command = "DenolsCache",
-    })
-  end,
-}
 
 lspconfig.eslint.setup {
   capabilities = capabilities,
