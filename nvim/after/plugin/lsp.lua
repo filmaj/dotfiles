@@ -86,7 +86,7 @@ lspconfig.biome.setup {
 
 lspconfig.eslint.setup {
   capabilities = capabilities,
-  root_dir = lspconfig.util.root_pattern(".eslintrc.json", ".eslintrc.js"),
+  root_dir = lspconfig.util.root_pattern(".eslintrc.json", ".eslintrc.js", "eslint.config.json"),
   on_attach = function(client, bufnr)
     vim.api.nvim_create_autocmd("BufWritePre", {
       buffer = bufnr,
