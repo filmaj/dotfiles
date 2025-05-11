@@ -106,4 +106,5 @@ require("lazy").setup({
   },
   "tpope/vim-sleuth",
   "preservim/nerdcommenter",
+  "lewis6991/gitsigns.nvim",
 })

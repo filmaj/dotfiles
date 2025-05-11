@@ -1,4 +1,5 @@
 require("configs/packagemanagement")
 require("configs/remap")
+require("configs/gitsigns-keymaps")
 require("configs/set")
 require("configs/style")
