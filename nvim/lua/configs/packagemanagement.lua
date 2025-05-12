@@ -46,13 +46,9 @@ require("lazy").setup({
   },
   {
     "williamboman/mason.nvim",
-    tag = "v2.0.0"
+    tag = "v2.0.0",
+    lazy = false,
   },
-  {
-    "williamboman/mason-lspconfig.nvim",
-    tag = "v2.0.0"
-  },
-
   -- Autocompletion
   {
     "hrsh7th/nvim-cmp",

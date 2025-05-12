@@ -2,7 +2,6 @@
 local lspconfig = require("lspconfig")
 local cmp = require("cmp")
 local mason = require("mason")
-local mason_lspconfig = require("mason-lspconfig")
 local luasnip = require("luasnip")
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
@@ -14,21 +13,6 @@ mason.setup({
       package_pending = "➜",
       package_uninstalled = "✗"
     }
-  },
-})
-
--- Ensure these servers are installed
-mason_lspconfig.setup({
-  ensure_installed = {
-    "biome",
-    "cssls",
-    "eslint",
-    "golangci_lint_ls",
-    "gopls",
-    "html",
-    "jsonls",
-    "lua_ls",
-    "ts_ls",
   },
 })
 
