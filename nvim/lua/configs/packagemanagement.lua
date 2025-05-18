@@ -139,9 +139,12 @@ require("lazy").setup({
         lsp_doc_border = true,        -- add a border to hover docs and signature help
       },
       routes = {
-        { filter = { event = "msg_show", kind = "", find = "written", }, opts = { skip = true }, },
-        { filter = { event = "msg_show", kind = "", find = "<ed", }, opts = { skip = true }, },
-        { filter = { event = "msg_show", kind = "", find = ">ed", }, opts = { skip = true }, },
+        { filter = { event = "msg_show", kind = "", find = "written", },    opts = { skip = true }, },
+        { filter = { event = "msg_show", kind = "", find = "more lines", }, opts = { skip = true }, },
+        { filter = { event = "msg_show", kind = "", find = "<ed", },        opts = { skip = true }, },
+        { filter = { event = "msg_show", kind = "", find = ">ed", },        opts = { skip = true }, },
+        { filter = { event = "msg_show", kind = "", find = "yanked", },     opts = { skip = true }, },
+        { filter = { event = "msg_show", kind = "", find = "Hunk", },       opts = { skip = true }, },
       },
     },
     dependencies = {
