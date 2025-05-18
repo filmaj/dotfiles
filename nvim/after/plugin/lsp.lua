@@ -1,6 +1,7 @@
 -- LSP setup
 local lspconfig = require("lspconfig")
 local mason = require("mason")
+local schemas = require("schemastore")
 
 -- Mason setup
 mason.setup({
@@ -77,7 +78,28 @@ lspconfig.eslint.setup {
 
 lspconfig.golangci_lint_ls.setup {}
 lspconfig.gopls.setup {}
-lspconfig.jsonls.setup {}
+lspconfig.jsonls.setup {
+  settings = {
+    json = {
+      schemas = schemas.json.schemas(),
+      validate = { enable = true },
+    },
+  },
+}
+lspconfig.yamlls.setup {
+  settings = {
+    yaml = {
+      schemaStore = {
+        -- You must disable built-in schemaStore support if you want to use
+        -- this plugin and its advanced options like `ignore`.
+        enable = false,
+        -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
+        url = "",
+      },
+      schemas = schemas.yaml.schemas(),
+    },
+  },
+}
 
 lspconfig.lua_ls.setup {
   settings = {

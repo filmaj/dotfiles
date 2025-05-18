@@ -49,6 +49,7 @@ require("lazy").setup({
     tag = "v2.0.0",
     lazy = false,
   },
+  "b0o/schemastore.nvim",
   -- Autocompletion
   {
     'saghen/blink.cmp',
