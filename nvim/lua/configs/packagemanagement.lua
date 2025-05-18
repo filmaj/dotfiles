@@ -28,13 +28,13 @@ require("lazy").setup({
       local configs = require("nvim-treesitter.configs")
       configs.setup({
         ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "javascript", "typescript", "bash", "css",
-          "html", "jsdoc", "json", "sql", "yaml" },
+          "html", "jsdoc", "json", "sql", "yaml", "regex" },
         sync_install = false,
         auto_install = false,
         highlight = { enable = true },
         indent = {
           enable = true,
-          disable = {"html"},
+          disable = { "html" },
         },
       })
     end
@@ -119,4 +119,38 @@ require("lazy").setup({
     },
   },
   "lewis6991/gitsigns.nvim",
+  {
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    opts = {
+      lsp = {
+        -- override markdown rendering so that plugins use **Treesitter**
+        override = {
+          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+          ["vim.lsp.util.stylize_markdown"] = true,
+        },
+      },
+      -- you can enable a preset for easier configuration
+      presets = {
+        bottom_search = true,         -- use a classic bottom cmdline for search
+        command_palette = true,       -- position the cmdline and popupmenu together
+        long_message_to_split = true, -- long messages will be sent to a split
+        inc_rename = false,           -- enables an input dialog for inc-rename.nvim
+        lsp_doc_border = true,        -- add a border to hover docs and signature help
+      },
+      routes = {
+        { filter = { event = "msg_show", kind = "", find = "written", }, opts = { skip = true }, },
+        { filter = { event = "msg_show", kind = "", find = "<ed", }, opts = { skip = true }, },
+        { filter = { event = "msg_show", kind = "", find = ">ed", }, opts = { skip = true }, },
+      },
+    },
+    dependencies = {
+      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+      "MunifTanjim/nui.nvim",
+      -- OPTIONAL:
+      --   `nvim-notify` is only needed, if you want to use the notification view.
+      --   If not available, we use `mini` as the fallback
+      "rcarriga/nvim-notify",
+    }
+  },
 })
