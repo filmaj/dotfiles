@@ -51,20 +51,25 @@ require("lazy").setup({
   },
   -- Autocompletion
   {
-    "hrsh7th/nvim-cmp",
-    commit = "b5311ab3ed9c846b585c0c15b7559be131ec4be9"
-  },
-  {
-    "hrsh7th/cmp-nvim-lsp",
-    commit = "39e2eda76828d88b773cc27a3f61d2ad782c922d"  -- No tags available
-  },
-  {
-    "hrsh7th/cmp-nvim-lsp-signature-help",
-    commit = "031e6ba70b0ad5eee49fd2120ff7a2e325b17fa7"  -- No tags available
-  },
-  {
-    "L3MON4D3/LuaSnip",
-    tag = "v2.3.0"
+    'saghen/blink.cmp',
+    version = '1.*',
+    ---@module 'blink.cmp'
+    ---@type blink.cmp.Config
+    opts = {
+      keymap = { preset = 'super-tab' },
+      appearance = {
+        nerd_font_variant = 'mono'
+      },
+      completion = {
+        documentation = { auto_show = true },
+        list = {
+          selection = { preselect = false, auto_insert = false },
+
+        },
+      },
+      -- Experimental signature help support
+      signature = { enabled = true },
+    },
   },
   {
     "nvim-telescope/telescope.nvim",
@@ -102,7 +107,7 @@ require("lazy").setup({
   },
   "tpope/vim-sleuth",
   {
-  "numToStr/Comment.nvim",
+    "numToStr/Comment.nvim",
     lazy = false,
     priority = 1000,
     opts = {

@@ -5,7 +5,7 @@ vim.o.mouse = "a"
 
 -- line numbers
 vim.o.number = true
-vim.o.signcolumn = "number"
+vim.o.signcolumn = "yes"
 
 -- spacing
 vim.o.tabstop = 2

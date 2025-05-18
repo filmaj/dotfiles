@@ -1,9 +1,6 @@
 -- LSP setup
 local lspconfig = require("lspconfig")
-local cmp = require("cmp")
 local mason = require("mason")
-local luasnip = require("luasnip")
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 -- Mason setup
 mason.setup({
@@ -42,8 +39,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
       vim.lsp.buf.hover { border = "rounded" }
     end, opts)
     vim.keymap.set('n', '<C-s>', vim.lsp.buf.signature_help, opts)
-    vim.keymap.set({'n', 'v'}, 'f', vim.lsp.buf.document_highlight, opts)
-    vim.keymap.set({'n', 'v'}, '<space>c', vim.lsp.buf.clear_references, opts)
+    vim.keymap.set({ 'n', 'v' }, 'f', vim.lsp.buf.document_highlight, opts)
+    vim.keymap.set({ 'n', 'v' }, '<space>c', vim.lsp.buf.clear_references, opts)
     vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
     vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
@@ -55,7 +52,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 -- Server specific configurations
 lspconfig.biome.setup {
-  capabilities = capabilities,
   root_markers = { "biome.json", "biome.jsonc" },
   workspace_required = true,
   on_attach = function(client, bufnr)
@@ -69,7 +65,6 @@ lspconfig.biome.setup {
 }
 
 lspconfig.eslint.setup {
-  capabilities = capabilities,
   root_markers = { ".eslintrc.json", ".eslintrc.js", "eslint.config.json" },
   workspace_required = true,
   on_attach = function(client, bufnr)
@@ -80,12 +75,11 @@ lspconfig.eslint.setup {
   end,
 }
 
-lspconfig.golangci_lint_ls.setup { capabilities = capabilities }
-lspconfig.gopls.setup { capabilities = capabilities }
-lspconfig.jsonls.setup { capabilities = capabilities }
+lspconfig.golangci_lint_ls.setup {}
+lspconfig.gopls.setup {}
+lspconfig.jsonls.setup {}
 
 lspconfig.lua_ls.setup {
-  capabilities = capabilities,
   settings = {
     Lua = {
       diagnostics = {
@@ -103,7 +97,6 @@ lspconfig.lua_ls.setup {
 }
 
 lspconfig.ts_ls.setup {
-  capabilities = capabilities,
   root_markers = { "package.json", "tsconfig.json", "jsconfig.json" },
   workspace_required = true,
   init_options = {
@@ -115,52 +108,3 @@ lspconfig.ts_ls.setup {
     }
   }
 }
-
--- nvim-cmp setup
-cmp.setup({
-  window = {
-    completion = cmp.config.window.bordered(),
-    documentation = cmp.config.window.bordered(),
-  },
-  snippet = {
-    expand = function(args)
-      luasnip.lsp_expand(args.body)
-    end,
-  },
-  mapping = cmp.mapping.preset.insert({
-    ['<C-Space>'] = cmp.mapping.complete(),
-    ['<CR>'] = cmp.mapping({
-      i = function(fallback)
-        if cmp.visible() and cmp.get_active_entry() then
-          cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
-        else
-          fallback()
-        end
-      end,
-      s = cmp.mapping.confirm({ select = true }),
-      c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
-    }),
-    ['<Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-    ['<S-Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-  }),
-  sources = cmp.config.sources({
-    { name = 'nvim_lsp',                priority = 1000 },
-    { name = 'nvim_lsp_signature_help', priority = 900 },
-  }),
-  preselect = cmp.PreselectMode.None,
-  completion = {
-    completeopt = 'menu,menuone,noinsert,noselect'
-  },
-})
