@@ -57,7 +57,18 @@ require("lazy").setup({
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
     opts = {
-      keymap = { preset = 'super-tab' },
+      keymap = {
+        preset = 'enter',
+      },
+      cmdline = {
+        keymap = { preset = 'inherit' },
+        completion = {
+          list = {
+            selection = { preselect = false, auto_insert = false },
+          },
+          menu = { auto_show = true }
+        },
+      },
       appearance = {
         nerd_font_variant = 'mono'
       },
@@ -65,7 +76,6 @@ require("lazy").setup({
         documentation = { auto_show = true },
         list = {
           selection = { preselect = false, auto_insert = false },
-
         },
       },
       -- Experimental signature help support
