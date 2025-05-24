@@ -1,1 +1,3 @@
-require('configs') -- loads lua/configs/init.lua
+-- loads from lua/configs/
+require("configs/preload")
+require("configs/packagemanagement")
