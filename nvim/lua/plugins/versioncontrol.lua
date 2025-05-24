@@ -36,7 +36,7 @@ return {
       { "<leader>grb", function() require('gitsigns').reset_buffer() end,                                     desc = "Git reset buffer" },
       { "<leader>gph", function() require('gitsigns').preview_hunk() end,                                     desc = "Git preview hunk" },
       { "<leader>gpi", function() require('gitsigns').preview_hunk_inline() end,                              desc = "Git preview hunk inline" },
-      { "<leader>gbl", function() require('gitsigns').blame_line({ full = true }) end,                        desc = "Git blame line" },
+      { "<leader>gb",  function() require('gitsigns').blame_line({ full = true }) end,                        desc = "Git blame line" },
       { "<leader>gd",  function() require('gitsigns').diffthis() end,                                         desc = "Git diff this" },
       { "<leader>gD",  function() require('gitsigns').diffthis('~') end,                                      desc = "Git diff this ~" },
       { "<leader>ghQ", function() require('gitsigns').setqflist('all') end,                                   desc = "Git all hunks to quickfix" },
