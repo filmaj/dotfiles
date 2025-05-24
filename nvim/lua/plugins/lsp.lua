@@ -6,7 +6,7 @@ return {
     config = function()
       local lspconfig = require("lspconfig")
       local schemas = require('schemastore')
-      
+
       lspconfig.biome.setup {
         root_markers = { "biome.json", "biome.jsonc" },
         workspace_required = true,
