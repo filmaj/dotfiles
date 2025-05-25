@@ -2,6 +2,36 @@ return {
   {
     "lewis6991/gitsigns.nvim",
     event = { "BufReadPre", "BufNewFile" },
+    opts = {
+      on_attach = function(buffer)
+        -- easly close diffview with q
+        vim.keymap.set("n", "q", function()
+          local has_diff = vim.wo.diff
+          local target_win
+
+          if not has_diff then
+            return "q"
+          end
+
+          for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+            local buf = vim.api.nvim_win_get_buf(win)
+            local bufname = vim.api.nvim_buf_get_name(buf)
+            if bufname:find("^gitsigns://") then
+              target_win = win
+              break
+            end
+          end
+          if target_win then
+            vim.schedule(function()
+              vim.api.nvim_win_close(target_win, true)
+            end)
+            return ""
+          end
+
+          return "q"
+        end, { expr = true, silent = true })
+      end,
+    },
     keys = {
       -- Navigation
       {
@@ -10,7 +40,7 @@ return {
           if vim.wo.diff then
             vim.cmd.normal({ ']c', bang = true })
           else
-            require('gitsigns').nav_hunk('next')
+            require('gitsigns').nav_hunk('next', { navigation_message = false })
           end
         end,
         desc = "Go to next git change"
@@ -21,7 +51,7 @@ return {
           if vim.wo.diff then
             vim.cmd.normal({ '[c', bang = true })
           else
-            require('gitsigns').nav_hunk('prev')
+            require('gitsigns').nav_hunk('prev', { navigation_message = false })
           end
         end,
         desc = "Go to previous git change"

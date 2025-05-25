@@ -141,7 +141,6 @@ return {
         { filter = { event = "msg_show", kind = "", find = "<ed", },        opts = { skip = true }, },
         { filter = { event = "msg_show", kind = "", find = ">ed", },        opts = { skip = true }, },
         { filter = { event = "msg_show", kind = "", find = "yanked", },     opts = { skip = true }, },
-        { filter = { event = "msg_show", kind = "", find = "Hunk", },       opts = { skip = true }, },
       },
     },
     dependencies = {
