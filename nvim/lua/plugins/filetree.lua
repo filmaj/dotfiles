@@ -12,7 +12,13 @@ return {
     ---@module "neo-tree"
     ---@type neotree.Config?
     opts = {
-      -- fill any relevant options here
+      filesystem = {
+        bind_to_cwd = false,
+        filtered_items = {
+          hide_dotfiles = false,
+        },
+        hijack_netrw_behavior = "open_current",
+      },
       window = {
         mappings = {
           ["<C-s>"] = "open_split",
