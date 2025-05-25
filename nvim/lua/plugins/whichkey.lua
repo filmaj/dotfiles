@@ -21,8 +21,8 @@ return {
       { "<leader>c",  desc = "clear references" },
       { "<leader>rn", desc = "rename" },
       { "<leader>ca", desc = "code action" },
-
-
+      -- Filetree
+      { "<leader>t",  desc = "File tree nav" },
       -- Navigation patterns
       { "]",          group = "next" },
       { "[",          group = "prev" },
