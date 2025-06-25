@@ -78,8 +78,7 @@ which rbenv 2>&0 > /dev/null && eval "$(rbenv init -)" || true
 #which jenv 2>&0 > /dev/null && eval "$(jenv init -)" || true
 
 source $ZSH/oh-my-zsh.sh
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source <(fzf --zsh)
 
 # work shit
 /usr/bin/ssh-add --apple-load-keychain >/dev/null 2>&1
