@@ -1,7 +1,6 @@
 return {
   {
     "neovim/nvim-lspconfig",
-    tag = "v2.1.0",
     dependencies = { "b0o/schemastore.nvim", },
     config = function()
       local lspconfig = require("lspconfig")
@@ -65,6 +64,12 @@ return {
             validate = { enable = true },
           },
         },
+      }
+      lspconfig.terraformls.setup {
+        filetypes = { 'terraform', 'tf' }
+      }
+      lspconfig.tflint.setup {
+        filetypes = { 'terraform', 'tf' },
       }
       lspconfig.yamlls.setup {
         settings = {
