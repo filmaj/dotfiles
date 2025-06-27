@@ -65,6 +65,7 @@ return {
           },
         },
       }
+      lspconfig.ruby_lsp.setup {}
       lspconfig.terraformls.setup {
         filetypes = { 'terraform', 'tf' }
       }
