@@ -11,11 +11,13 @@ vim.diagnostic.config({
 })
 
 -- Use LspAttach autocommand to set up mappings and configuration
+local userLsp = 'UserLspConfig'
 vim.api.nvim_create_autocmd('LspAttach', {
-  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+  group = vim.api.nvim_create_augroup(userLsp, {}),
   callback = function(event)
     -- Buffer local mappings
-    local opts = { buffer = event.buf, noremap = true, silent = true }
+    local base = {buffer = event.buf}
+    local opts = vim.tbl_extend('force', base, { noremap = true, silent = true })
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, vim.tbl_extend('force', opts, { desc = 'Go to declaration' }))
     vim.keymap.set('n', 'gd', function() require("telescope.builtin").lsp_definitions() end,
       vim.tbl_extend('force', opts, { desc = 'Go to definition' }))
@@ -35,5 +37,18 @@ vim.api.nvim_create_autocmd('LspAttach', {
       vim.tbl_extend('force', opts, { desc = 'Code action' }))
     vim.keymap.set('n', 'gr', function() require("telescope.builtin").lsp_references() end,
       vim.tbl_extend('force', opts, { desc = 'Go to references' }))
+    -- server capability detection and autocommands
+    local client = assert(vim.lsp.get_client_by_id(event.data.client_id))
+    -- Auto-format ("lint") on save.
+    -- Usually not needed if server supports "textDocument/willSaveWaitUntil".
+    if not client:supports_method('textDocument/willSaveWaitUntil')
+        and client:supports_method('textDocument/formatting') then
+      vim.api.nvim_create_autocmd('BufWritePre', vim.tbl_extend('force', base, {
+        group = vim.api.nvim_create_augroup(userLsp, { clear = false }),
+        callback = function()
+          vim.lsp.buf.format({ bufnr = event.buf, id = client.id, timeout_ms = 1000 })
+        end,
+      }))
+    end
   end,
 })

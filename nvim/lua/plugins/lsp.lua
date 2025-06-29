@@ -9,14 +9,6 @@ return {
       lspconfig.biome.setup {
         root_markers = { "biome.json", "biome.jsonc" },
         workspace_required = true,
-        on_attach = function(client, bufnr)
-          vim.api.nvim_create_autocmd("BufWritePre", {
-            buffer = bufnr,
-            callback = function()
-              vim.lsp.buf.format { async = false }
-            end,
-          })
-        end,
       }
 
       lspconfig.eslint.setup {
@@ -25,12 +17,14 @@ return {
         on_attach = function(client, bufnr)
           vim.api.nvim_create_autocmd("BufWritePre", {
             buffer = bufnr,
+            -- eslint uses a special command to format, boo
             command = "EslintFixAll",
           })
         end,
       }
 
       lspconfig.golangci_lint_ls.setup {}
+
       lspconfig.gopls.setup {
         on_attach = function(client, bufnr)
           vim.api.nvim_create_autocmd("BufWritePre", {
@@ -57,32 +51,12 @@ return {
           })
         end
       }
+
       lspconfig.jsonls.setup {
         settings = {
           json = {
             schemas = schemas.json.schemas(),
             validate = { enable = true },
-          },
-        },
-      }
-      lspconfig.ruby_lsp.setup {}
-      lspconfig.terraformls.setup {
-        filetypes = { 'terraform', 'tf' }
-      }
-      lspconfig.tflint.setup {
-        filetypes = { 'terraform', 'tf' },
-      }
-      lspconfig.yamlls.setup {
-        settings = {
-          yaml = {
-            schemaStore = {
-              -- You must disable built-in schemaStore support if you want to use
-              -- this plugin and its advanced options like `ignore`.
-              enable = false,
-              -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
-              url = "",
-            },
-            schemas = schemas.yaml.schemas(),
           },
         },
       }
@@ -102,14 +76,31 @@ return {
             },
           },
         },
-        on_attach = function(client, bufnr)
-          vim.api.nvim_create_autocmd("BufWritePre", {
-            buffer = bufnr,
-            callback = function()
-              vim.lsp.buf.format { async = false }
-            end,
-          })
-        end,
+      }
+
+      lspconfig.ruby_lsp.setup {}
+
+      lspconfig.terraformls.setup {
+        filetypes = { 'terraform', 'tf' }
+      }
+
+      lspconfig.tflint.setup {
+        filetypes = { 'terraform', 'tf' },
+      }
+
+      lspconfig.yamlls.setup {
+        settings = {
+          yaml = {
+            schemaStore = {
+              -- You must disable built-in schemaStore support if you want to use
+              -- this plugin and its advanced options like `ignore`.
+              enable = false,
+              -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
+              url = "",
+            },
+            schemas = schemas.yaml.schemas(),
+          },
+        },
       }
 
       lspconfig.ts_ls.setup {
