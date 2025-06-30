@@ -113,7 +113,23 @@ return {
             includeAutomaticOptionalChainCompletions = true,
             includeCompletionsWithInsertText = true,
           }
-        }
+        },
+        on_attach = function(client, bufnr)
+          -- Check if eslint or biome is also attached to this buffer
+          local formatter_active = false
+          for _, c in pairs(vim.lsp.get_clients({ bufnr = bufnr })) do
+            if c.name == "eslint" or c.name == "biome" then
+              formatter_active = true
+              break
+            end
+          end
+          
+          -- Disable ts_ls formatting only if eslint or biome is present
+          if formatter_active then
+            client.server_capabilities.documentFormattingProvider = false
+            client.server_capabilities.documentRangeFormattingProvider = false
+          end
+        end
       }
     end,
   },
