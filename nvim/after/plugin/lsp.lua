@@ -46,7 +46,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
       vim.api.nvim_create_autocmd('BufWritePre', vim.tbl_extend('force', base, {
         group = vim.api.nvim_create_augroup(userLsp, { clear = false }),
         callback = function()
-          vim.lsp.buf.format({ bufnr = event.buf, id = client.id, timeout_ms = 1000 })
+          -- Only format if this client still has formatting capabilities
+          if client.server_capabilities.documentFormattingProvider then
+            vim.lsp.buf.format({ bufnr = event.buf, id = client.id, timeout_ms = 1000 })
+          end
         end,
       }))
     end

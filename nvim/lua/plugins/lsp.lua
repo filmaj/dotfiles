@@ -115,20 +115,23 @@ return {
           }
         },
         on_attach = function(client, bufnr)
-          -- Check if eslint or biome is also attached to this buffer
-          local formatter_active = false
-          for _, c in pairs(vim.lsp.get_clients({ bufnr = bufnr })) do
-            if c.name == "eslint" or c.name == "biome" then
-              formatter_active = true
-              break
+          -- Create a timer to defer the formatting capability check
+          -- This ensures all LSP clients have attached before we decide
+          vim.defer_fn(function()
+            local formatter_active = false
+            for _, c in pairs(vim.lsp.get_clients({ bufnr = bufnr })) do
+              if c.name == "eslint" or c.name == "biome" then
+                formatter_active = true
+                break
+              end
             end
-          end
-          
-          -- Disable ts_ls formatting only if eslint or biome is present
-          if formatter_active then
-            client.server_capabilities.documentFormattingProvider = false
-            client.server_capabilities.documentRangeFormattingProvider = false
-          end
+            
+            -- Disable ts_ls formatting only if eslint or biome is present
+            if formatter_active then
+              client.server_capabilities.documentFormattingProvider = false
+              client.server_capabilities.documentRangeFormattingProvider = false
+            end
+          end, 100) -- 100ms delay to allow other LSPs to attach
         end
       }
     end,
