@@ -16,7 +16,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup(userLsp, {}),
   callback = function(event)
     -- Buffer local mappings
-    local base = {buffer = event.buf}
+    local base = { buffer = event.buf }
     local opts = vim.tbl_extend('force', base, { noremap = true, silent = true })
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, vim.tbl_extend('force', opts, { desc = 'Go to declaration' }))
     vim.keymap.set('n', 'gd', function() require("telescope.builtin").lsp_definitions() end,
@@ -47,7 +47,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup(userLsp, { clear = false }),
         callback = function()
           -- Only format if this client still has formatting capabilities
-          if client.server_capabilities.documentFormattingProvider then
+          if client.server_capabilities.documentFormattingProvider or client.name == "biome" then
             vim.lsp.buf.format({ bufnr = event.buf, id = client.id, timeout_ms = 1000 })
           end
         end,
