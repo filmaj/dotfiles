@@ -39,17 +39,27 @@ return {
         }
       end
 
-      lspconfig.eslint.setup {
-        root_markers = { ".eslintrc.json", ".eslintrc.js", "eslint.config.json" },
-        workspace_required = true,
-        on_attach = function(client, bufnr)
-          vim.api.nvim_create_autocmd("BufWritePre", {
-            buffer = bufnr,
-            -- eslint uses a special command to format, boo
-            command = "EslintFixAll",
-          })
-        end,
-      }
+      -- Configure eslint with project-specific binary detection
+      local eslint_cmd = find_project_binary("eslint")
+      if eslint_cmd then
+        lspconfig.eslint.setup {
+          cmd = { "vscode-eslint-language-server", "--stdio" },
+          settings = {
+            eslint = {
+              nodePath = vim.fn.fnamemodify(eslint_cmd, ":h:h"), -- node_modules directory
+            }
+          },
+          root_markers = { ".eslintrc.json", ".eslintrc.js", "eslint.config.json" },
+          workspace_required = true,
+          on_attach = function(client, bufnr)
+            vim.api.nvim_create_autocmd("BufWritePre", {
+              buffer = bufnr,
+              -- eslint uses a special command to format, boo
+              command = "EslintFixAll",
+            })
+          end,
+        }
+      end
 
       lspconfig.golangci_lint_ls.setup {}
 
