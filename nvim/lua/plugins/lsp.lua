@@ -6,10 +6,38 @@ return {
       local lspconfig = require("lspconfig")
       local schemas = require('schemastore')
 
-      lspconfig.biome.setup {
-        root_markers = { "biome.json", "biome.jsonc" },
-        workspace_required = true,
-      }
+      -- Helper function to find local project binary
+      local function find_project_binary(binary_name)
+        -- Check common local paths in order of preference
+        local paths_to_check = {
+          "./node_modules/.bin/" .. binary_name,
+          "./.bin/" .. binary_name,
+          "./bin/" .. binary_name,
+        }
+
+        for _, path in ipairs(paths_to_check) do
+          if vim.fn.executable(path) == 1 then
+            return vim.fn.fnamemodify(path, ":p") -- Return absolute path
+          end
+        end
+
+        -- Fall back to system/Mason binary
+        if vim.fn.executable(binary_name) == 1 then
+          return binary_name
+        end
+
+        return nil
+      end
+
+      -- Configure biome with project-specific binary detection
+      local biome_cmd = find_project_binary("biome")
+      if biome_cmd then
+        lspconfig.biome.setup {
+          cmd = { biome_cmd, "lsp-proxy" },
+          root_markers = { "biome.json", "biome.jsonc" },
+          workspace_required = true,
+        }
+      end
 
       lspconfig.eslint.setup {
         root_markers = { ".eslintrc.json", ".eslintrc.js", "eslint.config.json" },
