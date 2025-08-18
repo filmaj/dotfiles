@@ -15,7 +15,7 @@
 [credential]
   helper = osxkeychain
 [delta]
-  features = arctic-fox
+  features = tangara-chilensis
   hyperlinks = true
   line-numbers = true
   line-numbers-left-format = "{nm:^4}┊"
