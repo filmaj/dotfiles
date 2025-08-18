@@ -34,8 +34,15 @@ return {
       if biome_cmd then
         lspconfig.biome.setup {
           cmd = { biome_cmd, "lsp-proxy" },
-          root_markers = { "biome.json", "biome.jsonc" },
-          workspace_required = true,
+          root_dir = lspconfig.util.root_pattern("biome.json", "biome.jsonc"),
+          single_file_support = false,
+          on_attach = function(client, bufnr)
+            -- Force enable formatting for biome since it should support it
+            if client.name == "biome" then
+              client.server_capabilities.documentFormattingProvider = true
+              client.server_capabilities.documentRangeFormattingProvider = true
+            end
+          end,
         }
       end
 
