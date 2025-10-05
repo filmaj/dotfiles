@@ -32,7 +32,7 @@ return {
       -- Configure biome with project-specific binary detection
       local biome_cmd = find_project_binary("biome")
       if biome_cmd then
-        lspconfig.biome.setup {
+        vim.lsp.config('biome', {
           cmd = { biome_cmd, "lsp-proxy" },
           root_dir = lspconfig.util.root_pattern("biome.json", "biome.jsonc"),
           single_file_support = false,
@@ -43,13 +43,14 @@ return {
               client.server_capabilities.documentRangeFormattingProvider = true
             end
           end,
-        }
+        })
+        vim.lsp.enable('biome')
       end
 
       -- Configure eslint with project-specific binary detection
       local eslint_cmd = find_project_binary("eslint")
       if eslint_cmd then
-        lspconfig.eslint.setup {
+        vim.lsp.config('eslint', {
           cmd = { "vscode-eslint-language-server", "--stdio" },
           settings = {
             eslint = {
@@ -65,12 +66,14 @@ return {
               command = "EslintFixAll",
             })
           end,
-        }
+        })
+        vim.lsp.enable('eslint')
       end
 
-      lspconfig.golangci_lint_ls.setup {}
+      vim.lsp.config('golangci_lint_ls', {})
+      vim.lsp.enable('golangci_lint_ls')
 
-      lspconfig.gopls.setup {
+      vim.lsp.config('gopls', {
         on_attach = function(client, bufnr)
           vim.api.nvim_create_autocmd("BufWritePre", {
             buffer = bufnr,
@@ -95,18 +98,20 @@ return {
             end,
           })
         end
-      }
+      })
+      vim.lsp.enable('gopls')
 
-      lspconfig.jsonls.setup {
+      vim.lsp.config('jsonls', {
         settings = {
           json = {
             schemas = schemas.json.schemas(),
             validate = { enable = true },
           },
         },
-      }
+      })
+      vim.lsp.enable('jsonls')
 
-      lspconfig.lua_ls.setup {
+      vim.lsp.config('lua_ls', {
         settings = {
           Lua = {
             diagnostics = {
@@ -121,19 +126,23 @@ return {
             },
           },
         },
-      }
+      })
+      vim.lsp.enable('lua_ls')
 
-      lspconfig.ruby_lsp.setup {}
+      vim.lsp.config('ruby_lsp', {})
+      vim.lsp.enable('ruby_lsp')
 
-      lspconfig.terraformls.setup {
+      vim.lsp.config('terraformls', {
         filetypes = { 'terraform', 'tf' }
-      }
+      })
+      vim.lsp.enable('terraformls')
 
-      lspconfig.tflint.setup {
+      vim.lsp.config('tflint', {
         filetypes = { 'terraform', 'tf' },
-      }
+      })
+      vim.lsp.enable('tflint')
 
-      lspconfig.yamlls.setup {
+      vim.lsp.config('yamlls', {
         settings = {
           yaml = {
             schemaStore = {
@@ -146,9 +155,10 @@ return {
             schemas = schemas.yaml.schemas(),
           },
         },
-      }
+      })
+      vim.lsp.enable('yamlls')
 
-      lspconfig.ts_ls.setup {
+      vim.lsp.config('ts_ls', {
         root_markers = { "package.json", "tsconfig.json", "jsconfig.json" },
         workspace_required = true,
         init_options = {
@@ -170,7 +180,7 @@ return {
                 break
               end
             end
-            
+
             -- Disable ts_ls formatting only if eslint or biome is present
             if formatter_active then
               client.server_capabilities.documentFormattingProvider = false
@@ -178,7 +188,8 @@ return {
             end
           end, 100) -- 100ms delay to allow other LSPs to attach
         end
-      }
+      })
+      vim.lsp.enable('ts_ls')
     end,
   },
   {
