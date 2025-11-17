@@ -39,12 +39,12 @@ vim.api.nvim_create_autocmd('LspAttach', {
       vim.tbl_extend('force', opts, { desc = 'Go to references' }))
     -- server capability detection and autocommands
     local client = assert(vim.lsp.get_client_by_id(event.data.client_id))
-    
+
     -- Auto-format ("lint") on save.
     -- Usually not needed if server supports "textDocument/willSaveWaitUntil".
     -- Special case for biome: always set up formatting since we force capabilities
     if (not client:supports_method('textDocument/willSaveWaitUntil')
-        and client:supports_method('textDocument/formatting')) 
+          and client:supports_method('textDocument/formatting'))
         or client.name == "biome" then
       vim.api.nvim_create_autocmd('BufWritePre', vim.tbl_extend('force', base, {
         group = vim.api.nvim_create_augroup(userLsp, { clear = false }),

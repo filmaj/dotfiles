@@ -29,23 +29,24 @@ return {
         return nil
       end
 
-      -- Configure biome with project-specific binary detection
-      local biome_cmd = find_project_binary("biome")
-      if biome_cmd then
-        vim.lsp.config('biome', {
-          cmd = { biome_cmd, "lsp-proxy" },
-          root_dir = lspconfig.util.root_pattern("biome.json", "biome.jsonc"),
-          single_file_support = false,
-          on_attach = function(client, bufnr)
-            -- Force enable formatting for biome since it should support it
-            if client.name == "biome" then
-              client.server_capabilities.documentFormattingProvider = true
-              client.server_capabilities.documentRangeFormattingProvider = true
-            end
-          end,
-        })
-        vim.lsp.enable('biome')
-      end
+      -- Configure biome with dynamic project-specific binary detection
+      vim.lsp.config('biome', {
+        -- Use a shell command to dynamically find biome per-project
+        -- When LSP starts, cwd will be root_dir, so relative paths work correctly
+        cmd = vim.fn.has('win32') == 1
+          and { 'cmd.exe', '/C', 'node_modules\\.bin\\biome.cmd lsp-proxy || biome lsp-proxy' }
+          or { 'sh', '-c', 'if [ -x node_modules/.bin/biome ]; then exec node_modules/.bin/biome lsp-proxy; else exec biome lsp-proxy; fi' },
+        root_markers = { 'biome.json', 'biome.jsonc' },
+        single_file_support = false,
+        on_attach = function(client, bufnr)
+          -- Force enable formatting for biome since it should support it
+          if client.name == "biome" then
+            client.server_capabilities.documentFormattingProvider = true
+            client.server_capabilities.documentRangeFormattingProvider = true
+          end
+        end,
+      })
+      vim.lsp.enable('biome')
 
       -- Configure eslint with project-specific binary detection
       local eslint_cmd = find_project_binary("eslint")
