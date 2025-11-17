@@ -80,4 +80,16 @@ return {
       { "ih",          function() require('gitsigns').select_hunk() end,                                      desc = "Select hunk",              mode = { "o", "x" } },
     },
   },
+  {
+    "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
+    ---@type snacks.Config
+    opts = {
+      gitbrowse = { enable = true },
+    },
+    keys = {
+      { "<leader>go", function() Snacks.gitbrowse.open() end, desc = "Open in GitHub", mode = { "n", "v" } },
+    },
+  }
 }
