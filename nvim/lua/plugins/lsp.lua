@@ -267,8 +267,11 @@ return {
     "pmizio/typescript-tools.nvim",
     dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
     opts = {
-      on_attach = function()
+      on_attach = function(client, bufnr)
         vim.keymap.set('n', '<leader>rf', "<cmd>TSToolsRenameFile<cr>", { desc = 'Rename file' })
+        -- Disable formatting to let biome/eslint handle it
+        client.server_capabilities.documentFormattingProvider = false
+        client.server_capabilities.documentRangeFormattingProvider = false
       end
     },
   },
