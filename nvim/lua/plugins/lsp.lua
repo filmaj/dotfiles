@@ -3,7 +3,6 @@ return {
     "neovim/nvim-lspconfig",
     dependencies = { "b0o/schemastore.nvim", },
     config = function()
-      local lspconfig = require("lspconfig")
       local schemas = require('schemastore')
 
       -- Helper function to find local project binary
@@ -34,8 +33,10 @@ return {
         -- Use a shell command to dynamically find biome per-project
         -- When LSP starts, cwd will be root_dir, so relative paths work correctly
         cmd = vim.fn.has('win32') == 1
-          and { 'cmd.exe', '/C', 'node_modules\\.bin\\biome.cmd lsp-proxy || biome lsp-proxy' }
-          or { 'sh', '-c', 'if [ -x node_modules/.bin/biome ]; then exec node_modules/.bin/biome lsp-proxy; else exec biome lsp-proxy; fi' },
+            and { 'cmd.exe', '/C', 'node_modules\\.bin\\biome.cmd lsp-proxy || biome lsp-proxy' }
+            or
+            { 'sh', '-c',
+              'if [ -x node_modules/.bin/biome ]; then exec node_modules/.bin/biome lsp-proxy; else exec biome lsp-proxy; fi' },
         root_markers = { 'biome.json', 'biome.jsonc' },
         single_file_support = false,
         on_attach = function(client, bufnr)
@@ -159,38 +160,39 @@ return {
       })
       vim.lsp.enable('yamlls')
 
-      vim.lsp.config('ts_ls', {
-        root_markers = { "package.json", "tsconfig.json", "jsconfig.json" },
-        workspace_required = true,
-        init_options = {
-          preferences = {
-            includeCompletionsForImportStatements = true,
-            includeCompletionsWithSnippetText = true,
-            includeAutomaticOptionalChainCompletions = true,
-            includeCompletionsWithInsertText = true,
-          }
-        },
-        on_attach = function(client, bufnr)
-          -- Create a timer to defer the formatting capability check
-          -- This ensures all LSP clients have attached before we decide
-          vim.defer_fn(function()
-            local formatter_active = false
-            for _, c in pairs(vim.lsp.get_clients({ bufnr = bufnr })) do
-              if c.name == "eslint" or c.name == "biome" then
-                formatter_active = true
-                break
-              end
-            end
-
-            -- Disable ts_ls formatting only if eslint or biome is present
-            if formatter_active then
-              client.server_capabilities.documentFormattingProvider = false
-              client.server_capabilities.documentRangeFormattingProvider = false
-            end
-          end, 100) -- 100ms delay to allow other LSPs to attach
-        end
-      })
-      vim.lsp.enable('ts_ls')
+      -- Typescript tools below supersedes this, keep around for now
+      -- vim.lsp.config('ts_ls', {
+      --   root_markers = { "package.json", "tsconfig.json", "jsconfig.json" },
+      --   workspace_required = true,
+      --   init_options = {
+      --     preferences = {
+      --       includeCompletionsForImportStatements = true,
+      --       includeCompletionsWithSnippetText = true,
+      --       includeAutomaticOptionalChainCompletions = true,
+      --       includeCompletionsWithInsertText = true,
+      --     }
+      --   },
+      --   on_attach = function(client, bufnr)
+      --     -- Create a timer to defer the formatting capability check
+      --     -- This ensures all LSP clients have attached before we decide
+      --     vim.defer_fn(function()
+      --       local formatter_active = false
+      --       for _, c in pairs(vim.lsp.get_clients({ bufnr = bufnr })) do
+      --         if c.name == "eslint" or c.name == "biome" then
+      --           formatter_active = true
+      --           break
+      --         end
+      --       end
+      --
+      --       -- Disable ts_ls formatting only if eslint or biome is present
+      --       if formatter_active then
+      --         client.server_capabilities.documentFormattingProvider = false
+      --         client.server_capabilities.documentRangeFormattingProvider = false
+      --       end
+      --     end, 100) -- 100ms delay to allow other LSPs to attach
+      --   end
+      -- })
+      -- vim.lsp.enable('ts_ls')
     end,
   },
   {
@@ -259,6 +261,15 @@ return {
         "<cmd>Trouble diagnostics toggle filter.buf=0 win={type=float,size={height=10,width=0.8},position={0.1, 0.1},border=rounded}<cr>",
         desc = "Buffer Diagnostics (Trouble)",
       },
+    },
+  },
+  {
+    "pmizio/typescript-tools.nvim",
+    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+    opts = {
+      on_attach = function()
+        vim.keymap.set('n', '<leader>rf', "<cmd>TSToolsRenameFile<cr>", { desc = 'Rename file' })
+      end
     },
   },
 }
