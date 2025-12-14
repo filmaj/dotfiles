@@ -16,6 +16,10 @@ return {
         bind_to_cwd = false,
         filtered_items = {
           hide_dotfiles = false,
+          hide_gitignored = false,
+          hide_hidden = false, -- Only works on Windows
+          hide_by_name = {},
+          never_show = {},
         },
         hijack_netrw_behavior = "open_current",
       },

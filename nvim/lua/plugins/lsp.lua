@@ -5,6 +5,25 @@ return {
     config = function()
       local schemas = require('schemastore')
 
+      -- Formatter Precedence Strategy:
+      -- For TypeScript/JavaScript files, formatting is handled in this order:
+      --   1. Biome (if biome.json/biome.jsonc exists) - fastest, handles both linting and formatting
+      --   2. ESLint (if .eslintrc exists and Biome not present) - formatting via EslintFixAll
+      --   3. TypeScript-tools explicitly disables formatting to avoid conflicts
+      -- For other languages, native LSP formatting is used (gopls, ruby_lsp, etc.)
+
+      -- Helper function to safely enable LSP with error handling
+      local function safe_lsp_enable(server_name)
+        local success, err = pcall(vim.lsp.enable, server_name)
+        if not success then
+          vim.notify(
+            string.format("Failed to enable LSP server '%s': %s", server_name, err),
+            vim.log.levels.ERROR
+          )
+        end
+        return success
+      end
+
       -- Helper function to find local project binary
       local function find_project_binary(binary_name)
         -- Check common local paths in order of preference
@@ -47,33 +66,26 @@ return {
           end
         end,
       })
-      vim.lsp.enable('biome')
+      safe_lsp_enable('biome')
 
-      -- Configure eslint with project-specific binary detection
-      local eslint_cmd = find_project_binary("eslint")
-      if eslint_cmd then
-        vim.lsp.config('eslint', {
-          cmd = { "vscode-eslint-language-server", "--stdio" },
-          settings = {
-            eslint = {
-              nodePath = vim.fn.fnamemodify(eslint_cmd, ":h:h"), -- node_modules directory
-            }
-          },
-          root_markers = { ".eslintrc.json", ".eslintrc.js", "eslint.config.json" },
-          workspace_required = true,
-          on_attach = function(client, bufnr)
-            vim.api.nvim_create_autocmd("BufWritePre", {
-              buffer = bufnr,
-              -- eslint uses a special command to format, boo
-              command = "EslintFixAll",
-            })
-          end,
-        })
-        vim.lsp.enable('eslint')
-      end
+      -- Configure eslint - language server will find eslint binary per-project
+      -- The vscode-eslint-language-server is smart enough to locate eslint in the project's node_modules
+      vim.lsp.config('eslint', {
+        cmd = { "vscode-eslint-language-server", "--stdio" },
+        root_markers = { ".eslintrc.json", ".eslintrc.js", "eslint.config.json", ".eslintrc.cjs", "eslint.config.js", "eslint.config.mjs" },
+        single_file_support = false,
+        on_attach = function(client, bufnr)
+          vim.api.nvim_create_autocmd("BufWritePre", {
+            buffer = bufnr,
+            -- eslint uses a special command to format, boo
+            command = "EslintFixAll",
+          })
+        end,
+      })
+      safe_lsp_enable('eslint')
 
       vim.lsp.config('golangci_lint_ls', {})
-      vim.lsp.enable('golangci_lint_ls')
+      safe_lsp_enable('golangci_lint_ls')
 
       vim.lsp.config('gopls', {
         on_attach = function(client, bufnr)
@@ -101,7 +113,7 @@ return {
           })
         end
       })
-      vim.lsp.enable('gopls')
+      safe_lsp_enable('gopls')
 
       vim.lsp.config('jsonls', {
         settings = {
@@ -111,7 +123,7 @@ return {
           },
         },
       })
-      vim.lsp.enable('jsonls')
+      safe_lsp_enable('jsonls')
 
       vim.lsp.config('lua_ls', {
         settings = {
@@ -129,20 +141,20 @@ return {
           },
         },
       })
-      vim.lsp.enable('lua_ls')
+      safe_lsp_enable('lua_ls')
 
       vim.lsp.config('ruby_lsp', {})
-      vim.lsp.enable('ruby_lsp')
+      safe_lsp_enable('ruby_lsp')
 
       vim.lsp.config('terraformls', {
         filetypes = { 'terraform', 'tf' }
       })
-      vim.lsp.enable('terraformls')
+      safe_lsp_enable('terraformls')
 
       vim.lsp.config('tflint', {
         filetypes = { 'terraform', 'tf' },
       })
-      vim.lsp.enable('tflint')
+      safe_lsp_enable('tflint')
 
       vim.lsp.config('yamlls', {
         settings = {
@@ -158,41 +170,7 @@ return {
           },
         },
       })
-      vim.lsp.enable('yamlls')
-
-      -- Typescript tools below supersedes this, keep around for now
-      -- vim.lsp.config('ts_ls', {
-      --   root_markers = { "package.json", "tsconfig.json", "jsconfig.json" },
-      --   workspace_required = true,
-      --   init_options = {
-      --     preferences = {
-      --       includeCompletionsForImportStatements = true,
-      --       includeCompletionsWithSnippetText = true,
-      --       includeAutomaticOptionalChainCompletions = true,
-      --       includeCompletionsWithInsertText = true,
-      --     }
-      --   },
-      --   on_attach = function(client, bufnr)
-      --     -- Create a timer to defer the formatting capability check
-      --     -- This ensures all LSP clients have attached before we decide
-      --     vim.defer_fn(function()
-      --       local formatter_active = false
-      --       for _, c in pairs(vim.lsp.get_clients({ bufnr = bufnr })) do
-      --         if c.name == "eslint" or c.name == "biome" then
-      --           formatter_active = true
-      --           break
-      --         end
-      --       end
-      --
-      --       -- Disable ts_ls formatting only if eslint or biome is present
-      --       if formatter_active then
-      --         client.server_capabilities.documentFormattingProvider = false
-      --         client.server_capabilities.documentRangeFormattingProvider = false
-      --       end
-      --     end, 100) -- 100ms delay to allow other LSPs to attach
-      --   end
-      -- })
-      -- vim.lsp.enable('ts_ls')
+      safe_lsp_enable('yamlls')
     end,
   },
   {
@@ -269,7 +247,8 @@ return {
     opts = {
       on_attach = function(client, bufnr)
         vim.keymap.set('n', '<leader>rf', "<cmd>TSToolsRenameFile<cr>", { desc = 'Rename file' })
-        -- Disable formatting to let biome/eslint handle it
+        -- Disable formatting to let biome/eslint handle it (see Formatter Precedence Strategy above)
+        -- TypeScript-tools provides LSP features (completions, diagnostics) but not formatting
         client.server_capabilities.documentFormattingProvider = false
         client.server_capabilities.documentRangeFormattingProvider = false
       end

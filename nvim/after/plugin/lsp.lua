@@ -1,5 +1,5 @@
 -- Global diagnostic keymaps
-vim.keymap.set('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>', { desc = "Next diagnostic" })
+vim.keymap.set('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>', { desc = "Prev diagnostic" })
 vim.keymap.set('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>', { desc = "Next diagnostic" })
 
 -- Configure floating window borders
