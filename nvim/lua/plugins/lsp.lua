@@ -1,7 +1,18 @@
 return {
   {
+    "folke/lazydev.nvim",
+    ft = "lua",
+    opts = {
+      library = {
+        -- Load lazy.nvim and all plugins in data directory lazily on-demand
+        { path = "lazy.nvim", words = { "Lazy" } },
+        { path = vim.fn.stdpath("data") .. "/lazy", words = { "opts", "config", "setup" } },
+      },
+    },
+  },
+  {
     "neovim/nvim-lspconfig",
-    dependencies = { "b0o/schemastore.nvim", },
+    dependencies = { "b0o/schemastore.nvim", "folke/lazydev.nvim" },
     config = function()
       local schemas = require('schemastore')
 
@@ -126,17 +137,30 @@ return {
       safe_lsp_enable('jsonls')
 
       vim.lsp.config('lua_ls', {
+        root_markers = { '.luarc.json', '.luarc.jsonc', '.luacheckrc', '.stylua.toml', 'stylua.toml', 'selene.toml', 'selene.yml', '.git' },
+        on_new_config = function(config, root_dir)
+          -- Don't start LSP in lazy plugin directories
+          if root_dir:match("/lazy/") or root_dir:match("/site/pack/") then
+            return false
+          end
+        end,
         settings = {
           Lua = {
+            runtime = {
+              version = 'LuaJIT'
+            },
             diagnostics = {
               globals = { 'vim' }
             },
             workspace = {
-              library = vim.api.nvim_get_runtime_file("", true),
-              checkThirdParty = false
+              -- lazydev.nvim will dynamically add plugin libraries on-demand
+              checkThirdParty = false,
             },
             telemetry = {
               enable = false,
+            },
+            completion = {
+              callSnippet = "Replace"
             },
           },
         },
@@ -190,9 +214,20 @@ return {
   {
     'saghen/blink.cmp',
     version = '1.*',
+    dependencies = { "folke/lazydev.nvim" },
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
     opts = {
+      sources = {
+        default = { 'lsp', 'path', 'snippets', 'buffer', 'lazydev' },
+        providers = {
+          lazydev = {
+            name = "LazyDev",
+            module = "lazydev.integrations.blink",
+            score_offset = 100, -- Prioritize lazydev completions
+          },
+        },
+      },
       keymap = {
         preset = 'enter',
       },
