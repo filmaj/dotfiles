@@ -89,7 +89,66 @@ return {
       gitbrowse = { enable = true },
     },
     keys = {
-      { "<leader>go", function() Snacks.gitbrowse.open() end, desc = "Open in GitHub", mode = { "n", "v" } },
+      {
+        "<leader>go",
+        function()
+          -- Check if current branch exists on remote, fallback to default branch if not
+          local current_branch = vim.fn.system("git rev-parse --abbrev-ref HEAD"):gsub("%s+", "")
+
+          -- Check if branch exists on origin remote
+          local remote_check = vim.fn.system("git ls-remote --heads origin " .. current_branch)
+          local branch_exists_on_remote = remote_check ~= ""
+
+          local opts = {
+            notify = false,
+            what = "file",
+          }
+
+          -- If branch doesn't exist on remote, use default branch instead
+          if not branch_exists_on_remote then
+            -- Auto-detect default branch
+            local default_branch = nil
+
+            -- Try to get default branch from symbolic-ref
+            local symbolic_ref = vim.fn.system("git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null"):gsub("%s+", "")
+            if vim.v.shell_error == 0 and symbolic_ref ~= "" then
+              -- Extract branch name from refs/remotes/origin/main -> main
+              default_branch = symbolic_ref:match("refs/remotes/origin/(.+)")
+            end
+
+            -- Fallback: check if main or master exists on remote
+            if not default_branch then
+              local main_check = vim.fn.system("git ls-remote --heads origin main")
+              if main_check ~= "" then
+                default_branch = "main"
+              else
+                local master_check = vim.fn.system("git ls-remote --heads origin master")
+                if master_check ~= "" then
+                  default_branch = "master"
+                end
+              end
+            end
+
+            if default_branch then
+              opts.branch = default_branch
+              vim.notify(
+                string.format("Branch '%s' not on remote, using '%s' instead", current_branch, default_branch),
+                vim.log.levels.INFO
+              )
+            else
+              vim.notify(
+                string.format("Branch '%s' not on remote and couldn't detect default branch", current_branch),
+                vim.log.levels.WARN
+              )
+            end
+          end
+
+          Snacks.gitbrowse.open(opts)
+        end,
+        desc = "Open in GitHub",
+        mode = { "n", "v" }
+      },
     },
-  }
+  },
+  { 'akinsho/git-conflict.nvim', version = "*", config = true }
 }
