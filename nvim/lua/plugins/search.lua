@@ -34,7 +34,8 @@ return {
     opts = function()
       local actions = require("telescope.actions")
       local keymap_overrides = {
-        ["<C-s>"] = actions.select_horizontal
+        ["<C-s>"] = actions.select_horizontal,
+        ["<kEnter>"] = actions.select_default,  -- Support numpad Enter key
       }
       return {
         defaults = {
