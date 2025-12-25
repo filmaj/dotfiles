@@ -5,6 +5,8 @@ export ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="spaceship"
 # Other theme related options
 SPACESHIP_TIME_SHOW=true
+SPACESHIP_BATTERY_SHOW=false
+SPACESHIP_GCLOUD_SHOW=false
 export BAT_THEME="Nord"
 export LS_COLORS="di=34;40:ln=36;40:so=35;40:pi=33;40:ex=32;40:bd=1;33;40:cd=1;33;40:su=0;41:sg=0;43:tw=0;42:ow=34;40:"
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
