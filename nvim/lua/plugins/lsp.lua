@@ -5,7 +5,7 @@ return {
     opts = {
       library = {
         -- Load lazy.nvim and all plugins in data directory lazily on-demand
-        { path = "lazy.nvim", words = { "Lazy" } },
+        { path = "lazy.nvim",                       words = { "Lazy" } },
         { path = vim.fn.stdpath("data") .. "/lazy", words = { "opts", "config", "setup" } },
       },
     },
@@ -33,29 +33,6 @@ return {
           )
         end
         return success
-      end
-
-      -- Helper function to find local project binary
-      local function find_project_binary(binary_name)
-        -- Check common local paths in order of preference
-        local paths_to_check = {
-          "./node_modules/.bin/" .. binary_name,
-          "./.bin/" .. binary_name,
-          "./bin/" .. binary_name,
-        }
-
-        for _, path in ipairs(paths_to_check) do
-          if vim.fn.executable(path) == 1 then
-            return vim.fn.fnamemodify(path, ":p") -- Return absolute path
-          end
-        end
-
-        -- Fall back to system/Mason binary
-        if vim.fn.executable(binary_name) == 1 then
-          return binary_name
-        end
-
-        return nil
       end
 
       -- Configure biome with dynamic project-specific binary detection
@@ -167,6 +144,13 @@ return {
       })
       safe_lsp_enable('lua_ls')
 
+      -- may need to install using nix, see repo readme for nix command to do so: https://github.com/oxalica/nil
+      vim.lsp.config('nil', {
+        cmd = { 'nil' },
+        filetypes = { 'nix' },
+      })
+      safe_lsp_enable('nil')
+
       vim.lsp.config('ruby_lsp', {})
       safe_lsp_enable('ruby_lsp')
 
@@ -202,7 +186,7 @@ return {
   },
   {
     "williamboman/mason.nvim",
-    tag = "v2.0.0",
+    tag = "v2.2.1",
     lazy = false,
     opts = {
       ui = {
