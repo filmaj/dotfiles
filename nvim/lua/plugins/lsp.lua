@@ -56,6 +56,12 @@ return {
       })
       safe_lsp_enable('biome')
 
+      vim.lsp.config('deps-lsp', {
+        cmd = { "deps-lsp", "--stdio" },
+        filetypes = { "toml", "json", "mod" },
+      })
+      safe_lsp_enable('deps-lsp')
+
       -- Configure eslint - language server will find eslint binary per-project
       -- The vscode-eslint-language-server is smart enough to locate eslint in the project's node_modules
       vim.lsp.config('eslint', {
