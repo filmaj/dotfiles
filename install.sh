@@ -54,6 +54,8 @@ mkdir -p ~/.config
 ln -snf "$mypath/nvim" ~/.config/nvim
 ln -snf "$mypath/.gitconfig" ~/.
 ln -snf "$mypath/themes/spaceship-zsh-theme/spaceship.zsh-theme" ~/.oh-my-zsh/themes/.
+mkdir -p "$XDG_CONFIG_HOME/ghostty"
+ln -snf "$mypath/config.ghostty" "$XDG_CONFIG_HOME/ghostty/config.ghostty"
 
 # ack for greping shiet
 test -x "$(command -v ack)" || install ack

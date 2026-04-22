@@ -1,0 +1,22 @@
+palette = 0=#222e36
+palette = 1=#922f33
+palette = 2=#7a8431
+palette = 3=#d4804d
+palette = 4=#4d6d8b
+palette = 5=#71527c
+palette = 6=#4d7b74
+palette = 7=#59676d
+palette = 8=#333f47
+palette = 9=#bf5053
+palette = 10=#a6b254
+palette = 11=#ebbb61
+palette = 12=#6f90b0
+palette = 13=#a27fac
+palette = 14=#79b2a8
+palette = 15=#b9bcba
+background = #1b2125
+foreground = #b9bcba
+cursor-color = #21ffff
+selection-background = #b9bcba
+selection-foreground = #1b2125
+font-family = SauceCodePro Nerd Font Mono
