@@ -15,8 +15,10 @@ palette = 13=#a27fac
 palette = 14=#79b2a8
 palette = 15=#b9bcba
 background = #1b2125
-foreground = #b9bcba
-cursor-color = #21ffff
-selection-background = #b9bcba
+foreground = #dcdedd
+selection-background = #dcdedd
 selection-foreground = #1b2125
+cursor-color = #21ffff
+cursor-style = block
 font-family = SauceCodePro Nerd Font Mono
+fullscreen = true
