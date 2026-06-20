@@ -1,3 +1,10 @@
+local function get_lsp_augroup(groupname, bufnr)
+  return vim.api.nvim_create_augroup(
+    "LspConfig_" .. groupname .. "_Buf" .. bufnr,
+    { clear = true }
+  )
+end
+
 return {
   {
     "folke/lazydev.nvim",
@@ -69,10 +76,29 @@ return {
         root_markers = { ".eslintrc.json", ".eslintrc.js", "eslint.config.json", ".eslintrc.cjs", "eslint.config.js", "eslint.config.mjs" },
         single_file_support = false,
         on_attach = function(client, bufnr)
-          vim.api.nvim_create_autocmd("BufWritePre", {
+          vim.api.nvim_create_autocmd("BufWritePost", {
             buffer = bufnr,
-            -- eslint uses a special command to format, boo
-            command = "EslintFixAll",
+            group = get_lsp_augroup("EslintCommand", bufnr),
+            callback = function()
+              vim.schedule(function()
+                local params = vim.lsp.util.make_range_params(0, client.offset_encoding)
+                params.context = { only = { "source.fixAll.eslint" } }
+                vim.lsp.buf_request(0, "textDocument/codeAction", params, function(_, result)
+                  if not result or vim.tbl_isempty(result) then
+                    return
+                  end
+
+                  for _, action in ipairs(result) do
+                    if action.edit then
+                      vim.lsp.util.apply_workspace_edit(action.edit, "utf-16")
+                    elseif action.command then
+                      vim.lsp.buf.execute_command(action.command)
+                    end
+                  end
+                  vim.cmd("silent! update")
+                end)
+              end)
+            end,
           })
         end,
       })
@@ -85,6 +111,7 @@ return {
         on_attach = function(client, bufnr)
           vim.api.nvim_create_autocmd("BufWritePre", {
             buffer = bufnr,
+            group = get_lsp_augroup("goplsSourceImport", bufnr),
             callback = function()
               local params = vim.lsp.util.make_range_params(0, client.offset_encoding)
               params.context = { only = { "source.organizeImports" } }
@@ -102,7 +129,6 @@ return {
                   end
                 end
               end
-              vim.lsp.buf.format({ async = false })
             end,
           })
         end
@@ -192,7 +218,6 @@ return {
   },
   {
     "williamboman/mason.nvim",
-    tag = "v2.2.1",
     lazy = false,
     opts = {
       ui = {
