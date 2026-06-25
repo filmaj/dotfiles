@@ -17,9 +17,9 @@ vim.diagnostic.config({
 })
 
 -- Use LspAttach autocommand to set up mappings and configuration
-local function get_lsp_augroup(bufnr)
+local function get_lsp_augroup(bufnr, client_name)
   return vim.api.nvim_create_augroup(
-    "AfterLspConfig_Buf" .. bufnr,
+    "AfterLspConfig_Buf" .. bufnr .. "_" .. client_name,
     { clear = true }
   )
 end
@@ -57,11 +57,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
           and client:supports_method('textDocument/formatting'))
         or client.name == "biome" then
       vim.api.nvim_create_autocmd('BufWritePre', vim.tbl_extend('force', base, {
-        group = get_lsp_augroup(event.buf),
+        group = get_lsp_augroup(event.buf, client.name),
         callback = function()
           -- Only format if this client still has formatting capabilities
           if client.server_capabilities.documentFormattingProvider or client.name == "biome" then
-            print("generic formatter")
             vim.lsp.buf.format({ bufnr = event.buf, id = client.id, timeout_ms = 1000 })
           end
         end,

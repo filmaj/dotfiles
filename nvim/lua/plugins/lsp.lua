@@ -183,6 +183,9 @@ return {
       })
       safe_lsp_enable('nil')
 
+      vim.lsp.config('oxfmt', {})
+      safe_lsp_enable('oxfmt')
+
       vim.lsp.config('ruby_lsp', {})
       safe_lsp_enable('ruby_lsp')
 
