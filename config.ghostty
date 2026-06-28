@@ -22,3 +22,4 @@ cursor-color = #21ffff
 cursor-style = block
 font-family = SauceCodePro Nerd Font Mono
 fullscreen = true
+scrollback-limit = 52428800
