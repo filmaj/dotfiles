@@ -5,6 +5,21 @@ local function get_lsp_augroup(groupname, bufnr)
   )
 end
 
+local function detect_local_ts_version()
+  local pkg_path = vim.fn.getcwd() .. "/node_modules/typescript/package.json"
+
+  local ok, content = pcall(vim.fn.readfile, pkg_path)
+
+  if ok and content and #content > 0 then
+    local decoded = vim.json.decode(table.concat(content, "\n"))
+
+    if decoded and decoded.version then
+      return tonumber(decoded.version:match("^(%d+)"))
+    end
+  end
+  return nil
+end
+
 return {
   {
     "folke/lazydev.nvim",
@@ -27,7 +42,6 @@ return {
       -- For TypeScript/JavaScript files, formatting is handled in this order:
       --   1. Biome (if biome.json/biome.jsonc exists) - fastest, handles both linting and formatting
       --   2. ESLint (if .eslintrc exists and Biome not present) - formatting via EslintFixAll
-      --   3. TypeScript-tools explicitly disables formatting to avoid conflicts
       -- For other languages, native LSP formatting is used (gopls, ruby_lsp, etc.)
 
       -- Helper function to safely enable LSP with error handling
@@ -199,6 +213,31 @@ return {
       })
       safe_lsp_enable('tflint')
 
+      local ts_version = detect_local_ts_version()
+      if ts_version and ts_version >= 7 then
+        vim.lsp.config("tsgo", {
+          cmd = function(dispatchers, config)
+            local cmd = "tsc"
+
+            if config and config.root_dir then
+              local local_cmd = vim.fs.joinpath(config.root_dir, "node_modules/.bin", cmd)
+
+              if vim.fn.executable(local_cmd) == 1 then
+                cmd = local_cmd
+              end
+            end
+
+            return vim.lsp.rpc.start({ cmd, "--lsp", "--stdio" }, dispatchers)
+          end,
+          filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact" },
+        })
+
+        vim.lsp.enable("tsgo")
+      else
+        vim.lsp.config("ts_ls", {})
+        vim.lsp.enable("ts_ls")
+      end
+
       vim.lsp.config('yamlls', {
         settings = {
           yaml = {
@@ -295,19 +334,6 @@ return {
         "<cmd>Trouble diagnostics toggle filter.buf=0 win={type=float,size={height=10,width=0.8},position={0.1, 0.1},border=rounded}<cr>",
         desc = "Buffer Diagnostics (Trouble)",
       },
-    },
-  },
-  {
-    "pmizio/typescript-tools.nvim",
-    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-    opts = {
-      on_attach = function(client, bufnr)
-        vim.keymap.set('n', '<leader>rf', "<cmd>TSToolsRenameFile<cr>", { desc = 'Rename file' })
-        -- Disable formatting to let biome/eslint handle it (see Formatter Precedence Strategy above)
-        -- TypeScript-tools provides LSP features (completions, diagnostics) but not formatting
-        client.server_capabilities.documentFormattingProvider = false
-        client.server_capabilities.documentRangeFormattingProvider = false
-      end
     },
   },
 }
