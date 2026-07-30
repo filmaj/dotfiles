@@ -216,6 +216,11 @@ return {
       local ts_version = detect_local_ts_version()
       if ts_version and ts_version >= 7 then
         vim.lsp.config("tsgo", {
+          on_attach = function(client)
+            -- Disable formatiting support using TS LSP - use formatters/linters for that.
+            client.server_capabilities.documentFormattingProvider = false
+            client.server_capabilities.documentRangeFormattingProvider = false
+          end,
           cmd = function(dispatchers, config)
             local cmd = "tsc"
 
@@ -234,7 +239,13 @@ return {
 
         vim.lsp.enable("tsgo")
       else
-        vim.lsp.config("ts_ls", {})
+        vim.lsp.config("ts_ls", {
+          on_attach = function(client)
+            -- Disable formatiting support using TS LSP - use formatters/linters for that.
+            client.server_capabilities.documentFormattingProvider = false
+            client.server_capabilities.documentRangeFormattingProvider = false
+          end
+        })
         vim.lsp.enable("ts_ls")
       end
 
