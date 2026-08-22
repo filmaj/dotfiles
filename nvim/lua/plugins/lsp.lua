@@ -1,23 +1,10 @@
+local ts_utils = require("utils.typescript")
+
 local function get_lsp_augroup(groupname, bufnr)
   return vim.api.nvim_create_augroup(
     "LspConfig_" .. groupname .. "_Buf" .. bufnr,
     { clear = true }
   )
-end
-
-local function detect_local_ts_version()
-  local pkg_path = vim.fn.getcwd() .. "/node_modules/typescript/package.json"
-
-  local ok, content = pcall(vim.fn.readfile, pkg_path)
-
-  if ok and content and #content > 0 then
-    local decoded = vim.json.decode(table.concat(content, "\n"))
-
-    if decoded and decoded.version then
-      return tonumber(decoded.version:match("^(%d+)"))
-    end
-  end
-  return nil
 end
 
 return {
@@ -213,41 +200,79 @@ return {
       })
       safe_lsp_enable('tflint')
 
-      local ts_version = detect_local_ts_version()
-      if ts_version and ts_version >= 7 then
-        vim.lsp.config("tsgo", {
-          on_attach = function(client)
-            -- Disable formatiting support using TS LSP - use formatters/linters for that.
-            client.server_capabilities.documentFormattingProvider = false
-            client.server_capabilities.documentRangeFormattingProvider = false
-          end,
-          cmd = function(dispatchers, config)
-            local cmd = "tsc"
+      vim.lsp.config("ts_native", {
+        filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact" },
+        root_dir = function(bufnr, on_dir)
+          local root_dir = ts_utils.find_ts_root(bufnr)
+          local ts = root_dir and ts_utils.get_typescript(root_dir)
 
-            if config and config.root_dir then
-              local local_cmd = vim.fs.joinpath(config.root_dir, "node_modules/.bin", cmd)
-
-              if vim.fn.executable(local_cmd) == 1 then
-                cmd = local_cmd
-              end
-            end
-
-            return vim.lsp.rpc.start({ cmd, "--lsp", "--stdio" }, dispatchers)
-          end,
-          filetypes = { "typescript", "javascript", "javascriptreact", "typescriptreact" },
-        })
-
-        vim.lsp.enable("tsgo")
-      else
-        vim.lsp.config("ts_ls", {
-          on_attach = function(client)
-            -- Disable formatiting support using TS LSP - use formatters/linters for that.
-            client.server_capabilities.documentFormattingProvider = false
-            client.server_capabilities.documentRangeFormattingProvider = false
+          if ts and ts.major >= 7 then
+            -- only enable if ts_native if either local (or fallback global) TS install is >=7
+            on_dir(root_dir)
           end
-        })
-        vim.lsp.enable("ts_ls")
-      end
+        end,
+        cmd = function(dispatchers, config)
+          local ts = ts_utils.get_typescript(config.root_dir)
+
+          assert(ts, "No TypeScript installation found")
+
+          return vim.lsp.rpc.start(
+            {
+              ts.tsc_path,
+              "--lsp",
+              "--stdio",
+            },
+            dispatchers
+          )
+        end,
+        on_attach = function(client)
+          -- Disable formatiting support using TS LSP - use formatters/linters for that.
+          client.server_capabilities.documentFormattingProvider = false
+          client.server_capabilities.documentRangeFormattingProvider = false
+        end,
+      })
+
+      vim.lsp.enable("ts_native")
+      vim.lsp.config("ts_ls", {
+        root_dir = function(bufnr, on_dir)
+          local root_dir = ts_utils.find_ts_root(bufnr)
+
+          if not root_dir then
+            return
+          end
+
+          local ts = ts_utils.get_typescript(root_dir)
+
+          if ts and ts.major < 7 then
+            -- only enable if ts_ls if either local (or fallback global) TS install is <7
+            on_dir(root_dir)
+          end
+        end,
+
+        init_options = {
+          tsserver = {
+            path = nil,
+          },
+        },
+
+        before_init = function(_, config)
+          local ts = ts_utils.get_typescript(config.root_dir)
+
+          if ts then
+            config.init_options = config.init_options or {}
+            config.init_options.tsserver = {
+              path = ts.tsserver_path,
+            }
+          end
+        end,
+
+        on_attach = function(client)
+          -- Disable formatiting support using TS LSP - use formatters/linters for that.
+          client.server_capabilities.documentFormattingProvider = false
+          client.server_capabilities.documentRangeFormattingProvider = false
+        end
+      })
+      vim.lsp.enable("ts_ls")
 
       vim.lsp.config('yamlls', {
         settings = {
