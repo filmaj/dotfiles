@@ -92,15 +92,15 @@ alias ls="gls --color -G"
 alias lsa="gls --color -lah"
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/filmaj/src/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/filmaj/src/google-cloud-sdk/completion.zsh.inc'; fi
-eval "$(direnv hook zsh)"
+command -v direnv && eval "$(direnv hook zsh)"
 
 export CARGO_NET_GIT_FETCH_WITH_CLI=true
-. "$HOME/.cargo/env"
+if [ -f "$HOME/.cargo/env" ]; then . "$HOME/.cargo/env"; fi
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /opt/homebrew/bin/terraform terraform
 
-eval "$(/Users/filmaj/.local/bin/mise activate zsh)"
+command -v mise && eval "$(mise activate zsh)"
 
 [ -f "/Users/filmaj/src/mise-config/shell-hooks/bootstrap-version-check.zsh" ] && source "/Users/filmaj/src/mise-config/shell-hooks/bootstrap-version-check.zsh"
 
