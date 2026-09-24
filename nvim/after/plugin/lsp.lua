@@ -1,20 +1,30 @@
+local function jump_diagnostic(opts)
+  opts = vim.tbl_extend('force', opts or {}, {
+    on_jump = function()
+      vim.diagnostic.open_float()
+    end,
+  })
+
+  vim.diagnostic.jump(opts)
+end
+
 -- Global diagnostic keymaps
 vim.keymap.set('n', '[d', function()
-  vim.diagnostic.jump({ count = -1 })
+  jump_diagnostic({ count = -1 })
 end, { desc = "Prev diagnostic" })
 
 vim.keymap.set('n', ']d', function()
-  vim.diagnostic.jump({ count = 1 })
+  jump_diagnostic({ count = 1 })
 end, { desc = "Next diagnostic" })
 vim.keymap.set('n', '[e', function()
-  vim.diagnostic.jump({
+  jump_diagnostic({
     count = -1,
     severity = vim.diagnostic.severity.ERROR,
   })
 end, { desc = "Prev error" })
 
 vim.keymap.set('n', ']e', function()
-  vim.diagnostic.jump({
+  jump_diagnostic({
     count = 1,
     severity = vim.diagnostic.severity.ERROR,
   })
