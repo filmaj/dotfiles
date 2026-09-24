@@ -184,8 +184,22 @@ return {
       })
       safe_lsp_enable('nil')
 
-      vim.lsp.config('oxfmt', {})
-      safe_lsp_enable('oxfmt')
+      vim.lsp.config('oxfmt', {
+        root_dir = function(bufnr, on_dir)
+          local root_dir = vim.fs.root(bufnr, {
+            '.oxfmtrc.json',
+            '.oxfmtrc.jsonc',
+            'oxfmt.config.ts',
+            'oxfmt.config.mts',
+          })
+
+          -- Only enable if oxfmt files are present
+          if root_dir then
+            on_dir(root_dir)
+          end
+        end,
+      })
+      vim.lsp.enable('oxfmt')
 
       vim.lsp.config('ruby_lsp', {})
       safe_lsp_enable('ruby_lsp')
