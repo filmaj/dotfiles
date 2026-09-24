@@ -1,11 +1,23 @@
 -- Global diagnostic keymaps
-vim.keymap.set('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>', { desc = "Prev diagnostic" })
-vim.keymap.set('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>', { desc = "Next diagnostic" })
+vim.keymap.set('n', '[d', function()
+  vim.diagnostic.jump({ count = -1 })
+end, { desc = "Prev diagnostic" })
+
+vim.keymap.set('n', ']d', function()
+  vim.diagnostic.jump({ count = 1 })
+end, { desc = "Next diagnostic" })
 vim.keymap.set('n', '[e', function()
-  vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR })
+  vim.diagnostic.jump({
+    count = -1,
+    severity = vim.diagnostic.severity.ERROR,
+  })
 end, { desc = "Prev error" })
+
 vim.keymap.set('n', ']e', function()
-  vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR })
+  vim.diagnostic.jump({
+    count = 1,
+    severity = vim.diagnostic.severity.ERROR,
+  })
 end, { desc = "Next error" })
 
 -- Configure floating window borders
