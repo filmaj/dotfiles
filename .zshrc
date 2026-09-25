@@ -121,9 +121,7 @@ untilfail() {
 
 # Automatically switch Node version based on package.json engines
 load-node-version() {
-  echo "load-node-version"
   if [[ -f package.json ]]; then
-  echo "theres a pkg json"
     # Extract the node version using node itself (avoids needing external tools like jq)
     local node_version
     node_version=$(node -e "const e = require('./package.json')?.engines?.node;; try { console.log(e.replace(/[^0-9.]/g, '')); } catch(e) {}")
