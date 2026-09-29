@@ -111,8 +111,6 @@ end
 
 function M.find_ts_root(bufnr)
   return vim.fs.root(bufnr, {
-    "tsconfig.json",
-    "jsconfig.json",
     "package.json",
     ".git",
   })
